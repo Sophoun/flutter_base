@@ -1,9 +1,11 @@
 /// This class hold all the module that want to inject to widget,
 /// view model or other that provide
 class DiContainer {
-  DiContainer({List<MapEntry<Type, dynamic>> initModules = const []}) {
+  DiContainer({List<dynamic> initModules = const []}) {
     _modules.clear();
-    _modules.addAll(initModules);
+    for (var e in initModules) {
+      _modules.add(MapEntry(e.runtimeType, e));
+    }
   }
 
   static final List<MapEntry<Type, dynamic>> _modules = [];
