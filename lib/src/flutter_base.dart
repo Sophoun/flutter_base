@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
-import 'package:flutter_base/src/di/di_container.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
 
 class FlutterBase extends StatelessWidget {
