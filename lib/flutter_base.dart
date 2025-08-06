@@ -8,6 +8,9 @@ export 'src/localization/app_localize.dart';
 export 'src/inherited/localize_inherited.dart';
 export 'src/inherited/vm_inherited.dart';
 
+// Di
+export 'src/di/di_container.dart';
+
 // Base
 export 'src/base/base_vm.dart';
 export 'src/base/base_widget.dart';
