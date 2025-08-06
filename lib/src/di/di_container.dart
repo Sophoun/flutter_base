@@ -12,6 +12,6 @@ class DiContainer {
 
   /// Get instance from di
   static T get<T>() {
-    return _modules.firstWhere((element) => element.key == T).value;
+    return _modules.firstWhere((element) => element.key == T).value as T;
   }
 }
