@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/src/base/base_vm.dart';
+import 'package:flutter_base/src/di/di_container.dart';
 import 'package:flutter_base/src/inherited/localize_inherited.dart';
 import 'package:flutter_base/src/inherited/vm_inherited.dart';
 
@@ -29,6 +30,9 @@ class _BaseWidgetState extends State<BaseWidget> {
   T getVm<T extends BaseVm>() {
     return VmInherited.of<T>(context);
   }
+
+  /// Get the di object of type [T]
+  T getDi<T>() => DiContainer.get<T>();
 
   /// Get localization from the inherited widget
   LocalizeInherited get local => LocalizeInherited.of(context);

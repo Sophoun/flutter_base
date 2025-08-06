@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/src/di/di_container.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
 
 class FlutterBase extends StatelessWidget {
@@ -10,6 +11,7 @@ class FlutterBase extends StatelessWidget {
     this.localizeList = const [],
     this.lang = Lang.en,
     this.loadingWidget = const Loading(),
+    this.diContainer,
   });
 
   final List<BaseVm> viewModels;
@@ -17,6 +19,7 @@ class FlutterBase extends StatelessWidget {
   final Lang lang;
   final Widget child;
   final Widget loadingWidget;
+  final DiContainer? diContainer;
 
   @override
   Widget build(BuildContext context) {
