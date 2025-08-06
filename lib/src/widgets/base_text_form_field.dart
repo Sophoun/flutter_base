@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Provide the base form field to easy handle with value notifier
 // ignore: must_be_immutable
@@ -6,8 +7,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   BaseTextFormField({
     super.key,
     required this.value,
-    required this.onChanged,
-    required this.converter,
+    this.converter,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.decoration,
@@ -15,6 +15,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.hint = "",
     this.errorText,
     this.valildator,
+    this.inputFormatters,
   }) {
     controller ??= TextEditingController(
       text: converter == null
@@ -30,7 +31,6 @@ class BaseTextFormField<T> extends StatelessWidget {
   }
 
   final ValueNotifier<T?> value;
-  final Function(T? value) onChanged;
   late TextEditingController? controller;
   final TextInputType keyboardType;
   InputDecoration? decoration;
@@ -39,6 +39,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   final String hint;
   final String? errorText;
   final FormFieldValidator<String?>? valildator;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +48,11 @@ class BaseTextFormField<T> extends StatelessWidget {
       keyboardType: keyboardType,
       autofocus: true,
       decoration: decoration,
-      onChanged: (value) {
-        onChanged(converter == null ? value : converter!.toValue(value));
+      onChanged: (newValue) {
+        value.value = converter == null ? value : converter!.toValue(newValue);
       },
       validator: valildator,
+      inputFormatters: inputFormatters,
     );
   }
 }
