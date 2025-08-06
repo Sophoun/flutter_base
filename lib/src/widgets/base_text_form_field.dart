@@ -49,7 +49,9 @@ class BaseTextFormField<T> extends StatelessWidget {
       autofocus: true,
       decoration: decoration,
       onChanged: (newValue) {
-        value.value = converter == null ? value : converter!.toValue(newValue);
+        value.value = converter == null
+            ? newValue
+            : converter!.toValue(newValue);
       },
       validator: valildator,
       inputFormatters: inputFormatters,
