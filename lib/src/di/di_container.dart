@@ -24,7 +24,7 @@ class DiContainer {
   // Method to get a dependency
   T get<T>() {
     if (!_dependencies.containsKey(T)) {
-      throw Exception('Not found: $T');
+      throw Exception('Instance not found: $T');
     }
     return _dependencies[T] as T;
   }

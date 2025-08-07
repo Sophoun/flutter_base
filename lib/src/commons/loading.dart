@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/src/di/vm_container.dart';
-
-import '../base/base_vm.dart';
+import 'package:flutter_base/flutter_base.dart';
 
 /// Lading widget
 class Loading extends StatelessWidget {
-  Loading({super.key});
-
-  final vm = VmContainer().get<BaseVm>();
+  const Loading({super.key});
 
   @override
   Widget build(BuildContext context) {

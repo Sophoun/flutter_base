@@ -6,16 +6,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_base/flutter_base.dart';
 
 @RoutePage()
-class HomePage extends BaseWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  HomeVm get homeVm => vm.get<HomeVm>();
+
   @override
-  Widget build(BuildContext context, state) {
-    final homeVM = state.getVm<HomeVm>();
-    final l = state.local.l as AppLang;
+  Widget build(BuildContext context) {
+    AppLang t = context.t();
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.appName())),
+      appBar: AppBar(title: Text(t.appName())),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -25,38 +26,38 @@ class HomePage extends BaseWidget {
             // Text(l.appName()),
             ElevatedButton(
               onPressed: () {
-                homeVM.tryShowLoading();
+                homeVm.tryShowLoading();
               },
               child: Text("Loading"),
             ),
-            Text(l.currentLanguageIs(l.lang.name)),
+            Text(t.currentLanguageIs(t.lang.name)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               spacing: 8,
               children: [
                 OutlinedButton(
-                  onPressed: () => state.local.changeLang(Lang.en),
+                  onPressed: () => context.local.changeLang(Lang.en),
                   child: Text("English"),
                 ),
                 OutlinedButton(
-                  onPressed: () => state.local.changeLang(Lang.km),
+                  onPressed: () => context.local.changeLang(Lang.km),
                   child: Text("Khmer"),
                 ),
               ],
             ),
-            homeVM.counter.builder(build: (value) => Text(l.count(value ?? 0))),
+            homeVm.counter.builder(build: (value) => Text(t.count(value ?? 0))),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               spacing: 8,
               children: [
                 OutlinedButton(
-                  onPressed: () => homeVM.incrementCounter(),
+                  onPressed: () => homeVm.incrementCounter(),
                   child: Text("increment"),
                 ),
                 OutlinedButton(
-                  onPressed: () => homeVM.decrementCounter(),
+                  onPressed: () => homeVm.decrementCounter(),
                   child: Text("decrement"),
                 ),
               ],
@@ -64,7 +65,7 @@ class HomePage extends BaseWidget {
             SizedBox(
               width: 200,
               child: BaseTextFormField(
-                value: homeVM.counter,
+                value: homeVm.counter,
                 converter: Converter(
                   fromValue: (value) => value.toString(),
                   toValue: (value) => int.tryParse(value ?? "0") ?? 0,
@@ -74,11 +75,12 @@ class HomePage extends BaseWidget {
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 helperText: "Only number allowed.",
+                autofocus: true,
               ),
             ),
-            homeVM.mockValue.builder(build: (value) => Text(value ?? "")),
+            homeVm.mockValue.builder(build: (value) => Text(value ?? "")),
             ElevatedButton(
-              onPressed: () => homeVM.getMockData(),
+              onPressed: () => homeVm.getMockData(),
               child: Text("Get Mock Data"),
             ),
           ],

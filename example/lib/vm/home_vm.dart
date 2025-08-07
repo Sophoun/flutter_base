@@ -2,7 +2,7 @@ import 'package:example/service/mock_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';
 
-class HomeVm extends BaseVm {
+class HomeVm extends ChangeNotifier {
   late final mockService = di.get<MockService>();
 
   /// Counter variable

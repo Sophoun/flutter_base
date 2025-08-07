@@ -1,3 +1,4 @@
+import 'package:example/lang/app_lang.dart';
 import 'package:example/lang/en.dart';
 import 'package:example/lang/kh.dart';
 import 'package:example/route/app_router.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         En(lang: Lang.en),
         Kh(lang: Lang.km),
       ],
-      viewModels: [HomeVm()],
+      vmContainer: VmContainer()..register(HomeVm()),
       diContainer: diContainer,
       child: MaterialApp.router(routerConfig: appRouter.config()),
     );

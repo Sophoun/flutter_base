@@ -23,6 +23,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.suffixIcon,
     this.textAlign = TextAlign.start,
     this.style,
+    this.autofocus = false,
   }) {
     // Controller
     controller ??= TextEditingController(
@@ -62,6 +63,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   final Widget? suffixIcon;
   final TextAlign textAlign;
   final TextStyle? style;
+  final bool autofocus;
 
   /// Listen text change from the outside
   void outsideTextChangesListener() {
@@ -75,7 +77,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      autofocus: true,
+      autofocus: autofocus,
       decoration: decoration,
       onChanged: (newValue) {
         // Remove outside lister first

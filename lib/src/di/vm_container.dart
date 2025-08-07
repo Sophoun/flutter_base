@@ -1,7 +1,8 @@
+import 'package:flutter/widgets.dart';
+
+/// DI Container
 class VmContainer {
-  // Private constructor
-  VmContainer._internal();
-  final _viewModels = <Type, Object>{};
+  final _dependencies = <Type, ChangeNotifier>{};
 
   // Singleton instance
   static final VmContainer _instance = VmContainer._internal();
@@ -10,21 +11,25 @@ class VmContainer {
     return _instance;
   }
 
+  VmContainer._internal();
+
   // Method to register a dependency
-  void register<T>(T viewModel) {
-    _viewModels[viewModel.runtimeType] = viewModel!;
+  void register<T extends ChangeNotifier>(T dependency) {
+    _dependencies[T] = dependency;
   }
 
   // Method to register a dependency lazily
-  void registerLazy<T>(T Function(VmContainer container) factory) {
-    _viewModels[T] = factory(_instance) as Object;
+  void registerLazy<T extends ChangeNotifier>(
+    T Function(VmContainer container) factory,
+  ) {
+    _dependencies[T] = factory(_instance) as ChangeNotifier;
   }
 
   // Method to get a dependency
   T get<T>() {
-    if (!_viewModels.containsKey(T)) {
-      throw Exception('View Model not found: $T');
+    if (!_dependencies.containsKey(T)) {
+      throw Exception('VM Dependency not found: $T');
     }
-    return _viewModels[T] as T;
+    return _dependencies[T] as T;
   }
 }
