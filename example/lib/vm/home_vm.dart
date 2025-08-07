@@ -1,9 +1,15 @@
+import 'package:example/service/mock_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';
 
 class HomeVm extends BaseVm {
+  late final mockService = di.get<MockService>();
+
   /// Counter variable
   final counter = ValueNotifier(10);
+
+  /// Mock value
+  final mockValue = ValueNotifier("unknow");
 
   /// Try show loading
   Future<void> tryShowLoading() async {
@@ -22,5 +28,14 @@ class HomeVm extends BaseVm {
     if (counter.value > 0) {
       counter.value--;
     }
+  }
+
+  /// get mock data
+  void getMockData() {
+    postLoading(true);
+    mockService
+        .getHelloWorld()
+        .then((v) => mockValue.value = v)
+        .whenComplete(() => postLoading(false));
   }
 }

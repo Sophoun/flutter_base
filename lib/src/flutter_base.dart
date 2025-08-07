@@ -18,6 +18,11 @@ class FlutterBase extends StatelessWidget {
   final Lang lang;
   final Widget child;
   final Widget loadingWidget;
+
+  /// DI Container hold all registered dependencies
+  /// from the outside.
+  /// Note: It's singleton, it's not showing using here but
+  /// actualy it's will used by client
   final DiContainer? diContainer;
 
   @override

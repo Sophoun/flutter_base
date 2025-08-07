@@ -31,8 +31,8 @@ class _BaseWidgetState extends State<BaseWidget> {
     return VmInherited.of<T>(context);
   }
 
-  /// Get the di object of type [T]
-  T getDi<T>() => DiContainer.get<T>();
+  /// Expose DI container to base widget
+  final di = DiContainer();
 
   /// Get localization from the inherited widget
   LocalizeInherited get local => LocalizeInherited.of(context);

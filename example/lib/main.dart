@@ -1,6 +1,7 @@
 import 'package:example/lang/en.dart';
 import 'package:example/lang/kh.dart';
 import 'package:example/route/app_router.dart';
+import 'package:example/service/mock_service.dart';
 import 'package:example/vm/home_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         Kh(lang: Lang.km),
       ],
       viewModels: [HomeVm()],
+      diContainer: DiContainer()..register(MockService()),
       child: MaterialApp.router(routerConfig: appRouter.config()),
     );
   }

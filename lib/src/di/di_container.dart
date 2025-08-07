@@ -1,17 +1,26 @@
-/// This class hold all the module that want to inject to widget,
-/// view model or other that provide
+/// DI Container
 class DiContainer {
-  DiContainer({List<dynamic> initModules = const []}) {
-    _modules.clear();
-    for (var e in initModules) {
-      _modules.add(MapEntry(e.runtimeType, e));
-    }
+  final _dependencies = <Type, Object>{};
+
+  // Singleton instance
+  static final DiContainer _instance = DiContainer._internal();
+
+  factory DiContainer() {
+    return _instance;
   }
 
-  static final List<MapEntry<Type, dynamic>> _modules = [];
+  DiContainer._internal();
 
-  /// Get instance from di
-  static T get<T>() {
-    return _modules.firstWhere((element) => element.key == T).value as T;
+  // Method to register a dependency
+  void register<T>(T dependency) {
+    _dependencies[T] = dependency!;
+  }
+
+  // Method to get a dependency
+  T get<T>() {
+    if (!_dependencies.containsKey(T)) {
+      throw Exception('Dependency not found: $T');
+    }
+    return _dependencies[T] as T;
   }
 }

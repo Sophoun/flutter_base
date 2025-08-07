@@ -76,6 +76,11 @@ class HomePage extends BaseWidget {
                 helperText: "Only number allowed.",
               ),
             ),
+            homeVM.mockValue.builder(build: (value) => Text(value ?? "")),
+            ElevatedButton(
+              onPressed: () => homeVM.getMockData(),
+              child: Text("Get Mock Data"),
+            ),
           ],
         ),
       ),
