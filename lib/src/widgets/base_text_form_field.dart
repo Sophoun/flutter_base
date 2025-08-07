@@ -16,17 +16,24 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.errorText,
     this.valildator,
     this.inputFormatters,
+    this.helperText,
   }) {
+    // Controller
     controller ??= TextEditingController(
       text: converter == null
           ? value.value.toString()
           : converter!.fromValue(value.value),
     );
+    // Listen value change from outside
+    value.addListener(outsideTextChangesListener);
+
+    // Decoration
     decoration ??= InputDecoration(
       border: OutlineInputBorder(),
       labelText: label,
       hintText: hint,
       errorText: errorText,
+      helperText: helperText,
     );
   }
 
@@ -40,6 +47,14 @@ class BaseTextFormField<T> extends StatelessWidget {
   final String? errorText;
   final FormFieldValidator<String?>? valildator;
   final List<TextInputFormatter>? inputFormatters;
+  final String? helperText;
+
+  /// Listen text change from the outside
+  void outsideTextChangesListener() {
+    controller?.value = converter == null
+        ? TextEditingValue(text: value.value.toString())
+        : TextEditingValue(text: converter!.fromValue(value.value));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +64,20 @@ class BaseTextFormField<T> extends StatelessWidget {
       autofocus: true,
       decoration: decoration,
       onChanged: (newValue) {
-        value.value = converter == null
-            ? newValue
-            : converter!.toValue(newValue);
+        // Remove outside lister first
+        value.removeListener(outsideTextChangesListener);
+        // Update value
+        try {
+          value.value = converter == null
+              ? newValue
+              : converter!.toValue(newValue);
+        } catch (e) {
+          throw Exception(
+            "Please, provide `converter` property to convert value from string to ${T.toString()}",
+          );
+        }
+        // Add listener back when value updated
+        value.addListener(outsideTextChangesListener);
       },
       validator: valildator,
       inputFormatters: inputFormatters,

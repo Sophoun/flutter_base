@@ -73,6 +73,7 @@ class HomePage extends BaseWidget {
                 hint: "Input any number you wish.",
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                helperText: "Only number allowed.",
               ),
             ),
           ],
