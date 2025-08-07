@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/src/di/vm_container.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
-import 'package:flutter_base/src/base/base_vm.dart';
 
 /// FlutterBase'
 // ignore: must_be_immutable
