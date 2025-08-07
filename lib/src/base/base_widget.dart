@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/src/base/base_vm.dart';
 import 'package:flutter_base/src/di/di_container.dart';
+import 'package:flutter_base/src/di/vm_container.dart';
 import 'package:flutter_base/src/inherited/localize_inherited.dart';
-import 'package:flutter_base/src/inherited/vm_inherited.dart';
 
 /// BaseWidget is a base class for widgets that need to integrate with ViewModels
 /// and handle loading states. It provides a structure for building widgets
@@ -28,7 +28,7 @@ class _BaseWidgetState extends State<BaseWidget> {
 
   /// Get the ViewModel of type [T] from the inherited widget
   T getVm<T extends BaseVm>() {
-    return VmInherited.of<T>(context);
+    return VmContainer().get<T>();
   }
 
   /// Expose DI container to base widget

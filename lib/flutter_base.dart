@@ -6,7 +6,6 @@ export 'src/localization/app_localize.dart';
 
 // Inherited
 export 'src/inherited/localize_inherited.dart';
-export 'src/inherited/vm_inherited.dart';
 
 // Di
 export 'src/di/di_container.dart';

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/src/di/vm_container.dart';
 
 import '../base/base_vm.dart';
-import '../inherited/vm_inherited.dart';
 
 /// Lading widget
 class Loading extends StatelessWidget {
-  const Loading({super.key});
+  Loading({super.key});
+
+  final vm = VmContainer().get<BaseVm>();
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final vm = VmInherited.of<BaseVm>(context);
         return ValueListenableBuilder(
-          valueListenable: vm.isLoading,
+          valueListenable: isAppLoading,
           builder: (context, value, child) => Visibility(
             visible: value,
             child: Container(

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/src/di/vm_container.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
+import 'package:flutter_base/src/base/base_vm.dart';
 
+/// FlutterBase'
+// ignore: must_be_immutable
 class FlutterBase extends StatelessWidget {
-  const FlutterBase({
+  FlutterBase({
     super.key,
     required this.child,
     this.viewModels = const [],
@@ -11,7 +15,12 @@ class FlutterBase extends StatelessWidget {
     this.lang = Lang.en,
     this.loadingWidget = const Loading(),
     this.diContainer,
-  });
+  }) {
+    vmContainer = VmContainer();
+    for (var e in viewModels) {
+      vmContainer.register(e);
+    }
+  }
 
   final List<BaseVm> viewModels;
   final List<AppLocalize> localizeList;
@@ -25,35 +34,34 @@ class FlutterBase extends StatelessWidget {
   /// actualy it's will used by client
   final DiContainer? diContainer;
 
+  /// ViewModel Container hold all registered dependencies
+  /// from the outside.
+  /// Note: It's singleton, it's not showing using here but
+  /// actualy it's will used by client
+  late VmContainer vmContainer;
+
   @override
   Widget build(BuildContext context) {
     return LocalizeInherited(
       lang: lang,
       localizeList: localizeList,
-      child: VmInherited(
-        viewModels: viewModels,
-        child: Builder(
-          builder: (context) {
-            final vm = VmInherited.of<BaseVm>(context);
-
-            return Builder(
-              builder: (context) => Stack(
-                textDirection: TextDirection.rtl,
-                children: [
-                  // Call the build method of the widget
-                  // This allows the widget to define its UI based on the current state
-                  child,
-                  // Display loading indicator if the ViewModel is loading
-                  ValueListenableBuilder(
-                    valueListenable: vm.isLoading,
-                    builder: (context, value, child) =>
-                        Visibility(visible: value, child: loadingWidget),
-                  ),
-                ],
+      child: Builder(
+        builder: (context) {
+          return Stack(
+            textDirection: TextDirection.rtl,
+            children: [
+              // Call the build method of the widget
+              // This allows the widget to define its UI based on the current state
+              child,
+              // Display loading indicator if the ViewModel is loading
+              ValueListenableBuilder(
+                valueListenable: isAppLoading,
+                builder: (context, value, child) =>
+                    Visibility(visible: value, child: loadingWidget),
               ),
-            );
-          },
-        ),
+            ],
+          );
+        },
       ),
     );
   }
