@@ -17,6 +17,12 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.valildator,
     this.inputFormatters,
     this.helperText,
+    this.readOnly = false,
+    this.enabled = true,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.textAlign = TextAlign.start,
+    this.style,
   }) {
     // Controller
     controller ??= TextEditingController(
@@ -34,6 +40,8 @@ class BaseTextFormField<T> extends StatelessWidget {
       hintText: hint,
       errorText: errorText,
       helperText: helperText,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
     );
   }
 
@@ -48,6 +56,12 @@ class BaseTextFormField<T> extends StatelessWidget {
   final FormFieldValidator<String?>? valildator;
   final List<TextInputFormatter>? inputFormatters;
   final String? helperText;
+  final bool readOnly;
+  final bool enabled;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final TextAlign textAlign;
+  final TextStyle? style;
 
   /// Listen text change from the outside
   void outsideTextChangesListener() {
@@ -81,6 +95,10 @@ class BaseTextFormField<T> extends StatelessWidget {
       },
       validator: valildator,
       inputFormatters: inputFormatters,
+      readOnly: readOnly,
+      enabled: enabled,
+      textAlign: textAlign,
+      style: style,
     );
   }
 }
