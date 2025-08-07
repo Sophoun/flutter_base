@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final appRouter = AppRouter();
+  final diContainer = DiContainer()..register(MockService());
 
   // This widget is the root of your application.
   @override
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         Kh(lang: Lang.km),
       ],
       viewModels: [HomeVm()],
-      diContainer: DiContainer()..register(MockService()),
+      diContainer: diContainer,
       child: MaterialApp.router(routerConfig: appRouter.config()),
     );
   }
