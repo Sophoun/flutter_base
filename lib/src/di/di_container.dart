@@ -16,6 +16,11 @@ class DiContainer {
     _dependencies[T] = dependency!;
   }
 
+  // Method to register a dependency lazily
+  void registerLazy<T>(T Function(DiContainer container) factory) {
+    _dependencies[T] = factory(_instance) as Object;
+  }
+
   // Method to get a dependency
   T get<T>() {
     if (!_dependencies.containsKey(T)) {

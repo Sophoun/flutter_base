@@ -1,6 +1,7 @@
 import 'package:example/lang/en.dart';
 import 'package:example/lang/kh.dart';
 import 'package:example/route/app_router.dart';
+import 'package:example/service/mock_net.dart';
 import 'package:example/service/mock_service.dart';
 import 'package:example/vm/home_vm.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,9 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final appRouter = AppRouter();
-  final diContainer = DiContainer()..register(MockService());
+  final diContainer = DiContainer()
+    ..register(MockNet())
+    ..registerLazy((c) => MockService(mockNet: c.get<MockNet>()));
 
   // This widget is the root of your application.
   @override
