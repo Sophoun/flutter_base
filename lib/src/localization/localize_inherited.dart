@@ -12,7 +12,7 @@ class LocalizeInherited extends InheritedWidget {
         ),
       );
 
-  final LocalRegister register;
+  final LocaleRegister register;
 
   static LocalizeInherited of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<LocalizeInherited>()!;

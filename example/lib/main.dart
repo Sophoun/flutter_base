@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterBase(
-      localRegister: LocalRegister<AppLang>()
+      localeRegister: LocaleRegister<AppLang>()
         ..register(En(lang: Lang.en))
         ..register(Kh(lang: Lang.km))
         ..changeLang(Lang.km),

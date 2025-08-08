@@ -3,7 +3,7 @@ export 'src/flutter_base.dart';
 
 // Inherited/Lang
 export 'src/localization/app_localize.dart';
-export 'src/localization/local_register.dart';
+export 'src/localization/locale_register.dart';
 
 // Di
 export 'src/di/di_container.dart';

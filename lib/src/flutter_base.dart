@@ -9,12 +9,12 @@ class FlutterBase extends StatelessWidget {
   FlutterBase({
     super.key,
     required this.child,
-    required this.localRegister,
+    required this.localeRegister,
     this.loadingWidget = const Loading(),
     this.diContainer,
     this.vmContainer,
   });
-  final LocalRegister localRegister;
+  final LocaleRegister localeRegister;
   final Widget child;
   final Widget loadingWidget;
 
@@ -33,7 +33,7 @@ class FlutterBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocalizeInherited(
-      register: localRegister,
+      register: localeRegister,
       child: Stack(
         textDirection: TextDirection.rtl,
         children: [
