@@ -31,22 +31,22 @@ extension PostLoadingExtension on ChangeNotifier {
 /// Get di/vm extensions
 ///
 extension StatelessExtension on StatelessWidget {
-  DiContainer get di => DiContainer();
-  VmContainer get vm => VmContainer();
+  T getDi<T>() => DiContainer().get<T>();
+  T getVm<T>() => VmContainer().get<T>();
 }
 
 extension StatefulExtension on StatefulWidget {
-  DiContainer get di => DiContainer();
-  VmContainer get vm => VmContainer();
+  T getDi<T>() => DiContainer().get<T>();
+  T getVm<T>() => VmContainer().get<T>();
 }
 
 extension StateExtension on State {
-  DiContainer get di => DiContainer();
-  VmContainer get vm => VmContainer();
+  T getDi<T>() => DiContainer().get<T>();
+  T getVm<T>() => VmContainer().get<T>();
 }
 
 extension ChangeNotifierExtension on ChangeNotifier {
-  DiContainer get di => DiContainer();
+  T getDi<T>() => DiContainer().get<T>();
 }
 
 /// Language extension
