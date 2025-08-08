@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLang t = context.t();
+    final t = context.t<AppLang>();
 
     return Scaffold(
       appBar: AppBar(title: Text(t.appName())),
@@ -37,11 +37,11 @@ class HomePage extends StatelessWidget {
               spacing: 8,
               children: [
                 OutlinedButton(
-                  onPressed: () => context.local.changeLang(Lang.en),
+                  onPressed: () => context.local.register.changeLang(Lang.en),
                   child: Text("English"),
                 ),
                 OutlinedButton(
-                  onPressed: () => context.local.changeLang(Lang.km),
+                  onPressed: () => context.local.register.changeLang(Lang.km),
                   child: Text("Khmer"),
                 ),
               ],

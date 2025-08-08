@@ -1,63 +1,28 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/src/localization/app_localize.dart';
-
-/// Help renender key
-GlobalKey _activeLangKey = GlobalKey();
-
-/// Active language
-final ValueNotifier<Lang> _activeLang = ValueNotifier(Lang.en);
+import 'package:flutter_base/flutter_base.dart';
 
 // ignore: must_be_immutable
 class LocalizeInherited extends InheritedWidget {
-  LocalizeInherited({
-    super.key,
-    required Lang lang,
-    required Widget child,
-    required List<AppLocalize> localizeList,
-  }) : _localizeList = localizeList,
-       _currentLocal = localizeList.firstWhere((e) => e.lang == lang),
-       super(
-         child: ValueListenableBuilder(
-           valueListenable: _activeLang,
-           builder: (context, value, _) =>
-               Container(key: _activeLangKey, child: child),
-         ),
-       ) {
-    // Set current language
-    _activeLang.value = lang;
-  }
+  LocalizeInherited({super.key, required this.register, required Widget child})
+    : super(
+        child: ValueListenableBuilder(
+          valueListenable: register.activeLang,
+          builder: (context, value, _) =>
+              Container(key: register.localKey, child: child),
+        ),
+      );
 
-  /// List of languages
-  final List<AppLocalize> _localizeList;
-
-  /// Hold current language
-  AppLocalize _currentLocal;
-
-  /// Provide accessable language object
-  AppLocalize get l => _currentLocal;
+  final LocalRegister register;
 
   static LocalizeInherited of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<LocalizeInherited>()!;
   }
 
-  /// Change language
-  void changeLang(Lang lang) {
-    if (_currentLocal.lang != lang) {
-      final foundLocal = _localizeList.where((e) => e.lang == lang);
-      if (foundLocal.isEmpty) {
-        throw Exception("Language not found $lang");
-      }
-      _currentLocal = foundLocal.first;
-      _activeLangKey = GlobalKey();
-      _activeLang.value = lang;
-    }
-  }
+  /// Short cut to get current language.
+  Lang get lang => register.activeLang.value;
 
   @override
   bool updateShouldNotify(covariant LocalizeInherited oldWidget) {
-    return oldWidget._currentLocal.lang != _currentLocal.lang;
+    return oldWidget.register.activeLang.value != register.activeLang.value;
   }
 }
-
-/// Localization support
-enum Lang { en, km, zh }

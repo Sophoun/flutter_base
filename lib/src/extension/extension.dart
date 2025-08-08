@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/src/localization/localize_inherited.dart';
 
 /// Vallue notifier builder function
 extension ValueNotifierAsWidgetBuilder<T> on ValueNotifier<T?> {
@@ -51,6 +52,5 @@ extension ChangeNotifierExtension on ChangeNotifier {
 /// Language extension
 extension LanguageExtension on BuildContext {
   LocalizeInherited get local => LocalizeInherited.of(this);
-  AppLocalize get l => local.l;
-  T t<T>() => local.l as T;
+  T t<T>() => local.register.l as T;
 }

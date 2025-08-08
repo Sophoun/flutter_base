@@ -1,11 +1,9 @@
 // Main
 export 'src/flutter_base.dart';
 
-// Language
+// Inherited/Lang
 export 'src/localization/app_localize.dart';
-
-// Inherited
-export 'src/localization/localize_inherited.dart';
+export 'src/localization/local_register.dart';
 
 // Di
 export 'src/di/di_container.dart';

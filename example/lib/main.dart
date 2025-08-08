@@ -24,11 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterBase(
-      lang: Lang.km,
-      localizeList: [
-        En(lang: Lang.en),
-        Kh(lang: Lang.km),
-      ],
+      localRegister: LocalRegister<AppLang>()
+        ..register(En(lang: Lang.en))
+        ..register(Kh(lang: Lang.km))
+        ..changeLang(Lang.km),
       vmContainer: VmContainer()..register(HomeVm()),
       diContainer: diContainer,
       child: MaterialApp.router(routerConfig: appRouter.config()),

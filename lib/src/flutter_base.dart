@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
+import 'package:flutter_base/src/localization/localize_inherited.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
 
 /// FlutterBase'
@@ -8,15 +9,12 @@ class FlutterBase extends StatelessWidget {
   FlutterBase({
     super.key,
     required this.child,
-    this.localizeList = const [],
-    this.lang = Lang.en,
+    required this.localRegister,
     this.loadingWidget = const Loading(),
     this.diContainer,
     this.vmContainer,
   });
-
-  final List<AppLocalize> localizeList;
-  final Lang lang;
+  final LocalRegister localRegister;
   final Widget child;
   final Widget loadingWidget;
 
@@ -35,8 +33,7 @@ class FlutterBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocalizeInherited(
-      lang: lang,
-      localizeList: localizeList,
+      register: localRegister,
       child: Stack(
         textDirection: TextDirection.rtl,
         children: [
