@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/src/localization/localize_inherited.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
+import 'package:flutter_base/src/widgets/message_dialog.dart';
 
 /// FlutterBase'
 // ignore: must_be_immutable
@@ -44,6 +45,16 @@ class FlutterBase extends StatelessWidget {
           // Call the build method of the widget
           // This allows the widget to define its UI based on the current state
           child,
+          // Display loading indicator if the ViewModel is loading
+          StreamBuilder(
+            stream: messageDialog.stream,
+            builder: (context, value) {
+              return Visibility(
+                visible: value.data?.key == true,
+                child: MessageDialog(messageDialogData: value.data?.value),
+              );
+            },
+          ),
           // Display loading indicator if the ViewModel is loading
           ValueListenableBuilder(
             valueListenable: isAppLoading,

@@ -8,7 +8,7 @@ class Loading extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Theme.of(context).colorScheme.surfaceDim.withAlpha(150),
+      color: Theme.of(context).colorScheme.surfaceDim.withAlpha(180),
       child: Center(
         child: Container(
           width: 100,

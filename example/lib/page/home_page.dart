@@ -83,6 +83,21 @@ class HomePage extends StatelessWidget {
               onPressed: () => homeVm.getMockData(),
               child: Text("Get Mock Data"),
             ),
+            ElevatedButton(
+              onPressed: () => showMessage(
+                type: MessageDialogType.okCanncel,
+                title: "Welcome, to my longest title dialog",
+                message:
+                    "This is my longest Hello world, Hello world, Hello world, Hello world Hello world!",
+                onOk: () {
+                  showToast("You clicked OK");
+                },
+                onCancel: () {
+                  showToast("You clicked Cancel");
+                },
+              ),
+              child: Text("Show message"),
+            ),
           ],
         ),
       ),
