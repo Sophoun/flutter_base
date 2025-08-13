@@ -14,3 +14,4 @@ export 'src/extension/extension.dart';
 
 // Widgets
 export 'src/widgets//base_text_form_field.dart';
+export 'src/widgets/message_dialog.dart';

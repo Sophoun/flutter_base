@@ -71,7 +71,7 @@ class MessageDialogData {
   final Function()? onOk;
   final Function()? onCancel;
 
-  MessageDialogData({
+  const MessageDialogData({
     this.title,
     this.message,
     this.type = MessageDialogType.okCanncel,

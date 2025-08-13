@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/src/localization/localize_inherited.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
-import 'package:flutter_base/src/widgets/message_dialog.dart';
 
 /// FlutterBase'
 // ignore: must_be_immutable
@@ -14,6 +13,7 @@ class FlutterBase extends StatelessWidget {
     this.loadingWidget = const Loading(),
     this.diContainer,
     this.vmContainer,
+    this.messageDialogWidget,
   }) {
     locale ??= LocaleRegister()
       ..register(DefaultLocale())
@@ -22,6 +22,7 @@ class FlutterBase extends StatelessWidget {
   late LocaleRegister? locale;
   final Widget child;
   final Widget loadingWidget;
+  final MessageDialog? messageDialogWidget;
 
   /// DI Container hold all registered dependencies
   /// from the outside.
@@ -49,9 +50,14 @@ class FlutterBase extends StatelessWidget {
           StreamBuilder(
             stream: messageDialog.stream,
             builder: (context, value) {
+              final message = messageDialogWidget ?? MessageDialog();
+              message.setData(value.data?.value);
               return Visibility(
                 visible: value.data?.key == true,
-                child: MessageDialog(messageDialogData: value.data?.value),
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: message,
+                ),
               );
             },
           ),
