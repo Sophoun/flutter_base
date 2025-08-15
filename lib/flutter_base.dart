@@ -12,6 +12,9 @@ export 'src/di/vm_container.dart';
 // Base
 export 'src/extension/extension.dart';
 
+// Utils
+export 'src/pref/pref.dart';
+
 // Widgets
 export 'src/widgets//base_text_form_field.dart';
 export 'src/widgets/message_dialog.dart';
