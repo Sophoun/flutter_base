@@ -5,30 +5,33 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: Theme.of(context).colorScheme.surfaceDim.withAlpha(180),
-      child: Center(
-        child: Container(
-          width: 100,
-          height: 100,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceContainer,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                // SizedBox(height: 12),
-                // Text(l.loading(), style: Theme.of(context).textTheme.bodySmall),
-              ],
+    return PopScope(
+      canPop: false,
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Theme.of(context).colorScheme.surfaceDim.withAlpha(180),
+        child: Center(
+          child: Container(
+            width: 100,
+            height: 100,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  // SizedBox(height: 12),
+                  // Text(l.loading(), style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
             ),
           ),
         ),

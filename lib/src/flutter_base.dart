@@ -15,9 +15,13 @@ class FlutterBase extends StatelessWidget {
     this.vmContainer,
     this.messageDialogWidget,
   }) {
+    /// Register locale
     locale ??= LocaleRegister()
       ..register(DefaultLocale())
       ..changeLang(Lang.en);
+
+    /// Initialize share preferences
+    Pref.init();
   }
   late LocaleRegister? locale;
   final Widget child;
