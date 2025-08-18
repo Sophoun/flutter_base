@@ -15,6 +15,9 @@ class FlutterBase extends StatelessWidget {
     this.vmContainer,
     this.messageDialogWidget,
   }) {
+    /// Ensure widget is ready
+    WidgetsFlutterBinding.ensureInitialized();
+
     /// Register locale
     locale ??= LocaleRegister()
       ..register(DefaultLocale())
