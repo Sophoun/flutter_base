@@ -231,6 +231,14 @@ This library provides a set of extensions to simplify your code.
     p.getString("my_key");
     ```
 
+    In case you want to use it early in your application. Please consider call `init` function in your `main` function.
+
+    ```dart
+    void main() {
+      Pref.init()
+    }
+    ```
+
 ## Example
 
 The `example` folder contains a sample application demonstrating the usage of this library. To run the example, clone the repository and run the following command from the `example` directory:
