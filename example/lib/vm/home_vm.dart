@@ -18,6 +18,10 @@ class HomeVm extends ChangeNotifier {
     postLoading(false);
   }
 
+  Future<void> loadingForever() async {
+    postLoading(true);
+  }
+
   /// increment counter
   void incrementCounter() {
     counter.value++;

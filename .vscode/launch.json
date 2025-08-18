@@ -8,7 +8,7 @@
       "name": "flutter_base",
       "request": "launch",
       "type": "dart",
-      "args": ["-d", "macos", "-t", "./lib/main.dart"]
+      "args": ["-t", "./lib/main.dart"]
     }
   ]
 }

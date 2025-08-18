@@ -43,59 +43,43 @@ class FlutterBase extends StatelessWidget {
   /// actualy it's will used by client
   late VmContainer? vmContainer;
 
-  /// Protect backstack from hardware backpress
-  final canPop = ValueNotifier(true);
-
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: canPop,
-      builder: (context, value, _) => PopScope(
-        canPop: value,
-        child: LocalizeInherited(
-          register: locale!,
-          child: Stack(
-            textDirection: TextDirection.rtl,
-            children: [
-              // Call the build method of the widget
-              // This allows the widget to define its UI based on the current state
-              child,
-              // Display loading indicator if the ViewModel is loading
-              StreamBuilder(
-                stream: messageDialog.stream,
-                builder: (context, value) {
-                  /// Not allow backpress if message is showing
-                  Future.microtask(() {
-                    canPop.value = value.data?.key != true;
-                  });
-
-                  /// Build message
-                  final message = messageDialogWidget ?? MessageDialog();
-                  message.setData(value.data?.value);
-                  return Visibility(
-                    visible: value.data?.key == true,
-                    child: Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: message,
-                    ),
-                  );
-                },
-              ),
-              // Display loading indicator if the ViewModel is loading
-              ValueListenableBuilder(
-                valueListenable: isAppLoading,
-                builder: (context, value, child) {
-                  /// Not allow backpress if loading is showing
-                  Future.microtask(() {
-                    canPop.value = !value;
-                  });
-
-                  /// Build loading
-                  return Visibility(visible: value, child: loadingWidget);
-                },
-              ),
-            ],
-          ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LocalizeInherited(
+        register: locale!,
+        child: Stack(
+          textDirection: TextDirection.rtl,
+          children: [
+            // Call the build method of the widget
+            // This allows the widget to define its UI based on the current state
+            child,
+            // Display loading indicator if the ViewModel is loading
+            StreamBuilder(
+              stream: messageDialog.stream,
+              builder: (context, value) {
+                /// Build message
+                final message = messageDialogWidget ?? MessageDialog();
+                message.setData(value.data?.value);
+                return Visibility(
+                  visible: value.data?.key == true,
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: message,
+                  ),
+                );
+              },
+            ),
+            // Display loading indicator if the ViewModel is loading
+            ValueListenableBuilder(
+              valueListenable: isAppLoading,
+              builder: (context, value, child) {
+                /// Build loading
+                return Visibility(visible: value, child: loadingWidget);
+              },
+            ),
+          ],
         ),
       ),
     );

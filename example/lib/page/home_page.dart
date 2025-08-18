@@ -17,11 +17,9 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(t.appName())),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 12,
+      body: Container(
+        padding: EdgeInsets.all(12),
+        child: ListView(
           children: [
             // Text(l.appName()),
             ElevatedButton(
@@ -29,6 +27,12 @@ class HomePage extends StatelessWidget {
                 homeVm.tryShowLoading();
               },
               child: Text("Loading"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                homeVm.loadingForever();
+              },
+              child: Text("Loading forever"),
             ),
             Text(t.currentLanguageIs(t.lang.name)),
             Row(

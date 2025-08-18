@@ -14,7 +14,7 @@ class MessageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (messageDialogData?.type == MessageDialogType.toast) {
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(seconds: 1), () {
         hideMessage();
         messageDialogData?.onCancel?.call();
       });
