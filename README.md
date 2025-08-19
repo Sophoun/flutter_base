@@ -141,10 +141,10 @@ final diContainer = DiContainer()
 
 2. **Get your dependencies:**
 
-Use the `getDi<T>()` function to get your registered dependencies.
+Use the `inject<T>()` function to get your registered dependencies.
 
 ```dart
-late final mockService = getDi<MockService>();
+late final mockService = inject<MockService>();
 ```
 
 ### ViewModel (`VmContainer`)
@@ -153,7 +153,7 @@ late final mockService = getDi<MockService>();
 
 ```dart
 class HomeVm extends ChangeNotifier {
-  late final mockService = getDi<MockService>();
+  late final mockService = inject<MockService>();
 
   final counter = ValueNotifier(10);
 
@@ -199,7 +199,7 @@ This library provides a set of extensions to simplify your code.
 
     ```dart
     final homeVm = getVm<HomeVm>();
-    final mockService = getDi<MockService>();
+    final mockService = inject<MockService>();
     ```
 
 * **`LanguageExtension`:** Access your translations using `context.t<T>()`.

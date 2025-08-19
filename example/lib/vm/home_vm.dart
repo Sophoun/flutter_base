@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';
 
 class HomeVm extends ChangeNotifier {
-  late final mockService = getDi<MockService>();
+  late final mockService = inject<MockService>();
 
   /// Counter variable
   final counter = ValueNotifier(10);
