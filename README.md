@@ -20,6 +20,10 @@ dependencies:
     git:
       url: https://github.com/Sophoun/flutter_base.git
       ref: main
+    # If you want to use git tag please, use the following options.
+    # https://dart.dev/tools/pub/dependencies#git-packages
+    #   tag_pattern: v{{version}}
+    # version: ^0.0.1
 ```
 
 ## Usage
