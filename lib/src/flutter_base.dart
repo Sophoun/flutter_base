@@ -14,6 +14,8 @@ class FlutterBase extends StatelessWidget {
     this.vmContainer,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
+    this.mobileAspectRatio = 9 / 16,
+    this.tabletAspectRatio = 4 / 3,
   }) {
     /// Ensure widget is ready
     WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +34,8 @@ class FlutterBase extends StatelessWidget {
   final Widget loadingWidget;
   final MessageDialog? messageDialogWidget;
   final Size designSize;
+  final double mobileAspectRatio;
+  final double tabletAspectRatio;
 
   /// DI Container hold all registered dependencies
   /// from the outside.
@@ -51,37 +55,39 @@ class FlutterBase extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Builder(
         builder: (context) {
-          // Initialize ScreenUtil here. The Builder provides a context that is a
-          // descendant of MaterialApp, so this will be re-run on resize.
           ScreenUtil.init(context, designSize: designSize);
-
-          return LocalizeInherited(
-            register: locale!,
-            child: Stack(
-              textDirection: TextDirection.rtl,
-              children: [
-                child,
-                StreamBuilder(
-                  stream: messageDialog.stream,
-                  builder: (context, value) {
-                    final message = messageDialogWidget ?? MessageDialog();
-                    message.setData(value.data?.value);
-                    return Visibility(
-                      visible: value.data?.key == true,
-                      child: Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: message,
-                      ),
-                    );
-                  },
-                ),
-                ValueListenableBuilder(
-                  valueListenable: isAppLoading,
-                  builder: (context, value, child) {
-                    return Visibility(visible: value, child: loadingWidget);
-                  },
-                ),
-              ],
+          return ResponsiveConfig(
+            key: Key(MediaQuery.of(context).size.toString()),
+            mobileAspectRatio: mobileAspectRatio,
+            tabletAspectRatio: tabletAspectRatio,
+            child: LocalizeInherited(
+              register: locale!,
+              child: Stack(
+                textDirection: TextDirection.rtl,
+                children: [
+                  child,
+                  StreamBuilder(
+                    stream: messageDialog.stream,
+                    builder: (context, value) {
+                      final message = messageDialogWidget ?? MessageDialog();
+                      message.setData(value.data?.value);
+                      return Visibility(
+                        visible: value.data?.key == true,
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: message,
+                        ),
+                      );
+                    },
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: isAppLoading,
+                    builder: (context, value, child) {
+                      return Visibility(visible: value, child: loadingWidget);
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },

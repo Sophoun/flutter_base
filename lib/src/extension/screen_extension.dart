@@ -11,7 +11,10 @@ class ScreenUtil {
   /// Initialize the screen utility.
   /// [context] is the BuildContext from the root widget.
   /// [designSize] is the size of the design screen.
-  static void init(BuildContext context, {Size designSize = const Size(360, 690)}) {
+  static void init(
+    BuildContext context, {
+    Size designSize = const Size(360, 690),
+  }) {
     final size = MediaQuery.of(context).size;
     screenWidth = size.width;
     screenHeight = size.height;

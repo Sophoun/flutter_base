@@ -17,5 +17,6 @@ export 'src/extension/screen_extension.dart';
 export 'src/pref/pref.dart';
 
 // Widgets
-export 'src/widgets//base_text_form_field.dart';
+export 'src/widgets/base_text_form_field.dart';
 export 'src/widgets/message_dialog.dart';
+export 'src/widgets/responsive.dart';
