@@ -11,6 +11,7 @@ export 'src/di/vm_container.dart';
 
 // Base
 export 'src/extension/extension.dart';
+export 'src/extension/screen_extension.dart';
 
 // Utils
 export 'src/pref/pref.dart';
