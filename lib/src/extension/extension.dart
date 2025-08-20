@@ -1,4 +1,5 @@
 import 'dart:async';
+export 'screen_extension.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';

@@ -229,6 +229,28 @@ This library provides a set of extensions to simplify your code.
     );
     ```
 
+* **`Responsive UI`**: Make your app responsive with `w`, `h`, and `sp` extensions.
+
+    - **`w`**: Scales the number based on the screen width.
+    - **`h`**: Scales the number based on the screen height.
+    - **`sp`**: Scales the number based on the screen width for font sizes.
+
+    To use this feature, you need to initialize `ScreenUtil` in your `FlutterBase` widget.
+
+    ```dart
+    FlutterBase(
+      designSize: Size(360, 690), // Your design size
+      child: MyApp(),
+    );
+    ```
+
+    Then, you can use the extensions in your widgets.
+
+    ```dart
+    Text("My Text", style: TextStyle(fontSize: 20.sp));
+    Container(width: 100.w, height: 100.h);
+    ```
+
 * **`p`:** Access `SharedPreferences` instance.
 
     ```dart

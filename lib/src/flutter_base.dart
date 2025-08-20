@@ -3,7 +3,6 @@ import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/src/localization/localize_inherited.dart';
 import 'package:flutter_base/src/widgets/loading.dart';
 
-/// FlutterBase'
 // ignore: must_be_immutable
 class FlutterBase extends StatelessWidget {
   FlutterBase({
@@ -14,6 +13,7 @@ class FlutterBase extends StatelessWidget {
     this.diContainer,
     this.vmContainer,
     this.messageDialogWidget,
+    this.designSize = const Size(360, 690),
   }) {
     /// Ensure widget is ready
     WidgetsFlutterBinding.ensureInitialized();
@@ -26,10 +26,12 @@ class FlutterBase extends StatelessWidget {
     /// Initialize share preferences
     Pref.init();
   }
+
   late LocaleRegister? locale;
   final Widget child;
   final Widget loadingWidget;
   final MessageDialog? messageDialogWidget;
+  final Size designSize;
 
   /// DI Container hold all registered dependencies
   /// from the outside.
@@ -47,40 +49,42 @@ class FlutterBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LocalizeInherited(
-        register: locale!,
-        child: Stack(
-          textDirection: TextDirection.rtl,
-          children: [
-            // Call the build method of the widget
-            // This allows the widget to define its UI based on the current state
-            child,
-            // Display loading indicator if the ViewModel is loading
-            StreamBuilder(
-              stream: messageDialog.stream,
-              builder: (context, value) {
-                /// Build message
-                final message = messageDialogWidget ?? MessageDialog();
-                message.setData(value.data?.value);
-                return Visibility(
-                  visible: value.data?.key == true,
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: message,
-                  ),
-                );
-              },
+      home: Builder(
+        builder: (context) {
+          // Initialize ScreenUtil here. The Builder provides a context that is a
+          // descendant of MaterialApp, so this will be re-run on resize.
+          ScreenUtil.init(context, designSize: designSize);
+
+          return LocalizeInherited(
+            register: locale!,
+            child: Stack(
+              textDirection: TextDirection.rtl,
+              children: [
+                child,
+                StreamBuilder(
+                  stream: messageDialog.stream,
+                  builder: (context, value) {
+                    final message = messageDialogWidget ?? MessageDialog();
+                    message.setData(value.data?.value);
+                    return Visibility(
+                      visible: value.data?.key == true,
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: message,
+                      ),
+                    );
+                  },
+                ),
+                ValueListenableBuilder(
+                  valueListenable: isAppLoading,
+                  builder: (context, value, child) {
+                    return Visibility(visible: value, child: loadingWidget);
+                  },
+                ),
+              ],
             ),
-            // Display loading indicator if the ViewModel is loading
-            ValueListenableBuilder(
-              valueListenable: isAppLoading,
-              builder: (context, value, child) {
-                /// Build loading
-                return Visibility(visible: value, child: loadingWidget);
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

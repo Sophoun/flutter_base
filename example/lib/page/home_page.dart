@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 homeVm.tryShowLoading();
               },
-              child: Text("Loading"),
+              child: Text("Loading", style: TextStyle(fontSize: 20.w)),
             ),
             ElevatedButton(
               onPressed: () {
