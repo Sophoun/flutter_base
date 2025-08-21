@@ -257,7 +257,43 @@ await p.setString('user_name', 'Gemini');
 final userName = p.getString('user_name');
 ```
 
-### 6. Responsive Layouts (Mobile & Tablet)
+### 6. Spacing Extensions
+
+Simplify spacing and padding with intuitive extensions on `num`.
+
+```dart
+// Add vertical space
+16.h,
+
+// Add horizontal space
+16.w,
+
+// Apply padding on all sides
+Container(
+  padding: 16.paddingAll,
+  child: const Text("Padded Content"),
+);
+
+// Apply horizontal padding
+Container(
+  padding: 16.paddingHorizontal,
+  child: const Text("Padded Content"),
+);
+
+// Apply vertical padding
+Container(
+  padding: 16.paddingVertical,
+n  child: const Text("Padded Content"),
+);
+
+// Apply padding to a single side
+Container(
+  padding: 16.paddingLeft,
+  child: const Text("Padded Content"),
+);
+```
+
+### 7. Responsive Layouts (Mobile & Tablet)
 
 The library includes a powerful `ResponsiveLayout` widget that works with the `FlutterBase` configuration to render different widgets for mobile, tablet, and desktop layouts. It can also enforce a specific aspect ratio for mobile and tablet views, ensuring your layouts look consistent.
 
