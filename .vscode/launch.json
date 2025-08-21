@@ -9,6 +9,13 @@
       "request": "launch",
       "type": "dart",
       "args": ["-t", "./lib/main.dart"]
+    },
+    {
+      "name": "flutter_base_preview",
+      "type": "node-terminal",
+      "request": "launch",
+      // https://docs.flutter.dev/tools/widget-previewer
+      "command": "flutter widget-preview start"
     }
   ]
 }
