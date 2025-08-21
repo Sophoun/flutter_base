@@ -35,7 +35,7 @@ dependencies:
 
 Then, run `flutter pub get` to install the package.
 
-##  usage
+## usage
 
 ### 1. Root Widget Setup (`FlutterBase`)
 
@@ -360,8 +360,59 @@ class DesktopView extends StatelessWidget {
 }
 ```
 
-## Example Project
+## 🎨 Theming
 
+The `flutter_base` package includes a `BaseTheme` class that provides a consistent theme for your application. It includes a light and dark theme with a predefined shape for widgets.
+
+### Default Theme
+
+The default theme uses a `RoundedRectangleBorder` with a radius of 8 for all shapes. This applies to buttons, cards, dialogs, and input fields.
+
+### Customization
+
+To customize the theme, you can create your own `ThemeData` objects and pass them to the `FlutterBase` in your `App` widget. You can use the `BaseTheme` as a starting point by copying it and modifying it.
+
+For example, you can create a `my_theme.dart` file in your project:
+
+```dart
+// lib/my_theme.dart
+import 'package:flutter/material.dart';
+import 'package:flutter_base/flutter_base.dart';
+
+class MyTheme {
+  static final light = BaseTheme.light.copyWith(
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+  );
+
+  static final dark = BaseTheme.dark.copyWith(
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+  );
+}
+```
+
+Then, in your `MyApp` widget, you can use your custom theme:
+
+```dart
+// In your main application setup
+class MyApp extends StatelessWidget {
+  // ...
+  @override
+  Widget build(BuildContext context) {
+    return FlutterBase(
+      // ...
+      child: MaterialApp.router(
+        theme: MyTheme.light,
+        darkTheme: MyTheme.dark,
+        themeMode: ThemeMode.system, // Or any other theme mode
+        routerConfig: _appRouter.config(),
+        title: 'Flutter Base Example',
+      ),
+    );
+  }
+}
+```
+
+## Example Project
 
 The `example` directory contains a complete Flutter application demonstrating all the features of this library. To run it, navigate to the `example` folder and execute:
 

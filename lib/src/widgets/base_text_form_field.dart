@@ -36,7 +36,6 @@ class BaseTextFormField<T> extends StatelessWidget {
 
     // Decoration
     decoration ??= InputDecoration(
-      border: OutlineInputBorder(),
       labelText: label,
       hintText: hint,
       errorText: errorText,

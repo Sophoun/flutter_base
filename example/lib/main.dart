@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
         ..changeLang(Lang.km),
       vmContainer: VmContainer()..register(HomeVm()),
       diContainer: diContainer,
-      child: MaterialApp.router(routerConfig: appRouter.config()),
+      routerConfig: appRouter.config(),
+      themeMode: ThemeMode.dark,
     );
   }
 }

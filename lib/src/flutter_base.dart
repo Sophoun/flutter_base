@@ -7,16 +7,24 @@ import 'package:flutter_base/src/widgets/loading.dart';
 class FlutterBase extends StatelessWidget {
   FlutterBase({
     super.key,
-    required this.child,
     this.locale,
     this.loadingWidget = const Loading(),
     this.diContainer,
     this.vmContainer,
+    this.routerConfig,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
     this.mobileAspectRatio = 9 / 16,
     this.tabletAspectRatio = 4 / 3,
+    this.theme,
+    this.darkTheme,
+    this.themeMode,
   }) {
+    /// Assign theme if it's missing
+    theme ??= BaseTheme.light;
+    darkTheme ??= BaseTheme.dark;
+    themeMode ??= ThemeMode.system;
+
     /// Ensure widget is ready
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -30,7 +38,6 @@ class FlutterBase extends StatelessWidget {
   }
 
   late LocaleRegister? locale;
-  final Widget child;
   final Widget loadingWidget;
   final MessageDialog? messageDialogWidget;
   final Size designSize;
@@ -49,48 +56,53 @@ class FlutterBase extends StatelessWidget {
   /// actualy it's will used by client
   late VmContainer? vmContainer;
 
+  final RouterConfig<Object>? routerConfig;
+  late ThemeData? theme;
+  late ThemeData? darkTheme;
+  late ThemeMode? themeMode;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    ScreenUtil.init(context, designSize: designSize);
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Builder(
-        builder: (context) {
-          ScreenUtil.init(context, designSize: designSize);
-          return ResponsiveConfig(
-            key: Key(MediaQuery.of(context).size.toString()),
-            mobileAspectRatio: mobileAspectRatio,
-            tabletAspectRatio: tabletAspectRatio,
-            child: LocalizeInherited(
-              register: locale!,
-              child: Stack(
-                textDirection: TextDirection.rtl,
-                children: [
-                  child,
-                  StreamBuilder(
-                    stream: messageDialog.stream,
-                    builder: (context, value) {
-                      final message = messageDialogWidget ?? MessageDialog();
-                      message.setData(value.data?.value);
-                      return Visibility(
-                        visible: value.data?.key == true,
-                        child: Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: message,
-                        ),
-                      );
-                    },
-                  ),
-                  ValueListenableBuilder(
-                    valueListenable: isAppLoading,
-                    builder: (context, value, child) {
-                      return Visibility(visible: value, child: loadingWidget);
-                    },
-                  ),
-                ],
+      theme: theme,
+      darkTheme: darkTheme,
+      themeMode: themeMode,
+      routerConfig: routerConfig,
+      builder: (context, child) => ResponsiveConfig(
+        key: Key(MediaQuery.of(context).size.toString()),
+        mobileAspectRatio: mobileAspectRatio,
+        tabletAspectRatio: tabletAspectRatio,
+        child: LocalizeInherited(
+          register: locale!,
+          child: Stack(
+            textDirection: TextDirection.rtl,
+            children: [
+              child ?? SizedBox.shrink(),
+              StreamBuilder(
+                stream: messageDialog.stream,
+                builder: (context, value) {
+                  final message = messageDialogWidget ?? MessageDialog();
+                  message.setData(value.data?.value);
+                  return Visibility(
+                    visible: value.data?.key == true,
+                    child: Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: message,
+                    ),
+                  );
+                },
               ),
-            ),
-          );
-        },
+              ValueListenableBuilder(
+                valueListenable: isAppLoading,
+                builder: (context, value, child) {
+                  return Visibility(visible: value, child: loadingWidget);
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
