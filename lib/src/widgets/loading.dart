@@ -10,7 +10,7 @@ class Loading extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Theme.of(context).colorScheme.surfaceDim.withAlpha(180),
+        color: Theme.of(context).colorScheme.surfaceDim.withAlpha(50),
         child: Center(
           child: Container(
             width: 100,
@@ -19,6 +19,16 @@ class Loading extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surfaceContainer,
               borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surfaceDim.withValues(alpha: 0.5),
+                  spreadRadius: 5,
+                  blurRadius: 10,
+                  offset: Offset(0, 5), // changes position of shadow
+                ),
+              ],
             ),
             child: Center(
               child: Column(

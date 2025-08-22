@@ -42,10 +42,16 @@ class BaseTheme {
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(shape: WidgetStatePropertyAll(_shape)),
+      style: ButtonStyle(
+        shape: WidgetStatePropertyAll(_shape),
+        elevation: WidgetStatePropertyAll(0.2),
+      ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
-      style: ButtonStyle(shape: WidgetStatePropertyAll(_shape)),
+      style: ButtonStyle(
+        shape: WidgetStatePropertyAll(_shape),
+        elevation: WidgetStatePropertyAll(0.2),
+      ),
     ),
   );
 }
