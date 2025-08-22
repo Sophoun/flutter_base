@@ -14,8 +14,6 @@ class FlutterBase extends StatelessWidget {
     this.routerConfig,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
-    this.mobileAspectRatio = 9 / 16,
-    this.tabletAspectRatio = 4 / 3,
     this.theme,
     this.darkTheme,
     this.themeMode,
@@ -41,8 +39,6 @@ class FlutterBase extends StatelessWidget {
   final Widget loadingWidget;
   final MessageDialog? messageDialogWidget;
   final Size designSize;
-  final double mobileAspectRatio;
-  final double tabletAspectRatio;
 
   /// DI Container hold all registered dependencies
   /// from the outside.
@@ -70,38 +66,33 @@ class FlutterBase extends StatelessWidget {
       darkTheme: darkTheme,
       themeMode: themeMode,
       routerConfig: routerConfig,
-      builder: (context, child) => ResponsiveConfig(
-        key: Key(MediaQuery.of(context).size.toString()),
-        mobileAspectRatio: mobileAspectRatio,
-        tabletAspectRatio: tabletAspectRatio,
-        child: LocalizeInherited(
-          register: locale!,
-          child: Stack(
-            textDirection: TextDirection.rtl,
-            children: [
-              child ?? SizedBox.shrink(),
-              StreamBuilder(
-                stream: messageDialog.stream,
-                builder: (context, value) {
-                  final message = messageDialogWidget ?? MessageDialog();
-                  message.setData(value.data?.value);
-                  return Visibility(
-                    visible: value.data?.key == true,
-                    child: Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: message,
-                    ),
-                  );
-                },
-              ),
-              ValueListenableBuilder(
-                valueListenable: isAppLoading,
-                builder: (context, value, child) {
-                  return Visibility(visible: value, child: loadingWidget);
-                },
-              ),
-            ],
-          ),
+      builder: (context, child) => LocalizeInherited(
+        register: locale!,
+        child: Stack(
+          textDirection: TextDirection.rtl,
+          children: [
+            child ?? SizedBox.shrink(),
+            StreamBuilder(
+              stream: messageDialog.stream,
+              builder: (context, value) {
+                final message = messageDialogWidget ?? MessageDialog();
+                message.setData(value.data?.value);
+                return Visibility(
+                  visible: value.data?.key == true,
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: message,
+                  ),
+                );
+              },
+            ),
+            ValueListenableBuilder(
+              valueListenable: isAppLoading,
+              builder: (context, value, child) {
+                return Visibility(visible: value, child: loadingWidget);
+              },
+            ),
+          ],
         ),
       ),
     );

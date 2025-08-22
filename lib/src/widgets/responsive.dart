@@ -26,56 +26,16 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final config = ResponsiveConfig.of(context);
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 1200 && desktop != null) {
           return desktop!;
         } else if (constraints.maxWidth >= 600 && tablet != null) {
-          return Align(
-            alignment: Alignment.topCenter,
-            child: AspectRatio(
-              aspectRatio: config.tabletAspectRatio,
-              child: tablet,
-            ),
-          );
+          return Align(alignment: Alignment.topCenter, child: tablet);
         } else {
-          return Align(
-            alignment: Alignment.topCenter,
-            child: AspectRatio(
-              aspectRatio: config.mobileAspectRatio,
-              child: mobile,
-            ),
-          );
+          return Align(alignment: Alignment.topCenter, child: mobile);
         }
       },
     );
-  }
-}
-
-/// Response config is use for set the initize screen
-/// aspect ratio for the whole app.
-class ResponsiveConfig extends InheritedWidget {
-  final double mobileAspectRatio;
-  final double tabletAspectRatio;
-
-  const ResponsiveConfig({
-    super.key,
-    required this.mobileAspectRatio,
-    required this.tabletAspectRatio,
-    required super.child,
-  });
-
-  static ResponsiveConfig of(BuildContext context) {
-    final ResponsiveConfig? result = context
-        .dependOnInheritedWidgetOfExactType<ResponsiveConfig>();
-    assert(result != null, 'No ResponsiveConfig found in context');
-    return result!;
-  }
-
-  @override
-  bool updateShouldNotify(ResponsiveConfig oldWidget) {
-    return mobileAspectRatio != oldWidget.mobileAspectRatio ||
-        tabletAspectRatio != oldWidget.tabletAspectRatio;
   }
 }
