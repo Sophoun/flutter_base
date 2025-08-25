@@ -26,95 +26,92 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context, AppLang t) {
-    return SensitiveContent(
-      sensitivity: ContentSensitivity.sensitive,
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        child: ListView(
-          children: [
-            // Text(l.appName()),
-            ElevatedButton(
-              onPressed: () {
-                homeVm.tryShowLoading();
-              },
-              child: Text("Loading", style: TextStyle(fontSize: 20.w)),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                homeVm.loadingForever();
-              },
-              child: Text("Loading forever"),
-            ),
-            Text(t.currentLanguageIs(t.lang.name)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              spacing: 8,
-              children: [
-                OutlinedButton(
-                  onPressed: () => context.local.register.changeLang(Lang.en),
-                  child: const Text("English"),
-                ),
-                OutlinedButton(
-                  onPressed: () => context.local.register.changeLang(Lang.km),
-                  child: const Text("Khmer"),
-                ),
-              ],
-            ),
-            homeVm.counter.builder(build: (value) => Text(t.count(value ?? 0))),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              spacing: 8,
-              children: [
-                OutlinedButton(
-                  onPressed: () => homeVm.incrementCounter(),
-                  child: const Text("increment"),
-                ),
-                OutlinedButton(
-                  onPressed: () => homeVm.decrementCounter(),
-                  child: const Text("decrement"),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 200,
-              child: BaseTextFormField(
-                value: homeVm.counter,
-                converter: Converter(
-                  fromValue: (value) => value.toString(),
-                  toValue: (value) => int.tryParse(value ?? "0") ?? 0,
-                ),
-                label: "Counter",
-                hint: "Input any number you wish.",
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                helperText: "Only number allowed.",
-                autofocus: true,
+    return Container(
+      padding: const EdgeInsets.all(12),
+      child: ListView(
+        children: [
+          // Text(l.appName()),
+          ElevatedButton(
+            onPressed: () {
+              homeVm.tryShowLoading();
+            },
+            child: Text("Loading", style: TextStyle(fontSize: 20.w)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              homeVm.loadingForever();
+            },
+            child: Text("Loading forever"),
+          ),
+          Text(t.currentLanguageIs(t.lang.name)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            spacing: 8,
+            children: [
+              OutlinedButton(
+                onPressed: () => context.local.register.changeLang(Lang.en),
+                child: const Text("English"),
               ),
-            ),
-            homeVm.mockValue.builder(build: (value) => Text(value ?? "")),
-            ElevatedButton(
-              onPressed: () => homeVm.getMockData(),
-              child: const Text("Get Mock Data"),
-            ),
-            ElevatedButton(
-              onPressed: () => showMessage(
-                type: MessageDialogType.okCanncel,
-                title: "Welcome, to my longest title dialog",
-                message:
-                    "This is my longest Hello world, Hello world, Hello world, Hello world Hello world!",
-                onOk: () {
-                  showToast("You clicked OK");
-                },
-                onCancel: () {
-                  showToast("You clicked Cancel");
-                },
+              OutlinedButton(
+                onPressed: () => context.local.register.changeLang(Lang.km),
+                child: const Text("Khmer"),
               ),
-              child: const Text("Show message"),
+            ],
+          ),
+          homeVm.counter.builder(build: (value) => Text(t.count(value ?? 0))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            spacing: 8,
+            children: [
+              OutlinedButton(
+                onPressed: () => homeVm.incrementCounter(),
+                child: const Text("increment"),
+              ),
+              OutlinedButton(
+                onPressed: () => homeVm.decrementCounter(),
+                child: const Text("decrement"),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 200,
+            child: BaseTextFormField(
+              value: homeVm.counter,
+              converter: Converter(
+                fromValue: (value) => value.toString(),
+                toValue: (value) => int.tryParse(value ?? "0") ?? 0,
+              ),
+              label: "Counter",
+              hint: "Input any number you wish.",
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              helperText: "Only number allowed.",
+              autofocus: true,
             ),
-          ].map((e) => Padding(padding: EdgeInsets.all(5.w), child: e)).toList(),
-        ),
+          ),
+          homeVm.mockValue.builder(build: (value) => Text(value ?? "")),
+          ElevatedButton(
+            onPressed: () => homeVm.getMockData(),
+            child: const Text("Get Mock Data"),
+          ),
+          ElevatedButton(
+            onPressed: () => showMessage(
+              type: MessageDialogType.okCanncel,
+              title: "Welcome, to my longest title dialog",
+              message:
+                  "This is my longest Hello world, Hello world, Hello world, Hello world Hello world!",
+              onOk: () {
+                showToast("You clicked OK");
+              },
+              onCancel: () {
+                showToast("You clicked Cancel");
+              },
+            ),
+            child: const Text("Show message"),
+          ),
+        ].map((e) => Padding(padding: EdgeInsets.all(5.w), child: e)).toList(),
       ),
     );
   }
