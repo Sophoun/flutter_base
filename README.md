@@ -412,6 +412,53 @@ class MyApp extends StatelessWidget {
 }
 ```
 
+## Form Validation
+
+The `flutter_base` package includes a `Validators` class with a comprehensive set of static methods for form validation. These validators can be used with `TextFormField` and other form fields in Flutter.
+
+### Usage
+
+To use the validators, simply import the `validators.dart` file and call the desired validation method in the `validators` property of your form field.
+
+```dart
+import 'package:flutter_base/src/commons/validators.dart';
+
+TextFormField(
+  validator: (value) => Validators.required(value, message: 'Please enter a value'),
+)
+```
+
+### Available Validators
+
+| Method | Description |
+| --- | --- |
+| `required(String? value, {String? message})` | Checks if the value is not null and not empty. |
+| `minLength(String? value, int minLength, {String? message})` | Checks if the value has at least `minLength` characters. |
+| `maxLength(String? value, int maxLength, {String? message})` | Checks if the value has at most `maxLength` characters. |
+| `email(String? value, {String? message})` | Checks if the value is a valid email address. |
+| `password(String? value, {String? message})` | Checks if the value is a valid password (at least 6 characters). |
+| `number(String? value, {String? message})` | Checks if the value is a valid number. |
+| `url(String? value, {String? message})` | Checks if the value is a valid URL. |
+| `phone(String? value, {String? message})` | Checks if the value is a valid phone number (10 digits). |
+| `date(String? value, {String? message})` | Checks if the value is a valid date. |
+| `compare(String? value, String? otherValue, {required String message})` | Checks if the value is the same as `otherValue`. |
+| `notEmpty(String? value, {String? message})` | Checks if the value is not empty (trims whitespace). |
+| `minValue(String? value, int minValue, {String? message})` | Checks if the value is a number greater than or equal to `minValue`. |
+| `maxValue(String? value, int maxValue, {String? message})` | Checks if the value is a number less than or equal to `maxValue`. |
+| `creditCard(String? value, {String? message})` | Checks if the value is a valid credit card number. |
+| `ipAddress(String? value, {String? message})` | Checks if the value is a valid IP address. |
+| `slug(String? value, {String? message})` | Checks if the value is a valid slug. |
+| `alpha(String? value, {String? message})` | Checks if the value contains only alphabetic characters. |
+| `alphanumeric(String? value, {String? message})` | Checks if the value contains only alphanumeric characters. |
+| `isJson(String? value, {String? message})` | Checks if the value is a valid JSON string. |
+| `isJwt(String? value, {String? message})` | Checks if the value is a valid JWT. |
+| `inList(String? value, List<String> list, {String? message})` | Checks if the value is in the given list. |
+| `notInList(String? value, List<String> list, {String? message})` | Checks if the value is not in the given list. |
+| `fileExtension(String? value, List<String> extensions, {String? message})` | Checks if the value is a valid file extension. |
+| `creditCardExpirationDate(String? value, {String? message})` | Checks if the value is a valid credit card expiration date. |
+| `cvv(String? value, {String? message})` | Checks if the value is a valid CVV. |
+| `isbn(String? value, {String? message})` | Checks if the value is a valid ISBN. |
+
 ## Example Project
 
 The `example` directory contains a complete Flutter application demonstrating all the features of this library. To run it, navigate to the `example` folder and execute:
