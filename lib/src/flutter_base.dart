@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/src/localization/localize_inherited.dart';
-import 'package:flutter_base/src/widgets/loading.dart';
+import 'package:flutter_base/src/widgets/loading_indicator.dart';
 
 // ignore: must_be_immutable
 class FlutterBase extends StatelessWidget {
   FlutterBase({
     super.key,
     this.locale,
-    this.loadingWidget = const Loading(),
+    this.loadingWidget = const LoadingIndicator(),
     this.diContainer,
     this.vmContainer,
     this.routerConfig,
