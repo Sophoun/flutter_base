@@ -6,8 +6,7 @@ export 'src/localization/app_localize.dart';
 export 'src/localization/locale_register.dart';
 
 // Di
-export 'src/di/di_container.dart';
-export 'src/di/vm_container.dart';
+export 'src/di/service_locator.dart';
 
 // Base
 export 'src/extension/extension.dart';

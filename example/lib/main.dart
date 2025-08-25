@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final appRouter = AppRouter();
-  final diContainer = DiContainer()
+  final diContainer = ServiceLocator()
     ..register(MockNet())
-    ..registerLazy((c) => MockService(mockNet: c.get<MockNet>()));
+    ..registerLazy((c) => MockService(mockNet: c.get<MockNet>()))
+    ..register(HomeVm());
 
   // This widget is the root of your application.
   @override
@@ -28,8 +29,7 @@ class MyApp extends StatelessWidget {
         ..register(En(lang: Lang.en))
         ..register(Kh(lang: Lang.km))
         ..changeLang(Lang.km),
-      vmContainer: VmContainer()..register(HomeVm()),
-      diContainer: diContainer,
+      serviceLocator: diContainer,
       routerConfig: appRouter.config(),
       themeMode: ThemeMode.dark,
     );

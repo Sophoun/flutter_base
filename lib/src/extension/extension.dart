@@ -35,22 +35,19 @@ extension PostLoadingExtension on ChangeNotifier {
 /// Get di/vm extensions
 ///
 extension StatelessExtension on StatelessWidget {
-  T inject<T>() => DiContainer().get<T>();
-  T getVm<T>() => VmContainer().get<T>();
+  T inject<T>() => ServiceLocator().get<T>();
 }
 
 extension StatefulExtension on StatefulWidget {
-  T inject<T>() => DiContainer().get<T>();
-  T getVm<T>() => VmContainer().get<T>();
+  T inject<T>() => ServiceLocator().get<T>();
 }
 
 extension StateExtension on State {
-  T inject<T>() => DiContainer().get<T>();
-  T getVm<T>() => VmContainer().get<T>();
+  T inject<T>() => ServiceLocator().get<T>();
 }
 
 extension ChangeNotifierExtension on ChangeNotifier {
-  T inject<T>() => DiContainer().get<T>();
+  T inject<T>() => ServiceLocator().get<T>();
 }
 
 /// Language extension

@@ -9,8 +9,7 @@ class FlutterBase extends StatelessWidget {
     super.key,
     this.locale,
     this.loadingWidget = const LoadingIndicator(),
-    this.diContainer,
-    this.vmContainer,
+    this.serviceLocator,
     this.routerConfig,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
@@ -40,17 +39,11 @@ class FlutterBase extends StatelessWidget {
   final MessageDialog? messageDialogWidget;
   final Size designSize;
 
-  /// DI Container hold all registered dependencies
+  /// A Service Locator that hold all registered dependencies
   /// from the outside.
   /// Note: It's singleton, it's not showing using here but
   /// actualy it's will used by client
-  final DiContainer? diContainer;
-
-  /// ViewModel Container hold all registered dependencies
-  /// from the outside.
-  /// Note: It's singleton, it's not showing using here but
-  /// actualy it's will used by client
-  late VmContainer? vmContainer;
+  final ServiceLocator? serviceLocator;
 
   final RouterConfig<Object>? routerConfig;
   late ThemeData? theme;

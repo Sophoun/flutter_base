@@ -4,7 +4,7 @@ A foundational library for Flutter applications, designed to streamline developm
 
 ## ✨ Features
 
-- **Dependency Injection:** A simple yet powerful DI container to manage your application's dependencies as singletons or lazy singletons.
+- **Service Locator:** A simple yet powerful service locator to manage your application's dependencies as singletons or lazy singletons.
 - **ViewModel Management:** A dedicated container for managing `ChangeNotifier` instances, effectively separating business logic from the UI.
 - **Localization:** An intuitive system for implementing multi-language support, allowing for easy registration and switching of languages.
 - **Responsive UI:** Built-in support for creating responsive user interfaces that adapt to different screen sizes using `ScreenUtil`.
@@ -39,14 +39,13 @@ Then, run `flutter pub get` to install the package.
 
 ### 1. Root Widget Setup (`FlutterBase`)
 
-Wrap your root widget with `FlutterBase` to provide the necessary containers (`DIContainer`, `VmContainer`, `LocaleRegister`) and screen utility initialization to the entire widget tree.
+Wrap your root widget with `FlutterBase` to provide the necessary containers (`ServiceLocator`, `LocaleRegister`) and screen utility initialization to the entire widget tree.
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
-import 'package:your_app/di_setup.dart';
+import 'package:your_app/service_locator.dart';
 import 'package:your_app/lang_setup.dart';
-import 'package:your_app/vm_setup.dart';
 import 'package:your_app/router.dart';
 
 void main() async {
@@ -68,10 +67,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690), 
       
       // Register your dependencies
-      diContainer: setupDI(), 
-      
-      // Register your ViewModels
-      vmContainer: setupVM(),
+      serviceLocator: setupServiceLocator(), 
       
       // Configure localization
       locale: setupLocale(),
@@ -157,23 +153,24 @@ Text(t.appName);
 context.local.register.changeLang(Lang.en);
 ```
 
-### 3. Dependency Injection (`DIContainer`)
+### 3. ServiceLocator
 
 Register services and access them from anywhere in your app.
 
 ```dart
-// Setup DI
-DIContainer setupDI() {
-  return DIContainer()
+// Setup ServiceLocator
+ServiceLocator setupServiceLocator() {
+  return ServiceLocator()
     ..register(MockNet()) // Singleton
-    ..registerLazy((c) => MockService(mockNet: c.get<MockNet>())); // Lazy Singleton
+    ..registerLazy((c) => MockService(mockNet: c.get<MockNet>())) // Lazy Singleton
+    ..register(HomeVm()); // Register ViewModel
 }
 
 // In your class (e.g., a ViewModel or another service):
 late final mockService = inject<MockService>();
 ```
 
-### 4. ViewModel (`VmContainer`)
+### 4. ViewModel
 
 Manage your UI state with `ChangeNotifier`.
 
@@ -194,11 +191,6 @@ class HomeVm extends ChangeNotifier {
 #### Register and Access the ViewModel
 
 ```dart
-// Setup ViewModels
-VmContainer setupVM() {
-  return VmContainer()..register(HomeVm());
-}
-
 // In your widget:
 final homeVm = getVm<HomeVm>();
 

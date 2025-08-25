@@ -9,7 +9,7 @@ import 'package:flutter_base/flutter_base.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  HomeVm get homeVm => getVm<HomeVm>();
+  HomeVm get homeVm => inject<HomeVm>();
 
   @override
   Widget build(BuildContext context) {
