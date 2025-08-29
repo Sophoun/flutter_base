@@ -15,7 +15,7 @@ class ScreenUtil {
     BuildContext context, {
     Size designSize = const Size(360, 690),
   }) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     screenWidth = size.width;
     screenHeight = size.height;
     _scaleWidth = screenWidth / designSize.width;
