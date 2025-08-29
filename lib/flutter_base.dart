@@ -9,7 +9,7 @@ export 'src/localization/locale_register.dart';
 export 'src/di/service_locator.dart';
 
 // Base
-export 'src/extension/extension.dart';
+export 'src/extension/state_extension.dart';
 export 'src/extension/screen_extension.dart';
 export 'src/extension/spacing_extension.dart';
 
