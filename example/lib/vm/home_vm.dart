@@ -25,6 +25,7 @@ class HomeVm extends ChangeNotifier {
   /// increment counter
   void incrementCounter() {
     counter.value++;
+    EventBus.fire(1, data: "Hi in");
   }
 
   /// decrement counter
@@ -32,6 +33,7 @@ class HomeVm extends ChangeNotifier {
     if (counter.value > 0) {
       counter.value--;
     }
+    EventBus.fire(2, data: "Hi de");
   }
 
   /// get mock data

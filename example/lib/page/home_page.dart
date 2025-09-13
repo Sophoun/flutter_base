@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:example/lang/app_lang.dart';
 import 'package:example/vm/home_vm.dart';
@@ -7,9 +9,21 @@ import 'package:flutter_base/flutter_base.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key}) {
+    EventBus.register([1, 2], (id, data) {
+      switch (id) {
+        case 1:
+          log("Case 1 $data");
+          break;
+        case 2:
+          log("Case 2 $data");
+          break;
+      }
+    });
+  }
 
   HomeVm get homeVm => inject<HomeVm>();
+  final _inputDebounce = Debouncer();
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +103,7 @@ class HomePage extends StatelessWidget {
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               helperText: "Only number allowed.",
               autofocus: true,
+              onChanged: (value) => _inputDebounce.run(() => log(value)),
             ),
           ),
           homeVm.mockValue.builder(build: (value) => Text(value ?? "")),

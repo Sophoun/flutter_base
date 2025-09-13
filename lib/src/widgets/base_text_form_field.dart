@@ -24,6 +24,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.style,
     this.autofocus = false,
+    this.onChanged,
   }) {
     // Controller
     controller ??= TextEditingController(
@@ -63,6 +64,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   final TextAlign textAlign;
   final TextStyle? style;
   final bool autofocus;
+  final Function(String value)? onChanged;
 
   /// Listen text change from the outside
   void outsideTextChangesListener() {
@@ -93,6 +95,9 @@ class BaseTextFormField<T> extends StatelessWidget {
         }
         // Add listener back when value updated
         value.addListener(outsideTextChangesListener);
+
+        /// Invoke onChnaged to listener
+        onChanged?.call(newValue);
       },
       validator: valildator,
       inputFormatters: inputFormatters,
