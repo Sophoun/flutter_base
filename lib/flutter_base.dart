@@ -8,19 +8,21 @@ export 'src/localization/locale_register.dart';
 // Di
 export 'src/di/service_locator.dart';
 
-// Base
+// Extensions
 export 'src/extension/state_extension.dart';
 export 'src/extension/screen_extension.dart';
 export 'src/extension/spacing_extension.dart';
+export 'src/extension/context_extension.dart';
 
 // Theme
 export 'src/theme/base_theme.dart';
 
-// Utils
+// Commons
 export 'src/pref/pref.dart';
 export 'src/commons/validators.dart';
 export 'src/commons/debouncer.dart';
 export 'src/commons/event_bus.dart';
+export 'src/commons/logger.dart';
 
 // Widgets
 export 'src/widgets/base_text_form_field.dart';

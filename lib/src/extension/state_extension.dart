@@ -1,6 +1,7 @@
 import 'dart:async';
 export 'screen_extension.dart';
 
+import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';
 import 'package:flutter_base/src/localization/localize_inherited.dart';
@@ -122,3 +123,14 @@ void hideMessage() {
 
 /// Provide the preferencessor
 SharedPreferences get p => Pref.instance().p;
+
+/// Global messenger key
+final GlobalKey<material.ScaffoldMessengerState> globalScaffoldMessengerKey =
+    GlobalKey<material.ScaffoldMessengerState>();
+
+/// Show snackbar anywhere you want
+void showSnackBar(String message) {
+  globalScaffoldMessengerKey.currentState?.showSnackBar(
+    material.SnackBar(content: Text(message)),
+  );
+}

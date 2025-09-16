@@ -55,6 +55,7 @@ class FlutterBase extends StatelessWidget {
     ScreenUtil.init(context, designSize: designSize);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: globalScaffoldMessengerKey,
       theme: theme,
       darkTheme: darkTheme,
       themeMode: themeMode,

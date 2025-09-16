@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/flutter_base.dart';
 
-/// Lading widget
+/// Loading widget
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({super.key});
 

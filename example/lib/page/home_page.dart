@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:example/lang/app_lang.dart';
 import 'package:example/vm/home_vm.dart';
@@ -125,6 +123,10 @@ class HomePage extends StatelessWidget {
               },
             ),
             child: const Text("Show message"),
+          ),
+          ElevatedButton(
+            onPressed: () => showSnackBar("Hello from snakebar :snake:"),
+            child: const Text("Show snackbar"),
           ),
         ].map((e) => Padding(padding: EdgeInsets.all(5.w), child: e)).toList(),
       ),

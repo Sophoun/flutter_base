@@ -12,6 +12,27 @@ A foundational library for Flutter applications, designed to streamline developm
 - **Simplified Preferences:** Easy access to `SharedPreferences` for persistent key-value storage.
 - **Built-in Dialogs & Toasts:** Quickly display common UI elements like alerts and toasts with minimal code.
 
+## Public API
+
+This library exposes a range of modules to streamline your Flutter development. Here is a list of the public APIs exported from `flutter_base`:
+
+- **`flutter_base.dart`**: The main entry point of the library, providing the `FlutterBase` root widget.
+- **`app_localize.dart` & `locale_register.dart`**: Core components for the localization system.
+- **`service_locator.dart`**: The dependency injection container.
+- **`state_extension.dart`**: Extensions for state management, including `getVm` and the `isAppLoading` notifier.
+- **`screen_extension.dart`**: Extensions for creating responsive UI with `ScreenUtil`.
+- **`spacing_extension.dart`**: Extensions for simplified padding and spacing.
+- **`context_extension.dart`**: Extensions for `BuildContext`, providing easy access to dialogs, toasts, and more.
+- **`base_theme.dart`**: The base theme for the application.
+- **`pref.dart`**: A wrapper around `SharedPreferences` for easy key-value storage.
+- **`validators.dart`**: A collection of form field validators.
+- **`debouncer.dart`**: A class for debouncing function calls.
+- **`event_bus.dart`**: A simple event bus for communication between different parts of your app.
+- **`logger.dart`**: A logging utility that only prints in debug mode.
+- **`base_text_form_field.dart`**: A `TextFormField` that integrates with `ValueNotifier`.
+- **`message_dialog.dart`**: A widget for displaying message dialogs.
+- **`responsive.dart`**: The `ResponsiveLayout` widget for building responsive UIs.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -450,6 +471,110 @@ TextFormField(
 | `creditCardExpirationDate(String? value, {String? message})` | Checks if the value is a valid credit card expiration date. |
 | `cvv(String? value, {String? message})` | Checks if the value is a valid CVV. |
 | `isbn(String? value, {String? message})` | Checks if the value is a valid ISBN. |
+
+## BaseTextFormField
+
+The `BaseTextFormField` is a wrapper around `TextFormField` that simplifies its usage with a `ValueNotifier`. It automatically handles the `TextEditingController` and keeps the `ValueNotifier` in sync with the input.
+
+### Usage
+
+```dart
+import 'package:flutter_base/src/widgets/base_text_form_field.dart';
+
+final myValue = ValueNotifier<String>("");
+
+BaseTextFormField<String>(
+  value: myValue,
+  label: "My Value",
+  hint: "Enter a value",
+);
+```
+
+### With Converter
+
+If you want to use a `ValueNotifier` with a type other than `String`, you can provide a `Converter`.
+
+```dart
+import 'package:flutter_base/src/widgets/base_text_form_field.dart';
+
+final myValue = ValueNotifier<int>(0);
+
+BaseTextFormField<int>(
+  value: myValue,
+  label: "My Value",
+  hint: "Enter a number",
+  converter: Converter<int>(
+    fromValue: (value) => value.toString(),
+    toValue: (value) => int.tryParse(value ?? '0') ?? 0,
+  ),
+);
+```
+
+## Debouncer
+
+The `Debouncer` class helps to delay the execution of a function. This is useful for scenarios like search fields, where you want to wait for the user to stop typing before performing a search.
+
+### Usage
+
+```dart
+import 'package:flutter_base/src/commons/debouncer.dart';
+
+final _debouncer = Debouncer(delay: Duration(milliseconds: 500));
+
+void onSearchChanged(String query) {
+  _debouncer.run(() {
+    print("Searching for $query");
+  });
+}
+```
+
+## EventBus
+
+The `EventBus` provides a way for different parts of your application to communicate with each other without having direct references.
+
+### Usage
+
+#### Registering Events
+
+```dart
+import 'package:flutter_base/src/commons/event_bus.dart';
+
+void onEvent(int id, dynamic data) {
+  print("Received event with id: $id and data: $data");
+}
+
+EventBus.register([1, 2], onEvent);
+```
+
+#### Firing Events
+
+```dart
+import 'package:flutter_base/src/commons/event_bus.dart';
+
+EventBus.fire(1, data: "Hello from EventBus!");
+```
+
+#### Unregistering Events
+
+```dart
+import 'package:flutter_base/src/commons/event_bus.dart';
+
+EventBus.unregister([1, 2]);
+```
+
+## Logger
+
+The `log` function is a simple utility that prints messages to the console only when the application is in debug mode.
+
+### Usage
+
+```dart
+import 'package:flutter_base/src/commons/logger.dart';
+
+void myFunction() {
+  log("This is a debug message");
+}
+```
 
 ## Example Project
 
