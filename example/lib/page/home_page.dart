@@ -128,6 +128,9 @@ class HomePage extends StatelessWidget {
             onPressed: () => showSnackBar("Hello from snakebar :snake:"),
             child: const Text("Show snackbar"),
           ),
+          [homeVm.counter, homeVm.mockValue].builder(
+            build: (value) => Text(t.count(value.first ?? 0) + value[1]),
+          ),
         ].map((e) => Padding(padding: EdgeInsets.all(5.w), child: e)).toList(),
       ),
     );

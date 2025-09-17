@@ -201,6 +201,7 @@ Manage your UI state with `ChangeNotifier`.
 class HomeVm extends ChangeNotifier {
   late final _mockService = inject<MockService>();
   final counter = ValueNotifier(0);
+  final title = ValueNotifier<String>("Home");
 
   void increment() {
     counter.value++;
@@ -218,6 +219,24 @@ final homeVm = getVm<HomeVm>();
 // Use the ValueNotifier.builder extension for efficient UI updates
 homeVm.counter.builder(
   build: (value) => Text(t.count(value ?? 0)),
+)
+```
+
+#### GroupValueNotifierAsWidgetBuilder
+
+Listen to multiple notifiers from the same `ViewModel` and rebuild the UI when any of them changes.
+
+```dart
+// In your widget:
+final homeVm = getVm<HomeVm>();
+
+// Listen to multiple notifiers from the same ViewModel
+[homeVm.counter, homeVm.title].builder(
+  build: (values) {
+    final count = values[0] as int;
+    final title = values[1] as String;
+    return Text('$title: $count');
+  },
 )
 ```
 

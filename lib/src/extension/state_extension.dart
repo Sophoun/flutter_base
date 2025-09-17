@@ -1,6 +1,7 @@
 import 'dart:async';
 export 'screen_extension.dart';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_base/flutter_base.dart';
@@ -19,6 +20,47 @@ extension ValueNotifierAsWidgetBuilder<T> on ValueNotifier<T?> {
       key: key,
     );
   }
+}
+
+/// Group Value notifier builder function
+extension GroupValueNotifierAsWidgetBuilder on List<ValueNotifier<dynamic>> {
+  /// Converts the ValueNotifier to a Widget that rebuilds when the value changes.
+  Widget builder({
+    required Widget Function(List<dynamic> values) build,
+    Key? key,
+  }) {
+    return ValueListenableBuilder<List<dynamic>>(
+      valueListenable: _GroupValueListenable(listenables: this),
+      builder: (context, value, child) {
+        return build(value);
+      },
+      key: key,
+    );
+  }
+}
+
+/// Group value listenable helper class
+class _GroupValueListenable extends ValueListenable<List<dynamic>> {
+  List<ValueNotifier<dynamic>> listenables = List.from([]);
+
+  _GroupValueListenable({required this.listenables});
+
+  @override
+  void addListener(VoidCallback listener) {
+    for (var e in listenables) {
+      e.addListener(listener);
+    }
+  }
+
+  @override
+  void removeListener(VoidCallback listener) {
+    for (var e in listenables) {
+      e.removeListener(listener);
+    }
+  }
+
+  @override
+  get value => listenables.map((e) => e.value).toList();
 }
 
 /// Is loading
