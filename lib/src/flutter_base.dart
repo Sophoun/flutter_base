@@ -72,6 +72,7 @@ class FlutterBase extends StatelessWidget {
                 final message = messageDialogWidget ?? MessageDialog();
                 message.setData(value.data?.value);
                 return Visibility(
+                  key: UniqueKey(),
                   visible: value.data?.key == true,
                   child: Directionality(
                     textDirection: TextDirection.ltr,

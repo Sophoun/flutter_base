@@ -32,6 +32,30 @@ class MyApp extends StatelessWidget {
       serviceLocator: diContainer,
       routerConfig: appRouter.config(),
       themeMode: ThemeMode.dark,
+      messageDialogWidget: DialgOverride(),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class DialgOverride extends MessageDialog {
+  DialgOverride({super.key});
+
+  @override
+  // TODO: implement alpha
+  int get alpha => 200;
+
+  @override
+  Widget buttonOk(BuildContext context) {
+    return Expanded(
+      child: ElevatedButton(onPressed: onOk, child: Text("IM OK")),
+    );
+  }
+
+  @override
+  Widget buttonCancel(BuildContext context) {
+    return Expanded(
+      child: ElevatedButton(onPressed: onOk, child: Text("Cancel")),
     );
   }
 }

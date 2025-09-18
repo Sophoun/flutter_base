@@ -262,6 +262,18 @@ Container(
 );
 ```
 
+#### SharedPreferences (`p`)
+
+Access `SharedPreferences` easily. Remember to call `Pref.init()` in `main()`.
+
+```dart
+// Save a value
+await p.setString('user_name', 'Gemini');
+
+// Read a value
+final userName = p.getString('user_name');
+```
+
 #### Dialogs and Toasts
 
 Show feedback to the user with simple function calls.
@@ -277,17 +289,73 @@ showMessage(
 );
 ```
 
-#### SharedPreferences (`p`)
+### Overriding MessageDialog
 
-Access `SharedPreferences` easily. Remember to call `Pref.init()` in `main()`.
+You can replace the default `MessageDialog` with your own custom implementation. This is useful if you want to create a dialog that matches your app's design system.
+
+To do this, create a class that extends `MessageDialog` and override the methods that build the different parts of the dialog, such as `buttonOk`, `buttonCancel`, `dialogTitle`, `dialogContent`, and `boxDecoration`. You can also override the `width` and `alpha` properties to customize the dialog's appearance.
+
+**Do not override the `build` method itself.**
+
+#### Example
+
+First, create your custom dialog widget by overriding the desired methods:
 
 ```dart
-// Save a value
-await p.setString('user_name', 'Gemini');
+// lib/widgets/my_custom_dialog.dart
+import 'package:flutter/material.dart';
+import 'package:flutter_base/flutter_base.dart';
 
-// Read a value
-final userName = p.getString('user_name');
+class MyCustomDialog extends MessageDialog {
+  MyCustomDialog({super.key});
+
+  @override
+  int get alpha => 200; // Customize the background dimming
+
+  @override
+  Widget buttonOk(BuildContext context) {
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: onOk,
+        child: Text(messageDialogData?.okText ?? 'OK'),
+      ),
+    );
+  }
+
+  @override
+  Widget buttonCancel(BuildContext context) {
+    return Expanded(
+      child: OutlinedButton(
+        onPressed: onCancel,
+        child: Text(messageDialogData?.cancelText ?? 'Cancel'),
+      ),
+    );
+  }
+
+  @override
+  Widget dialogTitle(BuildContext context) {
+    return Text(
+      messageDialogData?.title ?? '',
+      style: Theme.of(context).textTheme.headlineSmall,
+    );
+  }
+}
 ```
+
+Then, pass your custom dialog to the `FlutterBase` widget in your `main.dart` file:
+
+```dart
+// In your main application setup
+FlutterBase(
+  // ...
+  messageDialogWidget: MyCustomDialog(),
+  child: MaterialApp.router(
+    // ...
+  ),
+);
+```
+
+Now, whenever you call `showMessage()`, your `MyCustomDialog` will be displayed with your custom buttons and title style.
 
 ### 6. Spacing Extensions
 
