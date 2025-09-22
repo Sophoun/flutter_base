@@ -131,6 +131,11 @@ class HomePage extends StatelessWidget {
           [homeVm.counter, homeVm.mockValue].builder(
             build: (value) => Text(t.count(value.first ?? 0) + value[1]),
           ),
+          combineValueNotifierT2(
+            homeVm.counter,
+            homeVm.mockValue,
+            (t1, t2) => Text("Count: $t1, mock value is: $t2"),
+          ),
         ].map((e) => Padding(padding: EdgeInsets.all(5.w), child: e)).toList(),
       ),
     );

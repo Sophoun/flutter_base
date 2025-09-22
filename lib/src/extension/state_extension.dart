@@ -39,6 +39,75 @@ extension GroupValueNotifierAsWidgetBuilder on List<ValueNotifier<dynamic>> {
   }
 }
 
+/// Combine value notifier turple 2
+Widget combineValueNotifierT2<T1, T2>(
+  ValueNotifier<T1> n1,
+  ValueNotifier<T2> n2,
+  Function(T1, T2) builder,
+) {
+  return [n1, n2].builder(
+    build: (values) {
+      return builder(values[0] as T1, values[1] as T2);
+    },
+  );
+}
+
+/// Combine value notifier turple 3
+Widget combineValueNotifierT3<T1, T2, T3>(
+  ValueNotifier<T1> n1,
+  ValueNotifier<T2> n2,
+  ValueNotifier<T3> n3,
+  Function(T1, T2, T3) builder,
+) {
+  return [n1, n2, n3].builder(
+    build: (values) {
+      return builder(values[0] as T1, values[1] as T2, values[2] as T3);
+    },
+  );
+}
+
+/// Combine value notifier turple 4
+Widget combineValueNotifierT4<T1, T2, T3, T4>(
+  ValueNotifier<T1> n1,
+  ValueNotifier<T2> n2,
+  ValueNotifier<T3> n3,
+  ValueNotifier<T4> n4,
+  Function(T1, T2, T3, T4) builder,
+) {
+  return [n1, n2, n3, n4].builder(
+    build: (values) {
+      return builder(
+        values[0] as T1,
+        values[1] as T2,
+        values[2] as T3,
+        values[3] as T4,
+      );
+    },
+  );
+}
+
+/// Combine value notifier turple 5
+Widget combineValueNotifierT5<T1, T2, T3, T4, T5>(
+  ValueNotifier<T1> n1,
+  ValueNotifier<T2> n2,
+  ValueNotifier<T3> n3,
+  ValueNotifier<T4> n4,
+  ValueNotifier<T5> n5,
+  Function(T1, T2, T3, T4, T5) builder,
+) {
+  return [n1, n2, n3, n4, n5].builder(
+    build: (values) {
+      return builder(
+        values[0] as T1,
+        values[1] as T2,
+        values[2] as T3,
+        values[3] as T4,
+        values[4] as T5,
+      );
+    },
+  );
+}
+
 /// Group value listenable helper class
 class _GroupValueListenable extends ValueListenable<List<dynamic>> {
   List<ValueNotifier<dynamic>> listenables = List.from([]);
