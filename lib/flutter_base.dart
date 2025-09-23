@@ -14,6 +14,7 @@ export 'src/extension/screen_extension.dart';
 export 'src/extension/spacing_extension.dart';
 export 'src/extension/context_extension.dart';
 export 'src/extension/future_extension.dart';
+export 'src/extension/number_extension.dart';
 
 // Theme
 export 'src/theme/base_theme.dart';

@@ -22,6 +22,7 @@ This library exposes a range of modules to streamline your Flutter development. 
 - **`state_extension.dart`**: Extensions for state management, including `getVm` and the `isAppLoading` notifier.
 - **`screen_extension.dart`**: Extensions for creating responsive UI with `ScreenUtil`.
 - **`spacing_extension.dart`**: Extensions for simplified padding and spacing.
+- **`number_extension.dart`**: Extensions for number formatting and checking null/zero values.
 - **`future_extension.dart`**: An extension for `Future` to handle callbacks for `onStart`, `onSuccess`, `onError`, and `onEnd`.
 - **`context_extension.dart`**: Extensions for `BuildContext`, providing easy access to dialogs, toasts, and more.
 - **`base_theme.dart`**: The base theme for the application.
@@ -430,7 +431,40 @@ Container(
 );
 ```
 
-### 7. Responsive Layouts (Mobile & Tablet)
+### 7. Number Extension
+
+The `NumberExtension` provides convenient methods for formatting numbers and handling null or zero values.
+
+| Method | Description |
+| --- | --- |
+| `isNullOrZero` | Checks if a number is either `null` or `0`. |
+| `isNotNullOrZero` | Checks if a number is not `null` and not `0`. |
+| `isNullOrNegative` | Checks if a number is either `null` or less than `0`. |
+| `isNotNullOrNegative` | Checks if a number is not `null` and is greater than or equal to `0`. |
+| `toStringAsFixedSafe(int fractionDigits)` | Converts a number to a string with a fixed number of decimal places. Returns '0' if the number is `null`. |
+| `formatAmount(int fractionDigits)` | Formats a number with commas as thousand separators. |
+| `formatCurrencySuffix({int fractionDigits, String symbol})` | Formats a number as a currency string with a suffix symbol (e.g., "$ 1,234.56"). |
+| `formatCurrencyPrefix({int fractionDigits, String symbol})` | Formats a number as a currency string with a prefix symbol (e.g., "1,234.56 $"). |
+
+**Usage:**
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+// Example usage
+final num? myNumber = 12345.678;
+
+print(myNumber.isNullOrZero); // false
+print(myNumber.formatAmount(2)); // 12,345.68
+print(myNumber.formatCurrencySuffix(symbol: '€')); // € 12,345.68
+print(myNumber.formatCurrencyPrefix(symbol: 'USD')); // 12,345.68 USD
+
+final num? nullNumber = null;
+print(nullNumber.isNullOrZero); // true
+print(nullNumber.toStringAsFixedSafe(2)); // 0
+```
+
+### 8. Responsive Layouts (Mobile & Tablet)
 
 The library includes a powerful `ResponsiveLayout` widget that works with the `FlutterBase` configuration to render different widgets for mobile, tablet, and desktop layouts. It can also enforce a specific aspect ratio for mobile and tablet views, ensuring your layouts look consistent.
 
