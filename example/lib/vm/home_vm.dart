@@ -38,10 +38,15 @@ class HomeVm extends ChangeNotifier {
 
   /// get mock data
   void getMockData() {
-    postLoading(true);
-    mockService
-        .getHelloWorld()
-        .then((v) => mockValue.value = v)
-        .whenComplete(() => postLoading(false));
+    mockService.getHelloWorld().execute(
+      onStart: () => postLoading(true),
+      onEnd: () => postLoading(false),
+      onSuccess: (data) {
+        mockValue.value = data;
+      },
+      onError: (e) {
+        log(e.toString());
+      },
+    );
   }
 }

@@ -22,6 +22,7 @@ This library exposes a range of modules to streamline your Flutter development. 
 - **`state_extension.dart`**: Extensions for state management, including `getVm` and the `isAppLoading` notifier.
 - **`screen_extension.dart`**: Extensions for creating responsive UI with `ScreenUtil`.
 - **`spacing_extension.dart`**: Extensions for simplified padding and spacing.
+- **`future_extension.dart`**: An extension for `Future` to handle callbacks for `onStart`, `onSuccess`, `onError`, and `onEnd`.
 - **`context_extension.dart`**: Extensions for `BuildContext`, providing easy access to dialogs, toasts, and more.
 - **`base_theme.dart`**: The base theme for the application.
 - **`pref.dart`**: A wrapper around `SharedPreferences` for easy key-value storage.
@@ -272,6 +273,27 @@ await p.setString('user_name', 'Gemini');
 
 // Read a value
 final userName = p.getString('user_name');
+```
+
+#### Future Extension (`execute`)
+
+The `execute` extension on `Future` simplifies handling asynchronous operations by providing callbacks for different states.
+
+```dart
+Future<String> fetchData() async {
+  await Future.delayed(const Duration(seconds: 2));
+  return "Data loaded successfully";
+  // Or throw Exception("Failed to load data");
+}
+
+void loadData() {
+  fetchData().execute(
+    onStart: () => print("Loading..."),
+    onSuccess: (data) => print(data),
+    onError: (e) => print(e),
+    onEnd: () => print("Operation finished."),
+  );
+}
 ```
 
 #### Dialogs and Toasts
