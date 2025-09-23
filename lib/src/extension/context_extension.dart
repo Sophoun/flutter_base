@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 extension SafePopExtension on BuildContext? {
   /// Handle safe pop for screen
@@ -8,4 +8,15 @@ extension SafePopExtension on BuildContext? {
       Navigator.of(this!).pop();
     }
   }
+}
+
+extension ThemeExtension on BuildContext? {
+  /// Get current theme
+  ThemeData? get theme => this == null ? null : Theme.of(this!);
+
+  /// Get current text theme
+  TextTheme? get textTheme => theme?.textTheme;
+
+  /// Get current color scheme
+  ColorScheme? get colorScheme => theme?.colorScheme;
 }

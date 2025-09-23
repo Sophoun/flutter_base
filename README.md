@@ -275,6 +275,21 @@ await p.setString('user_name', 'Gemini');
 final userName = p.getString('user_name');
 ```
 
+#### Theme Extension
+
+Access theme properties directly from the `BuildContext` with this convenient extension.
+
+```dart
+// Get the current theme
+final theme = context.theme;
+
+// Get the current text theme
+final textTheme = context.textTheme;
+
+// Get the current color scheme
+final colorScheme = context.colorScheme;
+```
+
 #### Future Extension (`execute`)
 
 The `execute` extension on `Future` simplifies handling asynchronous operations by providing callbacks for different states.
