@@ -19,4 +19,7 @@ extension ThemeExtension on BuildContext? {
 
   /// Get current color scheme
   ColorScheme? get colorScheme => theme?.colorScheme;
+
+  /// Get button theme
+  ButtonThemeData? get buttonTheme => theme?.buttonTheme;
 }
