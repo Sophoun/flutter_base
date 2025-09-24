@@ -289,6 +289,9 @@ final textTheme = context.textTheme;
 
 // Get the current color scheme
 final colorScheme = context.colorScheme;
+
+// Get the current button theme
+final buttonTheme = context.buttonTheme;
 ```
 
 #### Future Extension (`execute`)
