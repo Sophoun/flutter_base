@@ -41,14 +41,14 @@ extension NumberExtension on num? {
 
   /// Format number to currency string with dollar sign
   String formatCurrencySuffix({int fractionDigits = 2, String symbol = '\$'}) {
-    if (this == null) return '$symbol 0.00';
-    return '$symbol ${_formatWithCommas(this!, decimalPlaces: fractionDigits)}';
+    if (this == null) return '0.00 $symbol';
+    return '${_formatWithCommas(this!, decimalPlaces: fractionDigits)} $symbol';
   }
 
   /// Format number to currency string with dollar sign prefix
   String formatCurrencyPrefix({int fractionDigits = 2, String symbol = '\$'}) {
-    if (this == null) return '0.00 $symbol';
-    return '${_formatWithCommas(this!, decimalPlaces: fractionDigits)} $symbol';
+    if (this == null) return '$symbol 0.00';
+    return '$symbol ${_formatWithCommas(this!, decimalPlaces: fractionDigits)}';
   }
 
   /// Convert number to DateTime
