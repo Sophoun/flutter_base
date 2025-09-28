@@ -184,7 +184,11 @@ class Validators {
   }
 
   /// Checks if the value is not in the given list.
-  static String? notInList(String? value, List<String> list, {String? message}) {
+  static String? notInList(
+    String? value,
+    List<String> list, {
+    String? message,
+  }) {
     if (value == null || list.contains(value)) {
       return message ?? 'Value is in the list';
     }
@@ -192,7 +196,11 @@ class Validators {
   }
 
   /// Checks if the value is a valid file extension.
-  static String? fileExtension(String? value, List<String> extensions, {String? message}) {
+  static String? fileExtension(
+    String? value,
+    List<String> extensions, {
+    String? message,
+  }) {
     if (value == null || !extensions.any((ext) => value.endsWith(ext))) {
       return message ?? 'Invalid file extension';
     }
@@ -201,7 +209,8 @@ class Validators {
 
   /// Checks if the value is a valid credit card expiration date.
   static String? creditCardExpirationDate(String? value, {String? message}) {
-    if (value == null || !RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{4}|[0-9]{2})$').hasMatch(value)) {
+    if (value == null ||
+        !RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{4}|[0-9]{2})$').hasMatch(value)) {
       return message ?? 'Invalid expiration date';
     }
     return null;
@@ -217,7 +226,10 @@ class Validators {
 
   /// Checks if the value is a valid ISBN.
   static String? isbn(String? value, {String? message}) {
-    if (value == null || !RegExp(r'^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$').hasMatch(value)) {
+    if (value == null ||
+        !RegExp(
+          r'^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$',
+        ).hasMatch(value)) {
       return message ?? 'Invalid ISBN';
     }
     return null;

@@ -50,4 +50,14 @@ extension NumberExtension on num? {
     if (this == null) return '0.00 $symbol';
     return '${_formatWithCommas(this!, decimalPlaces: fractionDigits)} $symbol';
   }
+
+  /// Convert number to DateTime
+  DateTime? toDateTime() {
+    if (this == null) return null;
+    try {
+      return DateTime.fromMillisecondsSinceEpoch(this!.toInt());
+    } catch (e) {
+      return null;
+    }
+  }
 }

@@ -448,6 +448,7 @@ The `NumberExtension` provides convenient methods for formatting numbers and han
 | `formatAmount(int fractionDigits)` | Formats a number with commas as thousand separators. |
 | `formatCurrencySuffix({int fractionDigits, String symbol})` | Formats a number as a currency string with a suffix symbol (e.g., "$ 1,234.56"). |
 | `formatCurrencyPrefix({int fractionDigits, String symbol})` | Formats a number as a currency string with a prefix symbol (e.g., "1,234.56 $"). |
+| `toDateTime()` | Converts a number (milliseconds since epoch) to a `DateTime` object. Returns `null` if the number is `null` or the conversion fails. |
 
 **Usage:**
 
