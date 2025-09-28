@@ -42,7 +42,11 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: ListView(
         children: [
-          // Text(l.appName()),
+          Text(DateTime.now().format(DateExtension.EddMMyyyy)),
+          Text(DateTime.now().format(DateExtension.ddMMyyyyHHmm)),
+          Text(DateTime.now().format(DateExtension.ddMMyy)),
+          Text(DateTime.now().format(DateExtension.ddMMyyyy_hhmma)),
+          Text(DateTime.now().format(DateExtension.ddMMyyyy_hhmms_a)),
           ElevatedButton(
             onPressed: () {
               homeVm.tryShowLoading();

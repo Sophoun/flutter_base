@@ -534,6 +534,40 @@ class DesktopView extends StatelessWidget {
 }
 ```
 
+### 9. Date Extension
+
+The `DateExtension` provides a convenient way to format `DateTime` objects into strings.
+
+| Method | Description |
+| --- | --- |
+| `format(String format)` | Formats a `DateTime` object into a string using a custom format. |
+| `toDDMMYY({String seperator})` | Formats a `DateTime` object into a "dd-MM-yy" string. |
+| `toDDMMYYYY({String seperator})` | Formats a `DateTime` object into a "dd-MM-yyyy" string. |
+| `toDDMMYYYYHHMM({String seperator})` | Formats a `DateTime` object into a "dd-MM-yyyy HH:mm" string. |
+
+**Usage:**
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+// Example usage
+final now = DateTime.now();
+
+print(now.format(DateExtension.ddMMyyyy)); // 28-09-2025
+print(now.format(DateExtension.EEEEddMMyyyy)); // Sunday, 28 September 2025
+```
+
+**Available Format Constants:**
+
+| Constant | Output |
+| --- | --- |
+| `DateExtension.ddMMyyyy` | "dd-MM-yyyy" |
+| `DateExtension.ddMMyyyyHHmmss` | "dd-MM-yyyy HH:mm:ss" |
+| `DateExtension.yyyyMMddTHHmmss` | "yyyy-MM-dd'T'HH:mm:ss" |
+| `DateExtension.hhmma` | "hh:mm a" |
+| `DateExtension.EEEEddMMyyyy` | "EEEE, dd MMMM yyyy" |
+| `DateExtension.MMMMyyyy` | "MMMM yyyy" |
+
 ## 🎨 Theming
 
 The `flutter_base` package includes a `BaseTheme` class that provides a consistent theme for your application. It includes a light and dark theme with a predefined shape for widgets.
