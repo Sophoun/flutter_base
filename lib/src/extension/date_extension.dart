@@ -8,6 +8,7 @@ extension DateExtension on DateTime? {
   static const String ddMMyyyyHHmm = "dd-MM-yyyy HH:mm";
   static const String HHmmss = "HH:mm:ss";
   static const String HHmm = "HH:mm";
+  static const String HHmma = "HH:mm a";
   static const String ssmmHH = "ss:mm:HH";
   static const String ddMMyyyyTHHmmss = "dd-MM-yyyy'T'HH:mm:ss";
   static const String yyyyMMddTHHmmss = "yyyy-MM-dd'T'HH:mm:ss";
