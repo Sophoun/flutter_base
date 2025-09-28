@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 extension DateExtension on DateTime? {
   static const String ddMMyyyy = "dd-MM-yyyy";
   static const String ddMMyy = "dd-MM-yy";
