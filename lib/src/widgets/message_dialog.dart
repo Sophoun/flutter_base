@@ -35,7 +35,7 @@ class MessageDialog extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Theme.of(context).colorScheme.surfaceDim.withAlpha(alpha),
+        color: Colors.black.withAlpha(alpha),
         child: Center(
           child: Container(
             width: width,
@@ -72,7 +72,7 @@ class MessageDialog extends StatelessWidget {
   }
 
   double width = 230;
-  int alpha = 200;
+  int alpha = 100;
 
   Widget dialogTitle(BuildContext context) {
     return Text(
@@ -118,16 +118,16 @@ class MessageDialog extends StatelessWidget {
     return BoxDecoration(
       color: Theme.of(context).colorScheme.surfaceContainer,
       borderRadius: BorderRadius.circular(12),
-      boxShadow: [
-        BoxShadow(
-          color: Theme.of(
-            context,
-          ).colorScheme.surfaceDim.withValues(alpha: 0.5),
-          spreadRadius: 5,
-          blurRadius: 10,
-          offset: Offset(0, 5), // changes position of shadow
-        ),
-      ],
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: Theme.of(
+      //       context,
+      //     ).colorScheme.surfaceDim.withValues(alpha: 0.5),
+      //     spreadRadius: 5,
+      //     blurRadius: 10,
+      //     offset: Offset(0, 5), // changes position of shadow
+      //   ),
+      // ],
     );
   }
 }

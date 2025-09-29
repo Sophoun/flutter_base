@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       serviceLocator: diContainer,
       routerConfig: appRouter.config(),
       themeMode: ThemeMode.dark,
-      messageDialogWidget: DialgOverride(),
+      // messageDialogWidget: DialgOverride(),
     );
   }
 }
