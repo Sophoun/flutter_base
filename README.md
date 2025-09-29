@@ -315,6 +315,33 @@ void loadData() {
 }
 ```
 
+#### Either Extension (`toEither`)
+
+The `toEither` extension on `Future` provides a functional approach to handle asynchronous operations that can either succeed with a value (`Right`) or fail with an exception (`Left`). This is particularly useful for error handling in a more explicit and type-safe manner.
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+Future<String> fetchDataEither(bool shouldFail) async {
+  await Future.delayed(const Duration(seconds: 1));
+  if (shouldFail) {
+    throw Exception("Failed to fetch data!");
+  }
+  return "Data fetched successfully!";
+}
+
+void handleEitherExample() async {
+  // Example of a successful operation
+  final successResult = await fetchDataEither(false).toEither();
+  switch (successResult) {
+    case Right(value: final data):
+      print("Success: $data");
+    case Left(value: final error):
+      print("Error: ${error.toString()}");
+  }
+}
+```
+
 #### Dialogs and Toasts
 
 Show feedback to the user with simple function calls.
