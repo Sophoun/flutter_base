@@ -342,6 +342,49 @@ void handleEitherExample() async {
 }
 ```
 
+#### FutureEitherBindExtension Extension (`bind`)
+
+The `bind` extension on `Future<Either<R, L>>` allows you to chain multiple asynchronous operations that return an `Either`. The chain continues only if the previous operation was successful (returned a `Right`). If any operation fails (returns a `Left`), the entire chain is short-circuited, and the `Left` value is returned.
+
+This is useful for composing a sequence of operations where each step depends on the success of the previous one, such as fetching data, processing it, and then saving it.
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+// Simulate fetching a user ID
+Future<Either<int, Exception>> getUserId() {
+  return Future.value(Right(123));
+}
+
+// Simulate fetching user data based on an ID
+Future<Either<String, Exception>> fetchUserData(int userId) {
+  // Set to `true` to simulate a failure
+  bool shouldFail = false;
+  if (shouldFail) {
+    return Future.value(Left(Exception("Failed to fetch user data")));
+  }
+  return Future.value(Right("User data for ID: $userId"));
+}
+
+// Simulate processing the user data
+Future<Either<String, Exception>> processData(String userData) {
+  return Future.value(Right("Processed: $userData"));
+}
+
+void main() async {
+  final result = await getUserId()
+      .bind(fetchUserData)
+      .bind(processData);
+
+  switch (result) {
+    case Right(value: final data):
+      print("Success: $data"); // Success: Processed: User data for ID: 123
+    case Left(value: final error):
+      print("Error: ${error.toString()}");
+  }
+}
+```
+
 #### Dialogs and Toasts
 
 Show feedback to the user with simple function calls.
