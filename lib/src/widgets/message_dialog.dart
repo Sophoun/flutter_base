@@ -72,7 +72,7 @@ class MessageDialog extends StatelessWidget {
   }
 
   double width = 230;
-  int alpha = 50;
+  int alpha = 200;
 
   Widget dialogTitle(BuildContext context) {
     return Text(
