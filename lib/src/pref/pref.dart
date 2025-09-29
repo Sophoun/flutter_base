@@ -1,26 +1,16 @@
-import 'dart:developer';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Pref {
-  Pref._() {
-    SharedPreferences.getInstance()
-        .then((value) {
-          _preferences = value;
-        })
-        .catchError((e) {
-          log(e.toString());
-        });
-  }
+  Pref._(this._preferences);
 
   SharedPreferences? _preferences;
 
   static Pref? _pref;
 
   /// Initialize shared preferences
-  factory Pref.init() {
-    _pref ??= Pref._();
-    return _pref!;
+  static Future<void> init() async {
+    _pref ??= Pref._(await SharedPreferences.getInstance());
+    _pref!;
   }
 
   /// Expose the instance
