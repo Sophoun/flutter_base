@@ -152,4 +152,18 @@ extension DateExtension on DateTime? {
 
     return result;
   }
+
+  /// Checks if the difference (absolute value) between this DateTime and another
+  /// DateTime exceeds the specified minute threshold.
+  bool differsByMoreThan(DateTime other, int minuteThreshold) {
+    if (this == null) return false;
+    // 1. Calculate the difference (Duration) between the two times.
+    final duration = this!.difference(other);
+
+    // 2. Get the absolute total difference in minutes.
+    final minutesDifference = duration.abs().inMinutes;
+
+    // 3. Compare the difference to the threshold.
+    return minutesDifference > minuteThreshold;
+  }
 }

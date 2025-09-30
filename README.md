@@ -664,9 +664,7 @@ The `DateExtension` provides a convenient way to format `DateTime` objects into 
 | Method | Description |
 | --- | --- |
 | `format(String format)` | Formats a `DateTime` object into a string using a custom format. |
-| `toDDMMYY({String seperator})` | Formats a `DateTime` object into a "dd-MM-yy" string. |
-| `toDDMMYYYY({String seperator})` | Formats a `DateTime` object into a "dd-MM-yyyy" string. |
-| `toDDMMYYYYHHMM({String seperator})` | Formats a `DateTime` object into a "dd-MM-yyyy HH:mm" string. |
+| `differsByMoreThan(DateTime other, int minuteThreshold)` | Checks if the difference between two `DateTime` objects exceeds a specified minute threshold. |
 
 **Usage:**
 
@@ -678,6 +676,10 @@ final now = DateTime.now();
 
 print(now.format(DateExtension.ddMMyyyy)); // 28-09-2025
 print(now.format(DateExtension.EEEEddMMyyyy)); // Sunday, 28 September 2025
+
+final later = now.add(const Duration(minutes: 15));
+print(later.differsByMoreThan(now, 10)); // true
+print(later.differsByMoreThan(now, 20)); // false
 ```
 
 **Available Format Constants:**
