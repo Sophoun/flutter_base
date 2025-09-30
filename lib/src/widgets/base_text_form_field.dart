@@ -30,7 +30,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     controller ??= TextEditingController(
       text: converter == null
           ? value.value.toString()
-          : converter!.fromValue(value.value),
+          : converter?.fromValue?.call(value.value),
     );
     // Listen value change from outside
     value.addListener(outsideTextChangesListener);
@@ -50,7 +50,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   late TextEditingController? controller;
   final TextInputType keyboardType;
   InputDecoration? decoration;
-  final Converter? converter;
+  final Converter<T>? converter;
   final String label;
   final String hint;
   final String? errorText;
@@ -70,7 +70,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   void outsideTextChangesListener() {
     controller?.value = converter == null
         ? TextEditingValue(text: value.value.toString())
-        : TextEditingValue(text: converter!.fromValue(value.value));
+        : TextEditingValue(text: converter?.fromValue?.call(value.value) ?? "");
   }
 
   @override
@@ -85,9 +85,11 @@ class BaseTextFormField<T> extends StatelessWidget {
         value.removeListener(outsideTextChangesListener);
         // Update value
         try {
-          value.value = converter == null
-              ? newValue
-              : converter?.toValue?.call(newValue) ?? newValue;
+          value.value =
+              (converter == null
+                      ? newValue
+                      : converter?.toValue?.call(newValue))
+                  as T?;
         } catch (e) {
           throw Exception(
             "Please, provide `converter` property to convert value from string to ${T.toString()}",
@@ -110,7 +112,7 @@ class BaseTextFormField<T> extends StatelessWidget {
 }
 
 class Converter<T> {
-  Converter({required this.fromValue, this.toValue});
-  final String Function(T value) fromValue;
+  Converter({this.fromValue, this.toValue});
+  final String Function(T? value)? fromValue;
   T Function(String? value)? toValue;
 }
