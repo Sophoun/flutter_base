@@ -106,6 +106,7 @@ class HomePage extends StatelessWidget {
               helperText: "Only number allowed.",
               autofocus: true,
               onChanged: (value) => _inputDebounce.run(() => log(value)),
+              onTap: () => log("Tapped"),
             ),
           ),
           homeVm.mockValue.builder(build: (value) => Text(value ?? "")),
