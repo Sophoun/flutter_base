@@ -87,7 +87,7 @@ class BaseTextFormField<T> extends StatelessWidget {
         try {
           value.value = converter == null
               ? newValue
-              : converter!.toValue(newValue);
+              : converter?.toValue?.call(newValue) ?? newValue;
         } catch (e) {
           throw Exception(
             "Please, provide `converter` property to convert value from string to ${T.toString()}",
@@ -110,7 +110,7 @@ class BaseTextFormField<T> extends StatelessWidget {
 }
 
 class Converter<T> {
-  Converter({required this.fromValue, required this.toValue});
+  Converter({required this.fromValue, this.toValue});
   final String Function(T value) fromValue;
-  T Function(String? value) toValue;
+  T Function(String? value)? toValue;
 }
