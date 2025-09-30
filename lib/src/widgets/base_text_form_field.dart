@@ -27,6 +27,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.onTapOutside,
+    this.focusNode,
   }) {
     // Controller
     controller ??= TextEditingController(
@@ -69,6 +70,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   final void Function(String value)? onChanged;
   final void Function()? onTap;
   final void Function(PointerDownEvent)? onTapOutside;
+  final FocusNode? focusNode;
 
   /// Listen text change from the outside
   void outsideTextChangesListener() {
@@ -113,6 +115,7 @@ class BaseTextFormField<T> extends StatelessWidget {
       style: style,
       onTap: onTap,
       onTapOutside: onTapOutside,
+      focusNode: focusNode,
     );
   }
 }
