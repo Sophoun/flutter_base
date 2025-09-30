@@ -46,11 +46,11 @@ class EitherException implements Exception {
   final String code;
   final String message;
 
-  EitherException(this.code, this.message);
+  EitherException({this.code = "", required this.message});
 
   @override
   String toString() {
-    return "$code - $message";
+    return "${code.isEmpty ? '' : '$code - '}$message";
   }
 }
 

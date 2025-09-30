@@ -342,6 +342,58 @@ void handleEitherExample() async {
 }
 ```
 
+#### EitherException
+
+The `EitherException` is a custom exception class that can be used with the `toEither` extension. It allows you to provide a `code` and a `message` for the exception.
+
+```dart
+class EitherException implements Exception {
+  final String code;
+  final String message;
+
+  EitherException({this.code = "", required this.message});
+
+  @override
+  String toString() {
+    return "${code.isEmpty ? '' : '$code - '}$message";
+  }
+}
+```
+
+You can throw an `EitherException` in your `Future` and it will be caught by the `toEither` extension and returned as a `Left` value.
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+Future<String> fetchDataEither(bool shouldFail) async {
+  await Future.delayed(const Duration(seconds: 1));
+  if (shouldFail) {
+    throw EitherException(code: "E404", message: "Failed to fetch data!");
+  }
+  return "Data fetched successfully!";
+}
+
+void handleEitherExample() async {
+  // Example of a successful operation
+  final successResult = await fetchDataEither(false).toEither();
+  switch (successResult) {
+    case Right(value: final data):
+      print("Success: $data");
+    case Left(value: final error):
+      print("Error: ${error.toString()}");
+  }
+
+  // Example of a failed operation
+  final failedResult = await fetchDataEither(true).toEither<String, EitherException>();
+  switch (failedResult) {
+    case Right(value: final data):
+      print("Success: $data");
+    case Left(value: final error):
+      print("Error: ${error.toString()}"); // Prints "Error: E404 - Failed to fetch data!"
+  }
+}
+```
+
 #### FutureEitherBindExtension Extension (`bind`)
 
 The `bind` extension on `Future<Either<R, L>>` allows you to chain multiple asynchronous operations that return an `Either`. The chain continues only if the previous operation was successful (returned a `Right`). If any operation fails (returns a `Left`), the entire chain is short-circuited, and the `Left` value is returned.
