@@ -41,8 +41,21 @@ class Left<R, L> extends Either<R, L> {
   Left(this.value);
 }
 
+/// Either exception
+class EitherException implements Exception {
+  final String code;
+  final String message;
+
+  EitherException(this.code, this.message);
+
+  @override
+  String toString() {
+    return "$code - $message";
+  }
+}
+
 // L is constrained to be an Exception, as you intended to catch errors.
-extension EitherExtension<R, L extends Exception> on Future<R> {
+extension EitherExtension<R, L extends EitherException> on Future<R> {
   // The method now returns Future<Either<R, L>>
   Future<Either<R, L>> toEither({
     void Function()? onStart,
