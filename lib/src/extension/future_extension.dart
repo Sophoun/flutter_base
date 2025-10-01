@@ -73,22 +73,30 @@ extension EitherExtension<R, L extends EitherException> on Future<R> {
         return Left(e);
       }
 
-      // if (e is Exception) {
-      //   return Left(
-      //     EitherException(
-      //           message: e
-      //               .toString()
-      //               .replaceFirst("Exception: ", "")
-      //               .replaceFirst("Exception", ""),
-      //         )
-      //         as L,
-      //   );
-      // }
+      try {
+        /// Try cast to L
+        if (e is EitherException) {
+          return Left(e as L);
+        }
 
-      // If the caught object is not of type L,
-      // we must re-throw it or handle it as a different error type.
-      // Re-throwing is safer than an incorrect cast.
-      rethrow;
+        /// Rewrite exception message
+        if (e is Exception) {
+          return Left(
+            EitherException(
+                  message: e
+                      .toString()
+                      .replaceFirst("Exception: ", "")
+                      .replaceFirst("Exception", ""),
+                )
+                as L,
+          );
+        }
+      } catch (_) {
+        // If the caught object is not of type L,
+        // we must re-throw it or handle it as a different error type.
+        // Re-throwing is safer than an incorrect cast.
+        rethrow;
+      }
     } finally {
       onEnd?.call();
     }
