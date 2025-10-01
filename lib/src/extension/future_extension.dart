@@ -91,12 +91,11 @@ extension EitherExtension<R, L extends EitherException> on Future<R> {
                 as L,
           );
         }
-      } catch (_) {
-        // If the caught object is not of type L,
-        // we must re-throw it or handle it as a different error type.
-        // Re-throwing is safer than an incorrect cast.
-        rethrow;
-      }
+      } catch (_) {}
+      // If the caught object is not of type L,
+      // we must re-throw it or handle it as a different error type.
+      // Re-throwing is safer than an incorrect cast.
+      rethrow;
     } finally {
       onEnd?.call();
     }
