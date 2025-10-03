@@ -657,8 +657,36 @@ class DesktopView extends StatelessWidget {
 }
 ```
 
-### 9. Date Extension
+### 9. String Extension
 
+The `StringExtension` provides convenient methods for handling nullable or empty strings.
+
+| Method   | Description                               |
+| -------- | ----------------------------------------- |
+| `orNull` | Returns `null` if the string is null or empty, otherwise returns the string itself. |
+| `orEmpty`| Returns an empty string if the string is null, otherwise returns the string itself. |
+
+**Usage:**
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+// orNull Example
+String? emptyString = "";
+String? nullString = null;
+String? validString = "hello";
+
+print(emptyString.orNull); // null
+print(nullString.orNull);  // null
+print(validString.orNull); // "hello"
+
+// orEmpty Example
+print(emptyString.orEmpty); // ""
+print(nullString.orEmpty);  // ""
+print(validString.orEmpty); // "hello"
+```
+
+### 10. Date Extension
 The `DateExtension` provides a convenient way to format `DateTime` objects into strings.
 
 | Method | Description |

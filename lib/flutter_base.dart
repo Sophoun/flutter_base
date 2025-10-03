@@ -16,6 +16,7 @@ export 'src/extension/context_extension.dart';
 export 'src/extension/future_extension.dart';
 export 'src/extension/number_extension.dart';
 export 'src/extension/date_extension.dart';
+export 'src/extension/string_extension.dart';
 
 // Theme
 export 'src/theme/base_theme.dart';
