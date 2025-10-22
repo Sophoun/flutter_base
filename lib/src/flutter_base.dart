@@ -13,6 +13,7 @@ class FlutterBase extends StatelessWidget {
     this.routerConfig,
     this.routeInformationParser,
     this.routeInformationProvider,
+    this.routerDelegate,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
     this.theme,
@@ -50,6 +51,7 @@ class FlutterBase extends StatelessWidget {
   final RouterConfig<Object>? routerConfig;
   final RouteInformationParser<Object>? routeInformationParser;
   final RouteInformationProvider? routeInformationProvider;
+  final RouterDelegate<Object>? routerDelegate;
   late ThemeData? theme;
   late ThemeData? darkTheme;
   late ThemeMode? themeMode;
@@ -66,6 +68,7 @@ class FlutterBase extends StatelessWidget {
       routerConfig: routerConfig,
       routeInformationParser: routeInformationParser,
       routeInformationProvider: routeInformationProvider,
+      routerDelegate: routerDelegate,
       builder: (context, child) => LocalizeInherited(
         register: locale!,
         child: Stack(
