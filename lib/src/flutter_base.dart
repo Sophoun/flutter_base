@@ -11,6 +11,8 @@ class FlutterBase extends StatelessWidget {
     this.loadingWidget = const LoadingIndicator(),
     this.serviceLocator,
     this.routerConfig,
+    this.routeInformationParser,
+    this.routeInformationProvider,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
     this.theme,
@@ -46,6 +48,8 @@ class FlutterBase extends StatelessWidget {
   final ServiceLocator? serviceLocator;
 
   final RouterConfig<Object>? routerConfig;
+  final RouteInformationParser<Object>? routeInformationParser;
+  final RouteInformationProvider? routeInformationProvider;
   late ThemeData? theme;
   late ThemeData? darkTheme;
   late ThemeMode? themeMode;
@@ -60,6 +64,8 @@ class FlutterBase extends StatelessWidget {
       darkTheme: darkTheme,
       themeMode: themeMode,
       routerConfig: routerConfig,
+      routeInformationParser: routeInformationParser,
+      routeInformationProvider: routeInformationProvider,
       builder: (context, child) => LocalizeInherited(
         register: locale!,
         child: Stack(
