@@ -32,3 +32,4 @@ export 'src/commons/logger.dart';
 export 'src/widgets/base_text_form_field.dart';
 export 'src/widgets/message_dialog.dart';
 export 'src/widgets/responsive.dart';
+export 'src/widgets/image_url_memory.dart';
