@@ -47,14 +47,6 @@ class HomePage extends StatelessWidget {
           Text(DateTime.now().format(DateExtension.ddMMyy)),
           Text(DateTime.now().format(DateExtension.ddMMyyyy_hhmma)),
           Text(DateTime.now().format(DateExtension.ddMMyyyy_hhmms_a)),
-          ImageUrlMemory(
-            url:
-                // "https://i.pinimg.com/originals/0c/64/9a/0c649a17ec1e5f5ca340248b4ef4e4be.gif",
-                // "https://cdn-useast1.kapwing.com/static/templates/crying-cat-meme-template-full-719a53dc.webp",
-                "https://uat2-oss-service.princebank.com.kh/ossFile/sgmbbucket/cdn/pay_category/iconMobile.png",
-            width: 100,
-            height: 100,
-          ),
           ElevatedButton(
             onPressed: () {
               homeVm.tryShowLoading();
