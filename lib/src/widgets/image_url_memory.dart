@@ -77,7 +77,7 @@ class ImageUrlMemory extends StatelessWidget {
       builder: (context, snapshot) {
         final value = snapshot.data;
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         }
 
         return Image.memory(
