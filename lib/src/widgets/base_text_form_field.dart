@@ -130,10 +130,20 @@ class Converter<T> {
 class BaseTextFormFileldInputFilters {
   BaseTextFormFileldInputFilters._();
 
-  /// Allow only 2 decimal formater
+  /// Allow only 2 decimal formater or any value you need
   static List<TextInputFormatter> decimalOnly({int decimalPlaces = 2}) {
-    final regex = "^\\d*\\.?\\d{0,$decimalPlaces}\$";
-    return [FilteringTextInputFormatter.allow(RegExp("r$regex"))];
+    final regexString = r'^\d+\.?\d{0,' + decimalPlaces.toString() + r'}';
+    return [
+      FilteringTextInputFormatter.allow(RegExp(regexString)),
+      TextInputFormatter.withFunction((oldValue, newValue) {
+        final text = newValue.text;
+        return text.isEmpty
+            ? newValue
+            : double.tryParse(text) == null
+            ? oldValue
+            : newValue;
+      }),
+    ];
   }
 
   /// Allow only positive number
