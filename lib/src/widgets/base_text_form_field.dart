@@ -120,8 +120,25 @@ class BaseTextFormField<T> extends StatelessWidget {
   }
 }
 
+/// Value converter for BaseTextFormField
 class Converter<T> {
   Converter({this.fromValue, this.toValue});
   final String Function(T? value)? fromValue;
   T Function(String? value)? toValue;
+}
+
+class BaseTextFormFileldInputFilters {
+  /// Allow only 2 decimal formater
+  static List<TextInputFormatter> decimalOnly({int decimalPlaces = 2}) {
+    final regex = "^\\d*\\.?\\d{0,$decimalPlaces}\$";
+    return [FilteringTextInputFormatter.allow(RegExp("r$regex"))];
+  }
+
+  /// Allow only positive number
+  static List<TextInputFormatter> get positiveNumber {
+    return [
+      FilteringTextInputFormatter.singleLineFormatter,
+      FilteringTextInputFormatter.digitsOnly,
+    ];
+  }
 }
