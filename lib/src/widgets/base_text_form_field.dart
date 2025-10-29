@@ -128,6 +128,8 @@ class Converter<T> {
 }
 
 class BaseTextFormFileldInputFilters {
+  BaseTextFormFileldInputFilters._();
+
   /// Allow only 2 decimal formater
   static List<TextInputFormatter> decimalOnly({int decimalPlaces = 2}) {
     final regex = "^\\d*\\.?\\d{0,$decimalPlaces}\$";
