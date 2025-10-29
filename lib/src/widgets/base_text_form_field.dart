@@ -132,7 +132,9 @@ class BaseTextFormFileldInputFilters {
 
   /// Allow only 2 decimal formater or any value you need
   static List<TextInputFormatter> decimalOnly({int decimalPlaces = 2}) {
-    final regexString = r'^\d+\.?\d{0,' + decimalPlaces.toString() + r'}';
+    final regexString = decimalPlaces <= 0
+        ? r'^\d*'
+        : r'^\d+\.?\d{0,' + decimalPlaces.toString() + r'}';
     return [
       FilteringTextInputFormatter.allow(RegExp(regexString)),
       TextInputFormatter.withFunction((oldValue, newValue) {
