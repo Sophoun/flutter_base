@@ -60,4 +60,10 @@ extension NumberExtension on num? {
       return null;
     }
   }
+
+  /// To unix timestamp second
+  num toUnixTimestampSecond() {
+    if (this == null) return 0;
+    return this! * 1000;
+  }
 }
