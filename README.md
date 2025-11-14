@@ -87,7 +87,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterBase(
       // (Optional) Set the design size for responsive UI
-      designSize: const Size(360, 690), 
+      designSize: const Size(360, 690),
+      // (Optional) Set the maximum screen size of your app.
+      screenSize: const Size(360, 690), 
       
       // Register your dependencies
       serviceLocator: setupServiceLocator(), 
@@ -687,6 +689,7 @@ print(validString.orEmpty); // "hello"
 ```
 
 ### 10. Date Extension
+
 The `DateExtension` provides a convenient way to format `DateTime` objects into strings.
 
 | Method | Description |

@@ -16,6 +16,7 @@ class FlutterBase extends StatelessWidget {
     this.routerDelegate,
     this.messageDialogWidget,
     this.designSize = const Size(360, 690),
+    this.screenSize,
     this.theme,
     this.darkTheme,
     this.themeMode,
@@ -41,6 +42,7 @@ class FlutterBase extends StatelessWidget {
   final Widget loadingWidget;
   final MessageDialog? messageDialogWidget;
   final Size designSize;
+  final Size? screenSize;
 
   /// A Service Locator that hold all registered dependencies
   /// from the outside.
@@ -58,7 +60,7 @@ class FlutterBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: designSize);
+    ScreenUtil.init(context, designSize: designSize, screenSize: screenSize);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       scaffoldMessengerKey: globalScaffoldMessengerKey,
