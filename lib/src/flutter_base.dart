@@ -64,7 +64,7 @@ class FlutterBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: designSize, screenSize: screenSize);
-    return body == null
+    return body != null
         ? MaterialApp(
             debugShowCheckedModeBanner: false,
             scaffoldMessengerKey: globalScaffoldMessengerKey,
