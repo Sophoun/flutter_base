@@ -20,6 +20,7 @@ class FlutterBase extends StatelessWidget {
     this.theme,
     this.darkTheme,
     this.themeMode,
+    this.body,
   }) {
     /// Assign theme if it's missing
     theme ??= BaseTheme.light;
@@ -58,48 +59,90 @@ class FlutterBase extends StatelessWidget {
   late ThemeData? darkTheme;
   late ThemeMode? themeMode;
 
+  final Widget? body;
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, designSize: designSize, screenSize: screenSize);
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      scaffoldMessengerKey: globalScaffoldMessengerKey,
-      theme: theme,
-      darkTheme: darkTheme,
-      themeMode: themeMode,
-      routerConfig: routerConfig,
-      routeInformationParser: routeInformationParser,
-      routeInformationProvider: routeInformationProvider,
-      routerDelegate: routerDelegate,
-      builder: (context, child) => LocalizeInherited(
-        register: locale!,
-        child: Stack(
-          textDirection: TextDirection.rtl,
-          children: [
-            child ?? SizedBox.shrink(),
-            StreamBuilder(
-              stream: messageDialog.stream,
-              builder: (context, value) {
-                final message = messageDialogWidget ?? MessageDialog();
-                message.setData(value.data?.value);
-                return Visibility(
-                  key: UniqueKey(),
-                  visible: value.data?.key == true,
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: message,
-                  ),
-                );
-              },
+    return body == null
+        ? MaterialApp(
+            debugShowCheckedModeBanner: false,
+            scaffoldMessengerKey: globalScaffoldMessengerKey,
+            theme: theme,
+            darkTheme: darkTheme,
+            themeMode: themeMode,
+            builder: (context, child) => _BuildLocalize(
+              locale: locale,
+              messageDialogWidget: messageDialogWidget,
+              loadingWidget: loadingWidget,
+              child: child,
             ),
-            ValueListenableBuilder(
-              valueListenable: isAppLoading,
-              builder: (context, value, child) {
-                return Visibility(visible: value, child: loadingWidget);
-              },
+            home: body,
+          )
+        : MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            scaffoldMessengerKey: globalScaffoldMessengerKey,
+            theme: theme,
+            darkTheme: darkTheme,
+            themeMode: themeMode,
+            routerConfig: routerConfig,
+            routeInformationParser: routeInformationParser,
+            routeInformationProvider: routeInformationProvider,
+            routerDelegate: routerDelegate,
+            builder: (context, child) => _BuildLocalize(
+              locale: locale,
+              messageDialogWidget: messageDialogWidget,
+              loadingWidget: loadingWidget,
+              child: child,
             ),
-          ],
-        ),
+          );
+  }
+}
+
+/// Build localize
+class _BuildLocalize extends StatelessWidget {
+  const _BuildLocalize({
+    this.locale,
+    this.child,
+    this.messageDialogWidget,
+    required this.loadingWidget,
+  });
+
+  final LocaleRegister<AppLocalize>? locale;
+  final Widget? child;
+  final MessageDialog? messageDialogWidget;
+  final Widget loadingWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    return LocalizeInherited(
+      register: locale!,
+      child: Stack(
+        textDirection: TextDirection.rtl,
+        children: [
+          child ?? SizedBox.shrink(),
+          StreamBuilder(
+            stream: messageDialog.stream,
+            builder: (context, value) {
+              final message = messageDialogWidget ?? MessageDialog();
+              message.setData(value.data?.value);
+              return Visibility(
+                key: UniqueKey(),
+                visible: value.data?.key == true,
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: message,
+                ),
+              );
+            },
+          ),
+          ValueListenableBuilder(
+            valueListenable: isAppLoading,
+            builder: (context, value, child) {
+              return Visibility(visible: value, child: loadingWidget);
+            },
+          ),
+        ],
       ),
     );
   }
