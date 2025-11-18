@@ -75,8 +75,18 @@ class BaseTextFormField<T> extends StatelessWidget {
   /// Listen text change from the outside
   void outsideTextChangesListener() {
     controller?.value = converter == null
-        ? TextEditingValue(text: value.value.toString())
-        : TextEditingValue(text: converter?.fromValue?.call(value.value) ?? "");
+        ? TextEditingValue(
+            text: value.value.toString(),
+            selection: TextSelection.collapsed(
+              offset: value.value.toString().length,
+            ),
+          )
+        : TextEditingValue(
+            text: converter?.fromValue?.call(value.value) ?? "",
+            selection: TextSelection.collapsed(
+              offset: value.value.toString().length,
+            ),
+          );
   }
 
   @override
