@@ -23,3 +23,18 @@ extension ThemeExtension on BuildContext? {
   /// Get button theme
   ButtonThemeData? get buttonTheme => theme?.buttonTheme;
 }
+
+/// Keyboard extension
+extension KeyboardExtension on BuildContext? {
+  /// Hide keyboard
+  void hideKeyboard() {
+    if (this == null) return;
+    FocusScope.of(this!).unfocus();
+  }
+
+  /// Show keyboard
+  void showKeyboard(FocusNode? focusNode) {
+    if (this == null) return;
+    FocusScope.of(this!).requestFocus(focusNode ?? FocusNode());
+  }
+}
