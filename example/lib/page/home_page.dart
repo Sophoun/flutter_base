@@ -107,6 +107,7 @@ class HomePage extends StatelessWidget {
               autofocus: true,
               onChanged: (value) => _inputDebounce.run(() => log(value)),
               onTap: () => log("Tapped"),
+              onTapOutside: (_) => context.hideKeyboard(),
             ),
           ),
           homeVm.mockValue.builder(build: (value) => Text(value ?? "")),

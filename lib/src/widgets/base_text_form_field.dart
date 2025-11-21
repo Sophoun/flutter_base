@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 /// Provide the base form field to easy handle with value notifier
 // ignore: must_be_immutable
-class BaseTextFormField<T> extends StatelessWidget {
+class BaseTextFormField<T> extends StatefulWidget {
   BaseTextFormField({
     super.key,
     required this.value,
@@ -30,15 +30,6 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.focusNode,
     this.showCursor,
   }) {
-    // Controller
-    controller ??= TextEditingController(
-      text: converter == null
-          ? value.value.toString()
-          : converter?.fromValue?.call(value.value),
-    );
-    // Listen value change from outside
-    value.addListener(outsideTextChangesListener);
-
     // Decoration
     decoration ??= InputDecoration(
       labelText: label,
@@ -74,40 +65,66 @@ class BaseTextFormField<T> extends StatelessWidget {
   FocusNode? focusNode;
   final bool? showCursor;
 
+  @override
+  State<BaseTextFormField<T>> createState() => _BaseTextFormFieldState<T>();
+}
+
+class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
   /// Listen text change from the outside
   void outsideTextChangesListener() {
-    controller?.value = converter == null
+    widget.controller?.value = widget.converter == null
         ? TextEditingValue(
-            text: value.value.toString(),
+            text: widget.value.value.toString(),
             selection: TextSelection.collapsed(
-              offset: value.value.toString().length,
+              offset: widget.value.value.toString().length,
             ),
           )
         : TextEditingValue(
-            text: converter?.fromValue?.call(value.value) ?? "",
+            text: widget.converter?.fromValue?.call(widget.value.value) ?? "",
             selection: TextSelection.collapsed(
-              offset: value.value.toString().length,
+              offset: widget.value.value.toString().length,
             ),
           );
   }
 
   @override
+  void initState() {
+    super.initState();
+    // Controller
+    widget.controller ??= TextEditingController(
+      text: widget.converter == null
+          ? widget.value.value.toString()
+          : widget.converter?.fromValue?.call(widget.value.value),
+    );
+
+    // Listen value change from outside
+    widget.value.addListener(outsideTextChangesListener);
+  }
+
+  @override
+  void dispose() {
+    widget.value.removeListener(outsideTextChangesListener);
+    widget.controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      autofocus: autofocus,
-      decoration: decoration,
-      showCursor: showCursor,
+      controller: widget.controller,
+      keyboardType: widget.keyboardType,
+      autofocus: widget.autofocus,
+      decoration: widget.decoration,
+      showCursor: widget.showCursor,
       onChanged: (newValue) {
         // Remove outside lister first
-        value.removeListener(outsideTextChangesListener);
+        widget.value.removeListener(outsideTextChangesListener);
         // Update value
         try {
-          value.value =
-              (converter == null
+          widget.value.value =
+              (widget.converter == null
                       ? newValue
-                      : converter?.toValue?.call(newValue))
+                      : widget.converter?.toValue?.call(newValue))
                   as T?;
         } catch (e) {
           throw Exception(
@@ -115,20 +132,20 @@ class BaseTextFormField<T> extends StatelessWidget {
           );
         }
         // Add listener back when value updated
-        value.addListener(outsideTextChangesListener);
+        widget.value.addListener(outsideTextChangesListener);
 
         /// Invoke onChnaged to listener
-        onChanged?.call(newValue);
+        widget.onChanged?.call(newValue);
       },
-      validator: valildator,
-      inputFormatters: inputFormatters,
-      readOnly: readOnly,
-      enabled: enabled,
-      textAlign: textAlign,
-      style: style,
-      onTap: onTap,
-      onTapOutside: onTapOutside,
-      focusNode: focusNode,
+      validator: widget.valildator,
+      inputFormatters: widget.inputFormatters,
+      readOnly: widget.readOnly,
+      enabled: widget.enabled,
+      textAlign: widget.textAlign,
+      style: widget.style,
+      onTap: widget.onTap,
+      onTapOutside: widget.onTapOutside,
+      focusNode: widget.focusNode,
     );
   }
 }
