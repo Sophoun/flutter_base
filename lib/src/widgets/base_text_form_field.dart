@@ -48,9 +48,6 @@ class BaseTextFormField<T> extends StatelessWidget {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
     );
-
-    /// Focus node
-    focusNode ??= FocusNode();
   }
 
   final ValueNotifier<T?> value;
@@ -96,47 +93,42 @@ class BaseTextFormField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        focusNode?.requestFocus();
-      },
-      child: TextFormField(
-        controller: controller,
-        keyboardType: keyboardType,
-        autofocus: autofocus,
-        decoration: decoration,
-        showCursor: showCursor,
-        onChanged: (newValue) {
-          // Remove outside lister first
-          value.removeListener(outsideTextChangesListener);
-          // Update value
-          try {
-            value.value =
-                (converter == null
-                        ? newValue
-                        : converter?.toValue?.call(newValue))
-                    as T?;
-          } catch (e) {
-            throw Exception(
-              "Please, provide `converter` property to convert value from string to ${T.toString()}",
-            );
-          }
-          // Add listener back when value updated
-          value.addListener(outsideTextChangesListener);
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      autofocus: autofocus,
+      decoration: decoration,
+      showCursor: showCursor,
+      onChanged: (newValue) {
+        // Remove outside lister first
+        value.removeListener(outsideTextChangesListener);
+        // Update value
+        try {
+          value.value =
+              (converter == null
+                      ? newValue
+                      : converter?.toValue?.call(newValue))
+                  as T?;
+        } catch (e) {
+          throw Exception(
+            "Please, provide `converter` property to convert value from string to ${T.toString()}",
+          );
+        }
+        // Add listener back when value updated
+        value.addListener(outsideTextChangesListener);
 
-          /// Invoke onChnaged to listener
-          onChanged?.call(newValue);
-        },
-        validator: valildator,
-        inputFormatters: inputFormatters,
-        readOnly: readOnly,
-        enabled: enabled,
-        textAlign: textAlign,
-        style: style,
-        onTap: onTap,
-        onTapOutside: onTapOutside,
-        focusNode: focusNode,
-      ),
+        /// Invoke onChnaged to listener
+        onChanged?.call(newValue);
+      },
+      validator: valildator,
+      inputFormatters: inputFormatters,
+      readOnly: readOnly,
+      enabled: enabled,
+      textAlign: textAlign,
+      style: style,
+      onTap: onTap,
+      onTapOutside: onTapOutside,
+      focusNode: focusNode,
     );
   }
 }
