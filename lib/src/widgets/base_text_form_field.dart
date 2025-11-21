@@ -28,6 +28,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.onTap,
     this.onTapOutside,
     this.focusNode,
+    this.showCursor,
   }) {
     // Controller
     controller ??= TextEditingController(
@@ -47,6 +48,12 @@ class BaseTextFormField<T> extends StatelessWidget {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
     );
+
+    /// Focus node
+    focusNode ??= FocusNode();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      focusNode?.requestFocus();
+    });
   }
 
   final ValueNotifier<T?> value;
@@ -70,7 +77,8 @@ class BaseTextFormField<T> extends StatelessWidget {
   final void Function(String value)? onChanged;
   final void Function()? onTap;
   final void Function(PointerDownEvent)? onTapOutside;
-  final FocusNode? focusNode;
+  FocusNode? focusNode;
+  final bool? showCursor;
 
   /// Listen text change from the outside
   void outsideTextChangesListener() {
@@ -96,6 +104,7 @@ class BaseTextFormField<T> extends StatelessWidget {
       keyboardType: keyboardType,
       autofocus: autofocus,
       decoration: decoration,
+      showCursor: showCursor,
       onChanged: (newValue) {
         // Remove outside lister first
         value.removeListener(outsideTextChangesListener);
