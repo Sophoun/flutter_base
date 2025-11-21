@@ -30,6 +30,7 @@ class BaseTextFormField<T> extends StatefulWidget {
     this.onTapOutside,
     this.focusNode,
     this.showCursor,
+    this.selectAllOnFocus,
   }) {
     // Decoration
     decoration ??= InputDecoration(
@@ -64,6 +65,7 @@ class BaseTextFormField<T> extends StatefulWidget {
   final void Function(PointerDownEvent)? onTapOutside;
   FocusNode? focusNode;
   final bool? showCursor;
+  final bool? selectAllOnFocus;
 
   @override
   State<BaseTextFormField<T>> createState() => _BaseTextFormFieldState<T>();
@@ -112,6 +114,7 @@ class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
     return TextFormField(
       controller: controller,
       keyboardType: widget.keyboardType,
+      selectAllOnFocus: widget.selectAllOnFocus,
       autofocus: widget.autofocus,
       decoration: widget.decoration,
       showCursor: widget.showCursor,
