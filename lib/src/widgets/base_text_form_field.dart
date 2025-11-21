@@ -18,7 +18,7 @@ class BaseTextFormField<T> extends StatelessWidget {
     this.inputFormatters,
     this.helperText,
     this.readOnly = false,
-    this.enabled = true,
+    this.enabled,
     this.prefixIcon,
     this.suffixIcon,
     this.textAlign = TextAlign.start,
@@ -62,7 +62,7 @@ class BaseTextFormField<T> extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final String? helperText;
   final bool readOnly;
-  final bool enabled;
+  bool? enabled;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextAlign textAlign;
