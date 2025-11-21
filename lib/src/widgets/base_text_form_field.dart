@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,7 +10,6 @@ class BaseTextFormField<T> extends StatefulWidget {
     super.key,
     required this.value,
     this.converter,
-    this.controller,
     this.keyboardType = TextInputType.text,
     this.decoration,
     this.label = "",
@@ -42,7 +43,6 @@ class BaseTextFormField<T> extends StatefulWidget {
   }
 
   final ValueNotifier<T?> value;
-  late TextEditingController? controller;
   final TextInputType keyboardType;
   InputDecoration? decoration;
   final Converter<T>? converter;
@@ -70,28 +70,27 @@ class BaseTextFormField<T> extends StatefulWidget {
 }
 
 class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
+  TextEditingController? controller;
+
   /// Listen text change from the outside
   void outsideTextChangesListener() {
-    widget.controller?.value = widget.converter == null
-        ? TextEditingValue(
-            text: widget.value.value.toString(),
-            selection: TextSelection.collapsed(
-              offset: widget.value.value.toString().length,
-            ),
-          )
-        : TextEditingValue(
-            text: widget.converter?.fromValue?.call(widget.value.value) ?? "",
-            selection: TextSelection.collapsed(
-              offset: widget.value.value.toString().length,
-            ),
-          );
+    log("changes: ${widget.label}, ${widget.value.value}");
+    // Update value
+    controller?.value = TextEditingValue(
+      text: widget.converter == null
+          ? widget.value.value.toString()
+          : widget.converter?.fromValue?.call(widget.value.value) ?? "",
+      selection: TextSelection.collapsed(
+        offset: widget.value.value.toString().length,
+      ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
     // Controller
-    widget.controller ??= TextEditingController(
+    controller = TextEditingController(
       text: widget.converter == null
           ? widget.value.value.toString()
           : widget.converter?.fromValue?.call(widget.value.value),
@@ -104,14 +103,14 @@ class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
   @override
   void dispose() {
     widget.value.removeListener(outsideTextChangesListener);
-    widget.controller?.dispose();
+    controller?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: widget.controller,
+      controller: controller,
       keyboardType: widget.keyboardType,
       autofocus: widget.autofocus,
       decoration: widget.decoration,
