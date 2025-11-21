@@ -48,12 +48,6 @@ class BaseTextFormField<T> extends StatelessWidget {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
     );
-
-    /// Focus node
-    focusNode ??= FocusNode();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      focusNode?.requestFocus();
-    });
   }
 
   final ValueNotifier<T?> value;
