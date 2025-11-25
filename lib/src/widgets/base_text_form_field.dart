@@ -32,7 +32,7 @@ class BaseTextFormField<T> extends StatefulWidget {
     this.showCursor,
     this.selectAllOnFocus,
   }) {
-    // Decoration
+    /// Decoration
     decoration ??= InputDecoration(
       labelText: label,
       hintText: hint,
@@ -41,6 +41,9 @@ class BaseTextFormField<T> extends StatefulWidget {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
     );
+
+    /// focus
+    focusNode ??= FocusNode();
   }
 
   final ValueNotifier<T?> value;
@@ -91,14 +94,15 @@ class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
   @override
   void initState() {
     super.initState();
-    // Controller
+
+    /// Controller
     controller = TextEditingController(
       text: widget.converter == null
           ? widget.value.value.toString()
           : widget.converter?.fromValue?.call(widget.value.value),
     );
 
-    // Listen value change from outside
+    /// Listen value change from outside
     widget.value.addListener(outsideTextChangesListener);
   }
 
@@ -145,7 +149,18 @@ class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
       enabled: widget.enabled,
       textAlign: widget.textAlign,
       style: widget.style,
-      onTap: widget.onTap,
+      onTap: () {
+        widget.onTap?.call();
+
+        /// Select all text when first tab
+        if (widget.selectAllOnFocus == true &&
+            widget.focusNode?.hasFocus == false) {
+          controller?.selection = TextSelection(
+            baseOffset: 0,
+            extentOffset: controller?.text.length ?? 0,
+          );
+        }
+      },
       onTapOutside: widget.onTapOutside,
       focusNode: widget.focusNode,
     );
