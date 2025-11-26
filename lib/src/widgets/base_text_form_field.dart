@@ -155,6 +155,7 @@ class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
         /// Select all text when first tab
         if (widget.selectAllOnFocus == true &&
             widget.focusNode?.hasFocus == false) {
+          widget.focusNode?.requestFocus();
           controller?.selection = TextSelection(
             baseOffset: 0,
             extentOffset: controller?.text.length ?? 0,
