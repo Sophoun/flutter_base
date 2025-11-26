@@ -41,9 +41,6 @@ class BaseTextFormField<T> extends StatefulWidget {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
     );
-
-    /// focus
-    focusNode ??= FocusNode();
   }
 
   final ValueNotifier<T?> value;
