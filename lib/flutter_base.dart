@@ -27,6 +27,7 @@ export 'src/commons/validators.dart';
 export 'src/commons/debouncer.dart';
 export 'src/commons/event_bus.dart';
 export 'src/commons/logger.dart';
+export 'src/commons/value_notifier_with_listener.dart';
 
 // Widgets
 export 'src/widgets/base_text_form_field.dart';
