@@ -7,4 +7,11 @@ extension StringExtension on String? {
 
   /// Return empty or value but not null
   String get orEmpty => this ?? '';
+
+  /// Check value is null or empty
+  bool get isNullOrEmpty {
+    if (this == null) return true;
+    if (this!.isEmpty) return true;
+    return false;
+  }
 }
