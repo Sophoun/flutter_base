@@ -14,4 +14,9 @@ extension StringExtension on String? {
     if (this!.isEmpty) return true;
     return false;
   }
+
+  /// Check value is not empty
+  bool get isNotEmpty {
+    return this != null && this!.length > 1;
+  }
 }
