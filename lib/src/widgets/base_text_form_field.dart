@@ -31,6 +31,8 @@ class BaseTextFormField<T> extends StatefulWidget {
     this.focusNode,
     this.showCursor,
     this.selectAllOnFocus,
+    this.minLines,
+    this.maxLines,
   }) {
     /// Decoration
     decoration ??= InputDecoration(
@@ -66,6 +68,8 @@ class BaseTextFormField<T> extends StatefulWidget {
   FocusNode? focusNode;
   final bool? showCursor;
   final bool? selectAllOnFocus;
+  final int? minLines;
+  final int? maxLines;
 
   @override
   State<BaseTextFormField<T>> createState() => _BaseTextFormFieldState<T>();
@@ -119,6 +123,8 @@ class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
       autofocus: widget.autofocus,
       decoration: widget.decoration,
       showCursor: widget.showCursor,
+      maxLines: widget.maxLines,
+      minLines: widget.minLines,
       onChanged: (newValue) {
         // Remove outside lister first
         widget.value.removeListener(outsideTextChangesListener);
