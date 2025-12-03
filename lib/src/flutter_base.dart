@@ -21,6 +21,7 @@ class FlutterBase extends StatelessWidget {
     this.darkTheme,
     this.themeMode,
     this.body,
+    this.localizationsDelegates,
   }) {
     /// Assign theme if it's missing
     theme ??= BaseTheme.light;
@@ -58,6 +59,7 @@ class FlutterBase extends StatelessWidget {
   late ThemeData? theme;
   late ThemeData? darkTheme;
   late ThemeMode? themeMode;
+  List<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   final Widget? body;
 
@@ -77,6 +79,7 @@ class FlutterBase extends StatelessWidget {
               loadingWidget: loadingWidget,
               child: child,
             ),
+            localizationsDelegates: localizationsDelegates,
             home: body,
           )
         : MaterialApp.router(
@@ -89,6 +92,7 @@ class FlutterBase extends StatelessWidget {
             routeInformationParser: routeInformationParser,
             routeInformationProvider: routeInformationProvider,
             routerDelegate: routerDelegate,
+            localizationsDelegates: localizationsDelegates,
             builder: (context, child) => _BuildLocalize(
               locale: locale,
               messageDialogWidget: messageDialogWidget,
