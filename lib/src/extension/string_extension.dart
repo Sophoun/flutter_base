@@ -19,4 +19,7 @@ extension StringExtension on String? {
   bool get isNotEmpty {
     return this != null && this!.length > 1;
   }
+
+  /// Return default string or value but not null
+  String orDefault(String value) => this ?? value;
 }
