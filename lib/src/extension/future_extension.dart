@@ -104,10 +104,10 @@ extension EitherExtension<R, L extends EitherException> on Future<R> {
   }
 
   /// Excute the future with `compute` and `Future<Either<R, L>>`
-  Future<Either<R, L>> toEitherAsync(
+  Future<Either<R, L>> toEitherAsync({
     void Function()? onStart,
     void Function()? onEnd,
-  ) async {
+  }) async {
     return await compute((m) async {
       return await m;
     }, toEither(onStart: onStart, onEnd: onEnd));
