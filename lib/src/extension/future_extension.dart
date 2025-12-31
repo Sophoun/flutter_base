@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 extension FutureExtension<T> on Future<T> {
   /// Executes the future and handles its result with callbacks.
   ///
@@ -56,7 +58,7 @@ class EitherException implements Exception {
 
 // L is constrained to be an Exception, as you intended to catch errors.
 extension EitherExtension<R, L extends EitherException> on Future<R> {
-  // The method now returns Future<Either<R, L>>
+  /// The method now returns `Future<Either<R, L>>`
   Future<Either<R, L>> toEither({
     void Function()? onStart,
     void Function()? onEnd,
@@ -99,6 +101,16 @@ extension EitherExtension<R, L extends EitherException> on Future<R> {
     } finally {
       onEnd?.call();
     }
+  }
+
+  /// Excute the future with `compute` and `Future<Either<R, L>>`
+  Future<Either<R, L>> toEitherAsync(
+    void Function()? onStart,
+    void Function()? onEnd,
+  ) async {
+    return await compute((m) async {
+      return await m;
+    }, toEither(onStart: onStart, onEnd: onEnd));
   }
 }
 
