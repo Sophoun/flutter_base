@@ -11,6 +11,7 @@ A foundational library for Flutter applications, designed to streamline developm
 - **Utility Extensions:** A rich set of extensions for `BuildContext`, `ValueNotifier`, and more, to write cleaner and more concise code.
 - **Simplified Preferences:** Easy access to `SharedPreferences` for persistent key-value storage.
 - **Built-in Dialogs & Toasts:** Quickly display common UI elements like alerts and toasts with minimal code.
+- **`ValueNotifierWithListener`**: A `ValueNotifier` that triggers a callback when its value changes.
 
 ## Public API
 
@@ -34,6 +35,7 @@ This library exposes a range of modules to streamline your Flutter development. 
 - **`base_text_form_field.dart`**: A `TextFormField` that integrates with `ValueNotifier`.
 - **`message_dialog.dart`**: A widget for displaying message dialogs.
 - **`responsive.dart`**: The `ResponsiveLayout` widget for building responsive UIs.
+- **`value_notifier_with_listener.dart`**: A `ValueNotifier` with a built-in listener.
 
 ## 🚀 Getting Started
 
@@ -925,6 +927,23 @@ import 'package:flutter_base/src/commons/logger.dart';
 void myFunction() {
   log("This is a debug message");
 }
+```
+
+## ValueNotifierWithListener
+
+The `ValueNotifierWithListener` is a `ValueNotifier` that triggers a callback function whenever its value changes. This is useful for scenarios where you need to react to value changes without manually adding and removing listeners.
+
+### Usage
+
+```dart
+import 'package:flutter_base/flutter_base.dart';
+
+final counter = ValueNotifierWithListener<int>(0, (value) {
+  print("Counter changed to: $value");
+});
+
+// To change the value and trigger the callback
+counter.value = 1; // This will print "Counter changed to: 1"
 ```
 
 ## Example Project
