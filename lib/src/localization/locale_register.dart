@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/flutter_base.dart';
-import 'package:flutter_base/src/localization/app_localize.dart';
+import 'package:sp_kit/sp_kit.dart';
+import 'package:sp_kit/src/localization/app_localize.dart';
 
 /// Language builder
 class LocaleRegister<T extends AppLocalize> {

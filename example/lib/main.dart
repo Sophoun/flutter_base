@@ -6,7 +6,7 @@ import 'package:example/service/mock_net.dart';
 import 'package:example/service/mock_service.dart';
 import 'package:example/vm/home_vm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 void main() {
   runApp(MyApp());

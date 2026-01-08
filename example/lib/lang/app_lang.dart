@@ -1,4 +1,4 @@
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 abstract class AppLang extends AppLocalize {
   AppLang({required super.lang});

@@ -4,8 +4,8 @@ export 'screen_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_base/flutter_base.dart';
-import 'package:flutter_base/src/localization/localize_inherited.dart';
+import 'package:sp_kit/sp_kit.dart';
+import 'package:sp_kit/src/localization/localize_inherited.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Vallue notifier builder function

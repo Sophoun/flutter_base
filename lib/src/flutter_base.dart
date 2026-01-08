@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/flutter_base.dart';
-import 'package:flutter_base/src/localization/localize_inherited.dart';
-import 'package:flutter_base/src/widgets/loading_indicator.dart';
+import 'package:sp_kit/sp_kit.dart';
+import 'package:sp_kit/src/localization/localize_inherited.dart';
+import 'package:sp_kit/src/widgets/loading_indicator.dart';
 
 // ignore: must_be_immutable
 class FlutterBase extends StatelessWidget {

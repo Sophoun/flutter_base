@@ -3,7 +3,7 @@ import 'package:example/lang/app_lang.dart';
 import 'package:example/vm/home_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {

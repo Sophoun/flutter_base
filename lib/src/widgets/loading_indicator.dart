@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 /// Loading widget
 class LoadingIndicator extends StatelessWidget {
