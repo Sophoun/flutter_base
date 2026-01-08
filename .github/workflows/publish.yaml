@@ -3,19 +3,18 @@ name: Publish Package
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+*" # Matches the 'v{{version}}' pattern
+      - "v[0-9]+.[0-9]+.[0-9]+*"
 
-# Optional: Specify the environment if you configured one on
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write # Required for OIDC authentication
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1 # Sets up the Dart/Flutter SDK
+      - uses: dart-lang/setup-dart@v1
       - name: Install dependencies
         run: dart pub get
       - name: Publish package
-        run: dart pub publish --force # --force skips the manual confirmation prompt
+        run: dart pub publish --force
