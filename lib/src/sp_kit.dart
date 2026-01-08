@@ -4,8 +4,8 @@ import 'package:sp_kit/src/localization/localize_inherited.dart';
 import 'package:sp_kit/src/widgets/loading_indicator.dart';
 
 // ignore: must_be_immutable
-class FlutterBase extends StatelessWidget {
-  FlutterBase({
+class SpKit extends StatelessWidget {
+  SpKit({
     super.key,
     this.locale,
     this.loadingWidget = const LoadingIndicator(),

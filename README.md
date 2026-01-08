@@ -1,4 +1,4 @@
-# Flutter Base
+# SP Kit
 
 A foundational library for Flutter applications, designed to streamline development by providing a robust framework for dependency injection, state management (via ViewModels), localization, and responsive UI. It includes a collection of utility extensions to reduce boilerplate and simplify common Flutter patterns.
 
@@ -15,9 +15,9 @@ A foundational library for Flutter applications, designed to streamline developm
 
 ## Public API
 
-This library exposes a range of modules to streamline your Flutter development. Here is a list of the public APIs exported from `flutter_base`:
+This library exposes a range of modules to streamline your Flutter development. Here is a list of the public APIs exported from `sp_kit`:
 
-- **`flutter_base.dart`**: The main entry point of the library, providing the `FlutterBase` root widget.
+- **`sp_kit.dart`**: The main entry point of the library, providing the `FlutterBase` root widget.
 - **`app_localize.dart` & `locale_register.dart`**: Core components for the localization system.
 - **`service_locator.dart`**: The dependency injection container.
 - **`state_extension.dart`**: Extensions for state management, including `getVm` and the `isAppLoading` notifier.
@@ -46,15 +46,15 @@ This library exposes a range of modules to streamline your Flutter development. 
 
 ### Installation
 
-Add `flutter_base` to your `pubspec.yaml` dependencies. It is recommended to use the Git dependency to ensure you have the latest version.
+Add `sp_kit` to your `pubspec.yaml` dependencies. It is recommended to use the Git dependency to ensure you have the latest version.
 
 ```yaml
 dependencies:
   flutter:
     sdk: flutter
-  flutter_base:
+  sp_kit:
     git:
-      url: https://github.com/Sophoun/flutter_base.git
+      url: https://github.com/Sophoun/sp_kit.git
       ref: main # Or specify a specific tag/commit
 ```
 
@@ -68,7 +68,7 @@ Wrap your root widget with `FlutterBase` to provide the necessary containers (`S
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 import 'package:your_app/service_locator.dart';
 import 'package:your_app/lang_setup.dart';
 import 'package:your_app/router.dart';
@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
       
       child: MaterialApp.router(
         routerConfig: _appRouter.config(),
-        title: 'Flutter Base Example',
+        title: 'SP Kit Example',
       ),
     );
   }
@@ -324,7 +324,7 @@ void loadData() {
 The `toEither` extension on `Future` provides a functional approach to handle asynchronous operations that can either succeed with a value (`Right`) or fail with an exception (`Left`). This is particularly useful for error handling in a more explicit and type-safe manner.
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 Future<String> fetchDataEither(bool shouldFail) async {
   await Future.delayed(const Duration(seconds: 1));
@@ -367,7 +367,7 @@ class EitherException implements Exception {
 You can throw an `EitherException` in your `Future` and it will be caught by the `toEither` extension and returned as a `Left` value.
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 Future<String> fetchDataEither(bool shouldFail) async {
   await Future.delayed(const Duration(seconds: 1));
@@ -405,7 +405,7 @@ The `bind` extension on `Future<Either<R, L>>` allows you to chain multiple asyn
 This is useful for composing a sequence of operations where each step depends on the success of the previous one, such as fetching data, processing it, and then saving it.
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 // Simulate fetching a user ID
 Future<Either<int, Exception>> getUserId() {
@@ -471,7 +471,7 @@ First, create your custom dialog widget by overriding the desired methods:
 ```dart
 // lib/widgets/my_custom_dialog.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 class MyCustomDialog extends MessageDialog {
   MyCustomDialog({super.key});
@@ -579,7 +579,7 @@ The `NumberExtension` provides convenient methods for formatting numbers and han
 **Usage:**
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 // Example usage
 final num? myNumber = 12345.678;
@@ -620,7 +620,7 @@ FlutterBase(
 Use the `ResponsiveLayout` widget to build different UI for different screen sizes. The widget automatically applies the configured aspect ratio for mobile and tablet layouts.
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 class MyPage extends StatelessWidget {
   @override
@@ -673,7 +673,7 @@ The `StringExtension` provides convenient methods for handling nullable or empty
 **Usage:**
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 // orNull Example
 String? emptyString = "";
@@ -702,7 +702,7 @@ The `DateExtension` provides a convenient way to format `DateTime` objects into 
 **Usage:**
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 // Example usage
 final now = DateTime.now();
@@ -728,7 +728,7 @@ print(later.differsByMoreThan(now, 20)); // false
 
 ## 🎨 Theming
 
-The `flutter_base` package includes a `BaseTheme` class that provides a consistent theme for your application. It includes a light and dark theme with a predefined shape for widgets.
+The `sp_kit` package includes a `BaseTheme` class that provides a consistent theme for your application. It includes a light and dark theme with a predefined shape for widgets.
 
 ### Default Theme
 
@@ -743,7 +743,7 @@ For example, you can create a `my_theme.dart` file in your project:
 ```dart
 // lib/my_theme.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 class MyTheme {
   static final light = BaseTheme.light.copyWith(
@@ -771,7 +771,7 @@ class MyApp extends StatelessWidget {
         darkTheme: MyTheme.dark,
         themeMode: ThemeMode.system, // Or any other theme mode
         routerConfig: _appRouter.config(),
-        title: 'Flutter Base Example',
+        title: 'SP Kit Example',
       ),
     );
   }
@@ -780,14 +780,14 @@ class MyApp extends StatelessWidget {
 
 ## Form Validation
 
-The `flutter_base` package includes a `Validators` class with a comprehensive set of static methods for form validation. These validators can be used with `TextFormField` and other form fields in Flutter.
+The `sp_kit` package includes a `Validators` class with a comprehensive set of static methods for form validation. These validators can be used with `TextFormField` and other form fields in Flutter.
 
 ### Usage
 
 To use the validators, simply import the `validators.dart` file and call the desired validation method in the `validators` property of your form field.
 
 ```dart
-import 'package:flutter_base/src/commons/validators.dart';
+import 'package:sp_kit/src/commons/validators.dart';
 
 TextFormField(
   validator: (value) => Validators.required(value, message: 'Please enter a value'),
@@ -832,7 +832,7 @@ The `BaseTextFormField` is a wrapper around `TextFormField` that simplifies its 
 ### Usage
 
 ```dart
-import 'package:flutter_base/src/widgets/base_text_form_field.dart';
+import 'package:sp_kit/src/widgets/base_text_form_field.dart';
 
 final myValue = ValueNotifier<String>("");
 
@@ -848,7 +848,7 @@ BaseTextFormField<String>(
 If you want to use a `ValueNotifier` with a type other than `String`, you can provide a `Converter`.
 
 ```dart
-import 'package:flutter_base/src/widgets/base_text_form_field.dart';
+import 'package:sp_kit/src/widgets/base_text_form_field.dart';
 
 final myValue = ValueNotifier<int>(0);
 
@@ -870,7 +870,7 @@ The `Debouncer` class helps to delay the execution of a function. This is useful
 ### Usage
 
 ```dart
-import 'package:flutter_base/src/commons/debouncer.dart';
+import 'package:sp_kit/src/commons/debouncer.dart';
 
 final _debouncer = Debouncer(delay: Duration(milliseconds: 500));
 
@@ -890,7 +890,7 @@ The `EventBus` provides a way for different parts of your application to communi
 #### Registering Events
 
 ```dart
-import 'package:flutter_base/src/commons/event_bus.dart';
+import 'package:sp_kit/src/commons/event_bus.dart';
 
 void onEvent(int id, dynamic data) {
   print("Received event with id: $id and data: $data");
@@ -902,7 +902,7 @@ EventBus.register([1, 2], onEvent);
 #### Firing Events
 
 ```dart
-import 'package:flutter_base/src/commons/event_bus.dart';
+import 'package:sp_kit/src/commons/event_bus.dart';
 
 EventBus.fire(1, data: "Hello from EventBus!");
 ```
@@ -910,7 +910,7 @@ EventBus.fire(1, data: "Hello from EventBus!");
 #### Unregistering Events
 
 ```dart
-import 'package:flutter_base/src/commons/event_bus.dart';
+import 'package:sp_kit/src/commons/event_bus.dart';
 
 EventBus.unregister([1, 2]);
 ```
@@ -922,7 +922,7 @@ The `log` function is a simple utility that prints messages to the console only 
 ### Usage
 
 ```dart
-import 'package:flutter_base/src/commons/logger.dart';
+import 'package:sp_kit/src/commons/logger.dart';
 
 void myFunction() {
   log("This is a debug message");
@@ -936,7 +936,7 @@ The `ValueNotifierWithListener` is a `ValueNotifier` that triggers a callback fu
 ### Usage
 
 ```dart
-import 'package:flutter_base/flutter_base.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 final counter = ValueNotifierWithListener<int>(0, (value) {
   print("Counter changed to: $value");
