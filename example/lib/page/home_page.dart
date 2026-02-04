@@ -162,6 +162,8 @@ class HomePage extends StatelessWidget {
             homeVm.mockValue,
             (t1, t2) => Text("Count: $t1, mock value is: $t2"),
           ),
+          Skeleton.circular(width: 100, height: 100),
+          Skeleton.rectangular(width: 100, height: 12),
         ].map((e) => Padding(padding: EdgeInsets.all(5.w), child: e)).toList(),
       ),
     );

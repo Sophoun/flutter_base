@@ -35,6 +35,7 @@ This library exposes a range of modules to streamline your Flutter development. 
 - **`base_text_form_field.dart`**: A `TextFormField` that integrates with `ValueNotifier`.
 - **`message_dialog.dart`**: A widget for displaying message dialogs.
 - **`responsive.dart`**: The `ResponsiveLayout` widget for building responsive UIs.
+- **`skeleton.dart`**: A widget for showing a skeleton loading animation.
 - **`value_notifier_with_listener.dart`**: A `ValueNotifier` with a built-in listener.
 
 ## 🚀 Getting Started
@@ -75,8 +76,8 @@ import 'package:your_app/router.dart';
 
 void main() async {
   // Ensure SharedPreferences is initialized if you access it before runApp()
-  await Pref.init(); 
-  
+  await Pref.init();
+
   runApp(MyApp());
 }
 
@@ -91,14 +92,14 @@ class MyApp extends StatelessWidget {
       // (Optional) Set the design size for responsive UI
       designSize: const Size(360, 690),
       // (Optional) Set the maximum screen size of your app.
-      screenSize: const Size(360, 690), 
-      
+      screenSize: const Size(360, 690),
+
       // Register your dependencies
-      serviceLocator: setupServiceLocator(), 
-      
+      serviceLocator: setupServiceLocator(),
+
       // Configure localization
       locale: setupLocale(),
-      
+
       child: MaterialApp.router(
         routerConfig: _appRouter.config(),
         title: 'SP Kit Example',
@@ -564,17 +565,17 @@ Container(
 
 The `NumberExtension` provides convenient methods for formatting numbers and handling null or zero values.
 
-| Method | Description |
-| --- | --- |
-| `isNullOrZero` | Checks if a number is either `null` or `0`. |
-| `isNotNullOrZero` | Checks if a number is not `null` and not `0`. |
-| `isNullOrNegative` | Checks if a number is either `null` or less than `0`. |
-| `isNotNullOrNegative` | Checks if a number is not `null` and is greater than or equal to `0`. |
-| `toStringAsFixedSafe(int fractionDigits)` | Converts a number to a string with a fixed number of decimal places. Returns '0' if the number is `null`. |
-| `formatAmount(int fractionDigits)` | Formats a number with commas as thousand separators. |
-| `formatCurrencySuffix({int fractionDigits, String symbol})` | Formats a number as a currency string with a suffix symbol (e.g., "$ 1,234.56"). |
-| `formatCurrencyPrefix({int fractionDigits, String symbol})` | Formats a number as a currency string with a prefix symbol (e.g., "1,234.56 $"). |
-| `toDateTime()` | Converts a number (milliseconds since epoch) to a `DateTime` object. Returns `null` if the number is `null` or the conversion fails. |
+| Method                                                      | Description                                                                                                                          |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `isNullOrZero`                                              | Checks if a number is either `null` or `0`.                                                                                          |
+| `isNotNullOrZero`                                           | Checks if a number is not `null` and not `0`.                                                                                        |
+| `isNullOrNegative`                                          | Checks if a number is either `null` or less than `0`.                                                                                |
+| `isNotNullOrNegative`                                       | Checks if a number is not `null` and is greater than or equal to `0`.                                                                |
+| `toStringAsFixedSafe(int fractionDigits)`                   | Converts a number to a string with a fixed number of decimal places. Returns '0' if the number is `null`.                            |
+| `formatAmount(int fractionDigits)`                          | Formats a number with commas as thousand separators.                                                                                 |
+| `formatCurrencySuffix({int fractionDigits, String symbol})` | Formats a number as a currency string with a suffix symbol (e.g., "$ 1,234.56").                                                     |
+| `formatCurrencyPrefix({int fractionDigits, String symbol})` | Formats a number as a currency string with a prefix symbol (e.g., "1,234.56 $").                                                     |
+| `toDateTime()`                                              | Converts a number (milliseconds since epoch) to a `DateTime` object. Returns `null` if the number is `null` or the conversion fails. |
 
 **Usage:**
 
@@ -606,11 +607,11 @@ In your `FlutterBase` widget, you can optionally provide `mobileAspectRatio` and
 // In your main application setup
 FlutterBase(
   // Default is 9 / 16
-  mobileAspectRatio: 9 / 16, 
-  
+  mobileAspectRatio: 9 / 16,
+
   // Default is 4 / 3
-  tabletAspectRatio: 4 / 3, 
-  
+  tabletAspectRatio: 4 / 3,
+
   child: MyApp(),
 );
 ```
@@ -665,10 +666,10 @@ class DesktopView extends StatelessWidget {
 
 The `StringExtension` provides convenient methods for handling nullable or empty strings.
 
-| Method   | Description                               |
-| -------- | ----------------------------------------- |
-| `orNull` | Returns `null` if the string is null or empty, otherwise returns the string itself. |
-| `orEmpty`| Returns an empty string if the string is null, otherwise returns the string itself. |
+| Method    | Description                                                                         |
+| --------- | ----------------------------------------------------------------------------------- |
+| `orNull`  | Returns `null` if the string is null or empty, otherwise returns the string itself. |
+| `orEmpty` | Returns an empty string if the string is null, otherwise returns the string itself. |
 
 **Usage:**
 
@@ -694,9 +695,9 @@ print(validString.orEmpty); // "hello"
 
 The `DateExtension` provides a convenient way to format `DateTime` objects into strings.
 
-| Method | Description |
-| --- | --- |
-| `format(String format)` | Formats a `DateTime` object into a string using a custom format. |
+| Method                                                   | Description                                                                                   |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `format(String format)`                                  | Formats a `DateTime` object into a string using a custom format.                              |
 | `differsByMoreThan(DateTime other, int minuteThreshold)` | Checks if the difference between two `DateTime` objects exceeds a specified minute threshold. |
 
 **Usage:**
@@ -717,14 +718,48 @@ print(later.differsByMoreThan(now, 20)); // false
 
 **Available Format Constants:**
 
-| Constant | Output |
-| --- | --- |
-| `DateExtension.ddMMyyyy` | "dd-MM-yyyy" |
-| `DateExtension.ddMMyyyyHHmmss` | "dd-MM-yyyy HH:mm:ss" |
+| Constant                        | Output                  |
+| ------------------------------- | ----------------------- |
+| `DateExtension.ddMMyyyy`        | "dd-MM-yyyy"            |
+| `DateExtension.ddMMyyyyHHmmss`  | "dd-MM-yyyy HH:mm:ss"   |
 | `DateExtension.yyyyMMddTHHmmss` | "yyyy-MM-dd'T'HH:mm:ss" |
-| `DateExtension.hhmma` | "hh:mm a" |
-| `DateExtension.EEEEddMMyyyy` | "EEEE, dd MMMM yyyy" |
-| `DateExtension.MMMMyyyy` | "MMMM yyyy" |
+| `DateExtension.hhmma`           | "hh:mm a"               |
+| `DateExtension.EEEEddMMyyyy`    | "EEEE, dd MMMM yyyy"    |
+| `DateExtension.MMMMyyyy`        | "MMMM yyyy"             |
+
+### 11. Skeleton
+
+The `Skeleton` widget provides a loading animation that can be used to indicate that data is being loaded. It supports both rectangular and circular shapes.
+
+#### Rectangular Skeleton
+
+The `Skeleton.rectangular` constructor creates a rectangular skeleton animation.
+
+**Usage:**
+
+```dart
+import 'package:sp_kit/sp_kit.dart';
+
+Skeleton.rectangular(
+  width: 200,
+  height: 20,
+)
+```
+
+#### Circular Skeleton
+
+The `Skeleton.circular` constructor creates a circular skeleton animation.
+
+**Usage:**
+
+```dart
+import 'package:sp_kit/sp_kit.dart';
+
+Skeleton.circular(
+  width: 50,
+  height: 50,
+)
+```
 
 ## 🎨 Theming
 
@@ -796,34 +831,34 @@ TextFormField(
 
 ### Available Validators
 
-| Method | Description |
-| --- | --- |
-| `required(String? value, {String? message})` | Checks if the value is not null and not empty. |
-| `minLength(String? value, int minLength, {String? message})` | Checks if the value has at least `minLength` characters. |
-| `maxLength(String? value, int maxLength, {String? message})` | Checks if the value has at most `maxLength` characters. |
-| `email(String? value, {String? message})` | Checks if the value is a valid email address. |
-| `password(String? value, {String? message})` | Checks if the value is a valid password (at least 6 characters). |
-| `number(String? value, {String? message})` | Checks if the value is a valid number. |
-| `url(String? value, {String? message})` | Checks if the value is a valid URL. |
-| `phone(String? value, {String? message})` | Checks if the value is a valid phone number (10 digits). |
-| `date(String? value, {String? message})` | Checks if the value is a valid date. |
-| `compare(String? value, String? otherValue, {required String message})` | Checks if the value is the same as `otherValue`. |
-| `notEmpty(String? value, {String? message})` | Checks if the value is not empty (trims whitespace). |
-| `minValue(String? value, int minValue, {String? message})` | Checks if the value is a number greater than or equal to `minValue`. |
-| `maxValue(String? value, int maxValue, {String? message})` | Checks if the value is a number less than or equal to `maxValue`. |
-| `creditCard(String? value, {String? message})` | Checks if the value is a valid credit card number. |
-| `ipAddress(String? value, {String? message})` | Checks if the value is a valid IP address. |
-| `slug(String? value, {String? message})` | Checks if the value is a valid slug. |
-| `alpha(String? value, {String? message})` | Checks if the value contains only alphabetic characters. |
-| `alphanumeric(String? value, {String? message})` | Checks if the value contains only alphanumeric characters. |
-| `isJson(String? value, {String? message})` | Checks if the value is a valid JSON string. |
-| `isJwt(String? value, {String? message})` | Checks if the value is a valid JWT. |
-| `inList(String? value, List<String> list, {String? message})` | Checks if the value is in the given list. |
-| `notInList(String? value, List<String> list, {String? message})` | Checks if the value is not in the given list. |
-| `fileExtension(String? value, List<String> extensions, {String? message})` | Checks if the value is a valid file extension. |
-| `creditCardExpirationDate(String? value, {String? message})` | Checks if the value is a valid credit card expiration date. |
-| `cvv(String? value, {String? message})` | Checks if the value is a valid CVV. |
-| `isbn(String? value, {String? message})` | Checks if the value is a valid ISBN. |
+| Method                                                                     | Description                                                          |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `required(String? value, {String? message})`                               | Checks if the value is not null and not empty.                       |
+| `minLength(String? value, int minLength, {String? message})`               | Checks if the value has at least `minLength` characters.             |
+| `maxLength(String? value, int maxLength, {String? message})`               | Checks if the value has at most `maxLength` characters.              |
+| `email(String? value, {String? message})`                                  | Checks if the value is a valid email address.                        |
+| `password(String? value, {String? message})`                               | Checks if the value is a valid password (at least 6 characters).     |
+| `number(String? value, {String? message})`                                 | Checks if the value is a valid number.                               |
+| `url(String? value, {String? message})`                                    | Checks if the value is a valid URL.                                  |
+| `phone(String? value, {String? message})`                                  | Checks if the value is a valid phone number (10 digits).             |
+| `date(String? value, {String? message})`                                   | Checks if the value is a valid date.                                 |
+| `compare(String? value, String? otherValue, {required String message})`    | Checks if the value is the same as `otherValue`.                     |
+| `notEmpty(String? value, {String? message})`                               | Checks if the value is not empty (trims whitespace).                 |
+| `minValue(String? value, int minValue, {String? message})`                 | Checks if the value is a number greater than or equal to `minValue`. |
+| `maxValue(String? value, int maxValue, {String? message})`                 | Checks if the value is a number less than or equal to `maxValue`.    |
+| `creditCard(String? value, {String? message})`                             | Checks if the value is a valid credit card number.                   |
+| `ipAddress(String? value, {String? message})`                              | Checks if the value is a valid IP address.                           |
+| `slug(String? value, {String? message})`                                   | Checks if the value is a valid slug.                                 |
+| `alpha(String? value, {String? message})`                                  | Checks if the value contains only alphabetic characters.             |
+| `alphanumeric(String? value, {String? message})`                           | Checks if the value contains only alphanumeric characters.           |
+| `isJson(String? value, {String? message})`                                 | Checks if the value is a valid JSON string.                          |
+| `isJwt(String? value, {String? message})`                                  | Checks if the value is a valid JWT.                                  |
+| `inList(String? value, List<String> list, {String? message})`              | Checks if the value is in the given list.                            |
+| `notInList(String? value, List<String> list, {String? message})`           | Checks if the value is not in the given list.                        |
+| `fileExtension(String? value, List<String> extensions, {String? message})` | Checks if the value is a valid file extension.                       |
+| `creditCardExpirationDate(String? value, {String? message})`               | Checks if the value is a valid credit card expiration date.          |
+| `cvv(String? value, {String? message})`                                    | Checks if the value is a valid CVV.                                  |
+| `isbn(String? value, {String? message})`                                   | Checks if the value is a valid ISBN.                                 |
 
 ## BaseTextFormField
 
@@ -960,4 +995,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-*Copyright (c) 2025 SOPHOUN NHEUM*
+_Copyright (c) 2025 SOPHOUN NHEUM_
