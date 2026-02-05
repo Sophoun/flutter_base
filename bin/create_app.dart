@@ -10,9 +10,6 @@ import 'package:yaml_edit/yaml_edit.dart';
 void main(List<String> args) {
   try {
     switch (args.firstOrNull) {
-      case "--help":
-        printOptions();
-        break;
       case "--name":
         if (args.length < 2) {
           print(
@@ -23,10 +20,6 @@ void main(List<String> args) {
           return;
         }
         createApp(args[1]);
-        break;
-
-      default:
-        printOptions();
         break;
     }
   } catch (e) {
@@ -224,18 +217,6 @@ or:
 To start your development. :)
 """),
   );
-}
-
-///
-/// Print options
-///
-void printOptions() {
-  print("""
---help                : Show options
---name <app_name>     : Create a new app with flutter create with structure of 
-                        sp_kit included.
-                        Ex: dart run sp_kit:create_app --name <app_name>
-""");
 }
 
 ///
