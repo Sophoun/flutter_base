@@ -17,7 +17,7 @@ void main(List<String> args) {
         if (args.length < 2) {
           print(
             red(
-              "Missing app name. To create run: dart run sp_kit --create-app app_name",
+              "Missing app name. To create run: dart run sp_kit:create_app --name <your_app_name>",
             ),
           );
           return;
