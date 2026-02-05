@@ -194,6 +194,14 @@ dart run build_runner watch --delete-conflicting-outputs
   /// Main file
   touch("$appName/lib/main.dart", create: true).write(mainPageConent(appName));
 
+  /// Environment variable
+  final envPath = "$appName/env";
+  if (!exists(envPath)) createDir(envPath);
+  touch("$appName/env/dev.json", create: true).write('{ "ENV": "DEV"  }');
+  touch("$appName/env/stag.json", create: true).write('{ "ENV": "STAGING"  }');
+  touch("$appName/env/prod.json", create: true).write('{ "ENV": "PROD"  }');
+  touch("$appName/lib/env_config.dart", create: true).write(envConfigContent);
+
   ///
   /// Run build script
   ///
@@ -231,13 +239,44 @@ void printOptions() {
 }
 
 ///
+/// env_config.dart content
+///
+final envConfigContent = """
+import 'dart:developer';
+
+class EnvConfig {
+  static const String _notFound = "NOT_FOUND";
+
+  static const String env = String.fromEnvironment(
+    'ENV',
+    defaultValue: _notFound,
+  );
+
+  static void validate() {
+    final missingKeys = <String>[];
+    if (env == _notFound) missingKeys.add('ENV');
+    if (missingKeys.isNotEmpty) {
+      final error = '❌ MISSING ENVIRONMENT VARIABLES: \${missingKeys.join(", ")} Make sure to run with: --dart-define-from-file=env/dev.json';
+
+      assert(() {
+        throw Exception(error);
+      }());
+
+      log(error);
+    }
+  }
+}
+
+""";
+
+///
 /// api.dart
 ///
 final apiContent = """
 import 'package:dio/dio.dart';
 
 class Api {
-  final _dio = Dio(BaseOptions(baseUrl: ''));
+  final _dio = Dio(BaseOptions(baseUrl: String.fromEnvironment('BASE_URL')));
 }
 
 """;
@@ -293,6 +332,7 @@ class LangKm extends AppLang {
 String mainPageConent(String appName) =>
     """
 import 'package:flutter/material.dart';
+import 'package:$appName/env_config.dart';
 import 'package:$appName/lang/app_lang.dart';
 import 'package:$appName/lang/lang_en.dart';
 import 'package:$appName/lang/lang_km.dart';
@@ -301,7 +341,8 @@ import 'package:$appName/view_models/home_vm.dart';
 import 'package:$appName/remote/api.dart';
 import 'package:sp_kit/sp_kit.dart';
 
-void main() {
+void main(List<String> args) {
+  EnvConfig.validate();
   runApp(App());
 }
 
@@ -335,6 +376,7 @@ String homePageContent(String appName) =>
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:$appName/lang/app_lang.dart';
+import 'package:$appName/env_config.dart';
 import 'package:sp_kit/sp_kit.dart';
 import 'package:$appName/view_models/home_vm.dart';
 
@@ -348,7 +390,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.t<AppLang>();
 
-    return Scaffold(body: Center(child: Text(t.appName)));
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [Text(t.appName), Text(EnvConfig.env)],
+        ),
+      ),
+    );
   }
 }
 """;
