@@ -105,6 +105,7 @@ void createApp(String? appName) {
     "flutter_gen",
     "flutter_native_splash",
     "flutter_launcher_icons",
+    "dio",
   ];
   for (final dependency in dependencies) {
     "flutter pub add $dependency".start(workingDirectory: appName);
@@ -160,7 +161,7 @@ dart run build_runner watch --delete-conflicting-outputs
   touch(
     "$appName/lib/view_models/home_vm.dart",
     create: true,
-  ).write(homeVmContent);
+  ).write(homeVmContent(appName!));
 
   /// Home page
   final homeFeaturePath = "$appName/lib/features/home";
@@ -168,7 +169,7 @@ dart run build_runner watch --delete-conflicting-outputs
   touch(
     "$appName/lib/features/home/home_page.dart",
     create: true,
-  ).write(homePageContent(appName!));
+  ).write(homePageContent(appName));
 
   /// Router
   touch(
@@ -186,6 +187,9 @@ dart run build_runner watch --delete-conflicting-outputs
     "$appName/lib/lang/lang_km.dart",
     create: true,
   ).write(kmLangContent(appName));
+
+  /// API
+  touch("$appName/lib/remote/api.dart", create: true).write(apiContent);
 
   /// Main file
   touch("$appName/lib/main.dart", create: true).write(mainPageConent(appName));
@@ -225,6 +229,18 @@ void printOptions() {
                         Ex: dart run sp_kit:create_app --name <app_name>
 """);
 }
+
+///
+/// api.dart
+///
+final apiContent = """
+import 'package:dio/dio.dart';
+
+class Api {
+  final _dio = Dio(BaseOptions(baseUrl: ''));
+}
+
+""";
 
 ///
 /// app_lang.dart file content
@@ -282,6 +298,7 @@ import 'package:$appName/lang/lang_en.dart';
 import 'package:$appName/lang/lang_km.dart';
 import 'package:$appName/router/app_router.dart';
 import 'package:$appName/view_models/home_vm.dart';
+import 'package:$appName/remote/api.dart';
 import 'package:sp_kit/sp_kit.dart';
 
 void main() {
@@ -292,7 +309,9 @@ class App extends StatelessWidget {
   App({super.key});
 
   final router = AppRouter();
-  final serviceLocators = ServiceLocator()..register(HomeVm());
+  final serviceLocators = ServiceLocator()
+    ..register(HomeVm())
+    ..register(Api());
 
   @override
   Widget build(BuildContext context) {
@@ -337,11 +356,14 @@ class HomePage extends StatelessWidget {
 ///
 /// main_vm.dart content
 ///
-final homeVmContent = """
+String homeVmContent(String appName) =>
+    """
 import 'package:flutter/widgets.dart';
+import 'package:$appName/remote/api.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 class HomeVm extends ChangeNotifier {
-
+  Api get api => inject<Api>();
 }
 """;
 
