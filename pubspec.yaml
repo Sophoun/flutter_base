@@ -9,12 +9,17 @@ environment:
   sdk: ^3.9.0-333.2.beta
   flutter: ">=1.17.0"
 
+executables:
+  create_app: bin/create_app.dart
+
 dependencies:
   flutter:
     sdk: flutter
   http: ^1.5.0
   shared_preferences: ^2.5.3
   flutter_svg: ^2.2.3
+  dcli: ^8.4.2
+  yaml_edit: ^2.2.3
 
 dev_dependencies:
   flutter_test:
