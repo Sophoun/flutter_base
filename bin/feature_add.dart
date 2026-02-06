@@ -56,17 +56,17 @@ void addFeature(String name) {
   /// Show success and guide them how to register view model to main file and route to app_router.
   print("""
 Created feature $name successfully.
-${red("Please, don't forget to add your page to app_router.dart and register view model to main.dart")}
+${green("Please, don't forget to add your page to app_router.dart and register view model to main.dart")}
 Please follow below code:
 Copy code below and add it to your app_router.dart and past it inside routes list:
 
-AutoRoute(page: ${className}Route.page),
+${green("AutoRoute(page: ${className}Route.page)")},
 
 Copy code below and register to your ServiceLocator() object inside main.dart.
 
-..register(${className}Vm())
+${green("..register(${className}Vm())")}
 
-Happy codeing :)
+${green("Happy codeing :)")}
 """);
 }
 
@@ -74,7 +74,6 @@ Happy codeing :)
 String viewModel(String className) =>
     """
 import 'package:flutter/widgets.dart';
-import 'package:sp_kit/sp_kit.dart';
 
 class ${className}Vm extends ChangeNotifier {
   
@@ -85,7 +84,6 @@ class ${className}Vm extends ChangeNotifier {
 String featurePage(String className) =>
     """
 import 'package:flutter/material.dart';
-import 'package:sp_kit/sp_kit.dart';
 import 'package:auto_route/auto_route.dart';
 
 @RoutePage()
