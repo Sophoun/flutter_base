@@ -666,18 +666,18 @@ class DesktopView extends StatelessWidget {
 
 The `StringExtension` provides convenient methods for handling nullable or empty strings, checking string properties, and formatting.
 
-| Method                                       | Description                                                                                             |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `orNull`                                     | Returns `null` if the string is null or empty, otherwise returns the string itself.                     |
-| `orEmpty`                                    | Returns an empty string if the string is null, otherwise returns the string itself.                     |
-| `isNullOrEmpty`                              | Checks if the string is null or empty.                                                                  |
-| `isNotEmpty`                                 | Checks if the string is not null and its length is greater than 1.                                      |
-| `orDefault(String value)`                    | Returns a default string if the string is null, otherwise returns the string itself.                    |
-| `isCapitalFirst`                             | Checks if the first character of the string is capitalized.                                             |
-| `isCapitalEach`                              | Checks if the first character of each word in the string is capitalized.                                |
-| `isContainSpace`                             | Checks if the string contains a space.                                                                  |
-| `toCapitalFirst`                             | Capitalizes the first character of the string.                                                          |
-| `toCapitalEach`                              | Capitalizes the first character of each word in the string.                                             |
+| Method                    | Description                                                                          |
+| ------------------------- | ------------------------------------------------------------------------------------ |
+| `orNull`                  | Returns `null` if the string is null or empty, otherwise returns the string itself.  |
+| `orEmpty`                 | Returns an empty string if the string is null, otherwise returns the string itself.  |
+| `isNullOrEmpty`           | Checks if the string is null or empty.                                               |
+| `isNotEmpty`              | Checks if the string is not null and its length is greater than 1.                   |
+| `orDefault(String value)` | Returns a default string if the string is null, otherwise returns the string itself. |
+| `isCapitalFirst`          | Checks if the first character of the string is capitalized.                          |
+| `isCapitalEach`           | Checks if the first character of each word in the string is capitalized.             |
+| `isContainSpace`          | Checks if the string contains a space.                                               |
+| `toCapitalFirst`          | Capitalizes the first character of the string.                                       |
+| `toCapitalEach`           | Capitalizes the first character of each word in the string.                          |
 
 **Usage:**
 
@@ -723,8 +723,8 @@ print("helloworld".isContainSpace);  // false
 
 The `StringExtendToSvg` provides an extension to convert an SVG file path to an `SvgPicture.asset` widget.
 
-| Method         | Description                                                      |
-| -------------- | ---------------------------------------------------------------- |
+| Method         | Description                                                         |
+| -------------- | ------------------------------------------------------------------- |
 | `toImage(...)` | Converts an SVG file path string into an `SvgPicture.asset` widget. |
 
 **Usage:**
@@ -1046,12 +1046,13 @@ To run `sp_kit` commands, use `dart run sp_kit:<command>`.
 
 ### Global Options
 
-*   `--help` or `-h`: Displays help information and available commands for the `sp_kit` CLI.
-    #### Usage
+- `--help` or `-h`: Displays help information and available commands for the `sp_kit` CLI.
 
-    ```bash
-    dart run sp_kit --help
-    ```
+  #### Usage
+
+  ```bash
+  dart run sp_kit --help
+  ```
 
 ### `create_app`
 
