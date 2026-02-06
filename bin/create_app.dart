@@ -5,8 +5,6 @@ import 'dart:io';
 import 'package:dcli/dcli.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
-// ignore_for_file: avoid_print
-
 void main(List<String> args) {
   try {
     switch (args.firstOrNull) {
@@ -195,6 +193,14 @@ dart run build_runner watch --delete-conflicting-outputs
   touch("$appName/env/prod.json", create: true).write('{ "ENV": "PROD"  }');
   touch("$appName/lib/env_config.dart", create: true).write(envConfigContent);
 
+  /// VS Code runner
+  final vsCodePath = "$appName/.vscode";
+  if (!exists(vsCodePath)) createDir(vsCodePath, recursive: true);
+  touch(
+    "$appName/.vscode/launch.json",
+    create: true,
+  ).write(vsCodeRunner(appName));
+
   ///
   /// Run build script
   ///
@@ -220,6 +226,58 @@ To start your development. :)
 }
 
 ///
+/// VS Code runner
+///
+String vsCodeRunner(String appName) =>
+    """
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "$appName-dev",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "-t",
+        "./lib/main.dart",
+        "--dart-define-from-file",
+        "env/dev.json"
+      ]
+    },
+    {
+      "name": "$appName-stag",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "-t",
+        "./lib/main.dart",
+        "--dart-define-from-file",
+        "env/stag.json"
+      ]
+    },
+    {
+      "name": "$appName-prod",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "-t",
+        "./lib/main.dart",
+        "--dart-define-from-file",
+        "env/prod.json"
+      ]
+    },
+    {
+      "name": "flutter_base_preview",
+      "type": "node-terminal",
+      "request": "launch",
+      // https://docs.flutter.dev/tools/widget-previewer
+      "command": "flutter widget-preview start"
+    }
+  ]
+}
+""";
+
+///
 /// env_config.dart content
 ///
 final envConfigContent = """
@@ -237,7 +295,7 @@ class EnvConfig {
     final missingKeys = <String>[];
     if (env == _notFound) missingKeys.add('ENV');
     if (missingKeys.isNotEmpty) {
-      final error = '❌ MISSING ENVIRONMENT VARIABLES: \${missingKeys.join(", ")} Make sure to run with: --dart-define-from-file=env/dev.json';
+      final error = '❌ MISSING ENVIRONMENT VARIABLES: \${missingKeys.join(", ")} Make sure to run with: --dart-define-from-file=env/<env_name>.json';
 
       assert(() {
         throw Exception(error);
@@ -255,11 +313,21 @@ class EnvConfig {
 ///
 final apiContent = """
 import 'package:dio/dio.dart';
+import 'package:sp_kit/sp_kit.dart';
 
 class Api {
   final _dio = Dio(BaseOptions(baseUrl: String.fromEnvironment('BASE_URL')));
-}
 
+  Future<bool> ping() async {
+    final result = await _dio.get("/ping").toEither();
+    switch (result) {
+      case Right<Response<dynamic>, EitherException>():
+        return true;
+      case Left<Response<dynamic>, EitherException>():
+        return false;
+    }
+  }
+}
 """;
 
 ///

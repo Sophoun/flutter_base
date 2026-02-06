@@ -25,6 +25,44 @@ extension StringExtension on String? {
 
   /// Return default string or value but not null
   String orDefault(String value) => this ?? value;
+
+  /// Check if the first latter is capital
+  bool get isCapitalFirst {
+    if (this == null) return false;
+    return this![0].toUpperCase() == this![0];
+  }
+
+  /// Check if the each words first latter is capital
+  bool get isCapitalEach {
+    if (this == null) return false;
+    final words = this!.split(' ');
+    for (final word in words) {
+      if (word.isNotEmpty && !word.isCapitalFirst) return false;
+    }
+    return true;
+  }
+
+  /// Check if it's contain space
+  bool get isContainSpace {
+    if (this == null) return false;
+    return this!.contains(' ');
+  }
+
+  /// To capital first latter
+  String get toCapitalFirst {
+    if (this == null) return '';
+    return this![0].toUpperCase() + this!.substring(1);
+  }
+
+  /// To capital each words
+  String get toCapitalEach {
+    if (this == null) return '';
+    final words = this!.split(' ');
+    for (var i = 0; i < words.length; i++) {
+      words[i] = words[i].toCapitalFirst;
+    }
+    return words.join(' ');
+  }
 }
 
 /// SVG File path to Image object
