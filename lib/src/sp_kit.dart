@@ -24,8 +24,8 @@ class SpKit extends StatelessWidget {
     this.localizationsDelegates,
   }) {
     /// Assign theme if it's missing
-    theme ??= BaseTheme.light;
-    darkTheme ??= BaseTheme.dark;
+    theme ??= SpTheme.light;
+    darkTheme ??= SpTheme.dark;
     themeMode ??= ThemeMode.system;
 
     /// Ensure widget is ready

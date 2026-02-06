@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 
 /// Provide the base form field to easy handle with value notifier
 // ignore: must_be_immutable
-class BaseTextFormField<T> extends StatefulWidget {
-  BaseTextFormField({
+class SpTextFormField<T> extends StatefulWidget {
+  SpTextFormField({
     super.key,
     required this.value,
     this.converter,
@@ -72,10 +72,10 @@ class BaseTextFormField<T> extends StatefulWidget {
   final int? maxLines;
 
   @override
-  State<BaseTextFormField<T>> createState() => _BaseTextFormFieldState<T>();
+  State<SpTextFormField<T>> createState() => _SpTextFormFieldState<T>();
 }
 
-class _BaseTextFormFieldState<T> extends State<BaseTextFormField<T>> {
+class _SpTextFormFieldState<T> extends State<SpTextFormField<T>> {
   TextEditingController? controller;
 
   /// Listen text change from the outside

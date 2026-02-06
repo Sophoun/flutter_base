@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(
             width: 200,
-            child: BaseTextFormField(
+            child: SpTextFormField(
               value: homeVm.counter,
               converter: Converter(
                 fromValue: (value) => value.toString(),
@@ -112,7 +112,7 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(
             width: 200,
-            child: BaseTextFormField(
+            child: SpTextFormField(
               value: homeVm.counter,
               converter: Converter(
                 fromValue: (value) => value.toString(),

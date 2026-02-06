@@ -26,13 +26,13 @@ This library exposes a range of modules to streamline your Flutter development. 
 - **`number_extension.dart`**: Extensions for number formatting and checking null/zero values.
 - **`future_extension.dart`**: An extension for `Future` to handle callbacks for `onStart`, `onSuccess`, `onError`, and `onEnd`.
 - **`context_extension.dart`**: Extensions for `BuildContext`, providing easy access to dialogs, toasts, and more.
-- **`base_theme.dart`**: The base theme for the application.
+- **`sp_theme.dart`**: The base theme for the application.
 - **`pref.dart`**: A wrapper around `SharedPreferences` for easy key-value storage.
 - **`validators.dart`**: A collection of form field validators.
 - **`debouncer.dart`**: A class for debouncing function calls.
 - **`event_bus.dart`**: A simple event bus for communication between different parts of your app.
 - **`logger.dart`**: A logging utility that only prints in debug mode.
-- **`base_text_form_field.dart`**: A `TextFormField` that integrates with `ValueNotifier`.
+- **`sp_text_form_field.dart`**: A `TextFormField` that integrates with `ValueNotifier`.
 - **`message_dialog.dart`**: A widget for displaying message dialogs.
 - **`responsive.dart`**: The `ResponsiveLayout` widget for building responsive UIs.
 - **`skeleton.dart`**: A widget for showing a skeleton loading animation.
@@ -820,7 +820,7 @@ Skeleton.circular(
 
 ## 🎨 Theming
 
-The `sp_kit` package includes a `BaseTheme` class that provides a consistent theme for your application. It includes a light and dark theme with a predefined shape for widgets.
+The `sp_kit` package includes a `SpTheme` class that provides a consistent theme for your application. It includes a light and dark theme with a predefined shape for widgets.
 
 ### Default Theme
 
@@ -828,7 +828,7 @@ The default theme uses a `RoundedRectangleBorder` with a radius of 8 for all sha
 
 ### Customization
 
-To customize the theme, you can create your own `ThemeData` objects and pass them to the `FlutterBase` in your `App` widget. You can use the `BaseTheme` as a starting point by copying it and modifying it.
+To customize the theme, you can create your own `ThemeData` objects and pass them to the `FlutterBase` in your `App` widget. You can use the `SpTheme` as a starting point by copying it and modifying it.
 
 For example, you can create a `my_theme.dart` file in your project:
 
@@ -838,11 +838,11 @@ import 'package:flutter/material.dart';
 import 'package:sp_kit/sp_kit.dart';
 
 class MyTheme {
-  static final light = BaseTheme.light.copyWith(
+  static final light = Spheme.light.copyWith(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
   );
 
-  static final dark = BaseTheme.dark.copyWith(
+  static final dark = SpTheme.dark.copyWith(
     colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
   );
 }
@@ -917,18 +917,18 @@ TextFormField(
 | `cvv(String? value, {String? message})`                                    | Checks if the value is a valid CVV.                                  |
 | `isbn(String? value, {String? message})`                                   | Checks if the value is a valid ISBN.                                 |
 
-## BaseTextFormField
+## SpTextFormField
 
-The `BaseTextFormField` is a wrapper around `TextFormField` that simplifies its usage with a `ValueNotifier`. It automatically handles the `TextEditingController` and keeps the `ValueNotifier` in sync with the input.
+The `SpTextFormField` is a wrapper around `TextFormField` that simplifies its usage with a `ValueNotifier`. It automatically handles the `TextEditingController` and keeps the `ValueNotifier` in sync with the input.
 
 ### Usage
 
 ```dart
-import 'package:sp_kit/src/widgets/base_text_form_field.dart';
+import 'package:sp_kit/src/widgets/sp_text_form_field.dart';
 
 final myValue = ValueNotifier<String>("");
 
-BaseTextFormField<String>(
+SpTextFormField<String>(
   value: myValue,
   label: "My Value",
   hint: "Enter a value",
@@ -940,11 +940,11 @@ BaseTextFormField<String>(
 If you want to use a `ValueNotifier` with a type other than `String`, you can provide a `Converter`.
 
 ```dart
-import 'package:sp_kit/src/widgets/base_text_form_field.dart';
+import 'package:sp_kit/src/widgets/sp_text_form_field.dart';
 
 final myValue = ValueNotifier<int>(0);
 
-BaseTextFormField<int>(
+SpTextFormField<int>(
   value: myValue,
   label: "My Value",
   hint: "Enter a number",

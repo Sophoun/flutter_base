@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BaseTheme {
+class SpTheme {
   /// Default radius of all
   static const double _radius = 8;
 
