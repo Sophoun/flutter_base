@@ -60,7 +60,7 @@ ${green("Please, don't forget to add your page to app_router.dart and register v
 Please follow below code:
 Copy code below and add it to your app_router.dart and past it inside routes list:
 
-${green("AutoRoute(page: ${className}Route.page)")},
+${green("AutoRoute(page: ${className}Route.page)")}
 
 Copy code below and register to your ServiceLocator() object inside main.dart.
 

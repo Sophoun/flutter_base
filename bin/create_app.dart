@@ -389,9 +389,16 @@ import 'package:$appName/router/app_router.dart';
 import 'package:$appName/view_models/home_vm.dart';
 import 'package:$appName/remote/api.dart';
 import 'package:sp_kit/sp_kit.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main(List<String> args) {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   EnvConfig.validate();
+  // whenever your initialization is completed, remove the splash screen:
+  FlutterNativeSplash.remove();
+
+  /// Run app
   runApp(App());
 }
 
