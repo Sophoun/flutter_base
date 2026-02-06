@@ -664,12 +664,20 @@ class DesktopView extends StatelessWidget {
 
 ### 9. String Extension
 
-The `StringExtension` provides convenient methods for handling nullable or empty strings.
+The `StringExtension` provides convenient methods for handling nullable or empty strings, checking string properties, and formatting.
 
-| Method    | Description                                                                         |
-| --------- | ----------------------------------------------------------------------------------- |
-| `orNull`  | Returns `null` if the string is null or empty, otherwise returns the string itself. |
-| `orEmpty` | Returns an empty string if the string is null, otherwise returns the string itself. |
+| Method                                       | Description                                                                                             |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `orNull`                                     | Returns `null` if the string is null or empty, otherwise returns the string itself.                     |
+| `orEmpty`                                    | Returns an empty string if the string is null, otherwise returns the string itself.                     |
+| `isNullOrEmpty`                              | Checks if the string is null or empty.                                                                  |
+| `isNotEmpty`                                 | Checks if the string is not null and its length is greater than 1.                                      |
+| `orDefault(String value)`                    | Returns a default string if the string is null, otherwise returns the string itself.                    |
+| `isCapitalFirst`                             | Checks if the first character of the string is capitalized.                                             |
+| `isCapitalEach`                              | Checks if the first character of each word in the string is capitalized.                                |
+| `isContainSpace`                             | Checks if the string contains a space.                                                                  |
+| `toCapitalFirst`                             | Capitalizes the first character of the string.                                                          |
+| `toCapitalEach`                              | Capitalizes the first character of each word in the string.                                             |
 
 **Usage:**
 
@@ -689,6 +697,55 @@ print(validString.orNull); // "hello"
 print(emptyString.orEmpty); // ""
 print(nullString.orEmpty);  // ""
 print(validString.orEmpty); // "hello"
+
+// isNullOrEmpty and isNotEmpty Example
+print("".isNullOrEmpty);    // true
+print("hello".isNullOrEmpty); // false
+print("".isNotEmpty);      // false
+print("hello".isNotEmpty);  // true (Note: current implementation checks length > 1)
+
+// orDefault Example
+print(nullString.orDefault("default")); // "default"
+print(validString.orDefault("default")); // "hello"
+
+// Capitalization Examples
+print("hello world".toCapitalFirst); // "Hello world"
+print("hello world".toCapitalEach);  // "Hello World"
+print("Hello World".isCapitalEach);  // true
+print("hello world".isCapitalEach);  // false
+print("Hello".isCapitalFirst);       // true
+print("hello".isCapitalFirst);       // false
+
+// isContainSpace Example
+print("hello world".isContainSpace); // true
+print("helloworld".isContainSpace);  // false
+```
+
+The `StringExtendToSvg` provides an extension to convert an SVG file path to an `SvgPicture.asset` widget.
+
+| Method         | Description                                                      |
+| -------------- | ---------------------------------------------------------------- |
+| `toImage(...)` | Converts an SVG file path string into an `SvgPicture.asset` widget. |
+
+**Usage:**
+
+```dart
+import 'package:sp_kit/sp_kit.dart';
+import 'package:flutter/material.dart';
+
+// Assuming you have an SVG asset at 'assets/icons/my_icon.svg'
+Widget mySvgIcon = 'assets/icons/my_icon.svg'.toImage(width: 24, height: 24, color: Colors.blue);
+
+// You can use it directly in your widget tree
+// SvgPicture.asset is automatically handled.
+Scaffold(
+  appBar: AppBar(
+    title: Text("SVG Image Example"),
+  ),
+  body: Center(
+    child: mySvgIcon,
+  ),
+);
 ```
 
 ### 10. Date Extension
@@ -980,6 +1037,45 @@ final counter = ValueNotifierWithListener<int>(0, (value) {
 // To change the value and trigger the callback
 counter.value = 1; // This will print "Counter changed to: 1"
 ```
+
+## CLI Tools
+
+The `sp_kit` package includes a command-line interface (CLI) tool that provides utilities to streamline development workflows, such as creating new applications and adding features.
+
+To run `sp_kit` commands, use `dart run sp_kit:<command>`.
+
+### Global Options
+
+*   `--help` or `-h`: Displays help information and available commands for the `sp_kit` CLI.
+    #### Usage
+
+    ```bash
+    dart run sp_kit --help
+    ```
+
+### `create_app`
+
+Creates a new Flutter application pre-configured with the `sp_kit` structure and best practices.
+
+#### Usage
+
+```bash
+dart run sp_kit:create_app --name <app_name>
+```
+
+Replace `<app_name>` with the desired name for your new Flutter project.
+
+### `feature_add`
+
+Adds a new feature module to an existing `sp_kit` application. This command helps scaffold the necessary files and directories for a new feature.
+
+#### Usage
+
+```bash
+dart run sp_kit:feature_add --name <feature_name>
+```
+
+Replace `<feature_name>` with the name of the feature you want to add.
 
 ## Example Project
 
