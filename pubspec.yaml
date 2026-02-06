@@ -12,7 +12,7 @@ environment:
 executables:
   sp_kit: bin/sp_kit.dart
   create_app: bin/create_app.dart
-  feature_add: bin/add_feature.dart
+  feature_add: bin/feature_add.dart
 
 dependencies:
   flutter:

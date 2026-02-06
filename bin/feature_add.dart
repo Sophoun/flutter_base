@@ -1,5 +1,4 @@
 import 'package:dcli/dcli.dart';
-import 'package:sp_kit/sp_kit.dart';
 
 void main(List<String> args) {
   try {
@@ -23,7 +22,7 @@ void main(List<String> args) {
 }
 
 void addFeature(String name) {
-  if (!name.isCapitalFirst || name.isContainSpace) {
+  if (name.contains(' ')) {
     print(
       red(
         "Feature name must be leading by capital letter and no space but you can use underscore instead.",
@@ -34,13 +33,16 @@ void addFeature(String name) {
 
   /// Extract path name and class name from feature name
   final pathName = name.toLowerCase();
-  final className = name.replaceAll('_', ' ').toCapitalEach.replaceAll(' ', '');
+  final className = name
+      .split("_")
+      .map((e) => e[0].toUpperCase() + e.substring(1))
+      .join();
 
   /// Create feature folder and file
   print("adding feature $name");
   createDir("lib/features/$pathName", recursive: true);
   touch(
-    "lib/features/$pathName/${className}_page.dart",
+    "lib/features/$pathName/${pathName}_page.dart",
     create: true,
   ).write(featurePage(className));
   touch(
