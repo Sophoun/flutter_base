@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A utility class for screen-related calculations.
-/// This class is initialized in the [FlutterBase] widget.
+/// This class is initialized in the [SpKit] widget.
 class ScreenUtil {
   static late double screenWidth;
   static late double screenHeight;
