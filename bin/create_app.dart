@@ -145,6 +145,17 @@ dart run build_runner watch --delete-conflicting-outputs
 """);
 
   ///
+  /// Create doc.sh command
+  ///
+  touch("$appName/doc.sh", create: true).write("""
+#!/bin/bash
+dart doc .
+dart pub global activate dhttpd
+${green("Visit: http://localhost:8080")}
+dart pub global run dhttpd --path doc/api
+""");
+
+  ///
   /// Create necessery files
   ///
 
